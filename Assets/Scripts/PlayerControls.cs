@@ -6,6 +6,8 @@ public class PlayerControls : MonoBehaviour
 {
     CharacterController c;
 
+    public float Gravity;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +18,6 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        c.Move(new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime, 0.0f, Input.GetAxis("Vertical") * Time.deltaTime));
+        c.Move(new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime, -Gravity * Time.deltaTime, Input.GetAxis("Vertical") * Time.deltaTime));
     }
 }
