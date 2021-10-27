@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class JG_PlayerMovement : MonoBehaviour
 {
+    /// C# translation from http://answers.unity3d.com/questions/155907/basic-movement-walking-on-walls.html
+    /// Author: UA @aldonaletto
+    /// Edit: Jacob Guess
     public float mSpeed = 1; 
 
     public float tSpeed = 90; 
@@ -15,10 +18,8 @@ public class JG_PlayerMovement : MonoBehaviour
     private Vector3 sNormal; 
 
     private Vector3 myNormal;
-    
-    private bool jumping = false; 
                                   
-    private Transform myTransform;
+    private Transform myTransform, currentpos;
 
     public BoxCollider boxCollider;
 
@@ -39,9 +40,14 @@ public class JG_PlayerMovement : MonoBehaviour
     {
         
         GetComponent<Rigidbody>().AddForce(-gravity * GetComponent<Rigidbody>().mass * myNormal);
+        Stick();
     }
 
     private void Update()
+    {
+       
+    }
+    void Stick()
     {
         Ray ray;
 
@@ -51,13 +57,20 @@ public class JG_PlayerMovement : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-           
+            
+            if(hit.transform != currentpos)
+            {
+              currentpos = hit.transform;
+                sNormal = hit.normal;
+               // Debug.Log("rc did thing");
+            }
+            //remove hit.transform if mobius is no longer sectioned.
+           // sNormal = hit.normal;
 
-            sNormal = hit.normal;
         }
         else
         {
-            
+
 
             sNormal = Vector3.up;
         }
@@ -74,4 +87,6 @@ public class JG_PlayerMovement : MonoBehaviour
 
         myTransform.Rotate(0, Input.GetAxis("Horizontal") * tSpeed * Time.deltaTime, 0);
     }
+    
 }
+
