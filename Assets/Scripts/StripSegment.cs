@@ -14,7 +14,7 @@ public class StripSegment : MonoBehaviour
 
         Transform strip = transform.parent;
 
-        for (int i = 0; i < strip.GetChildCount(); i++)
+        for (int i = 0; i < strip.childCount; i++)
         {
             Transform t = strip.GetChild(i);
             if (t != this.transform)
