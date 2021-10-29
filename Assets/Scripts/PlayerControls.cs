@@ -33,7 +33,7 @@ public class PlayerControls : MonoBehaviour
         GameObject p = GameObject.Find("Mobius_c1");
         GameObject n = p.transform.GetChild(0).gameObject;
 
-        for(int i = 1; i < p.transform.GetChildCount(); i++)
+        for(int i = 1; i < p.transform.childCount; i++)
         {
             if(Vector3.Distance(p.transform.GetChild(1).position, c.transform.position) < Vector3.Distance(n.transform.position, c.transform.position))
             {
