@@ -23,6 +23,10 @@ public class JG_PlayerMovement : MonoBehaviour
 
     public BoxCollider boxCollider;
 
+    public GameObject lure;
+
+    public Transform spot;
+
     LayerMask Ground;
 
 
@@ -45,7 +49,10 @@ public class JG_PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-       
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Instantiate(lure, spot.position, spot.rotation);
+        }
     }
     void Stick()
     {
