@@ -8,6 +8,15 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 debounceMs = 250
 scopes = {
+	"last_search.B6046BBC" = ""
+	"asset.B6046BBC" = "True"
+	"menu.B6046BBC" = "True"
+	"scene.B6046BBC" = "True"
+	"settings.B6046BBC" = "True"
+	"m_ShownPanels.B6046BBC" = "3"
+	"m_SideBarSplitter.B6046BBC" = "180"
+	"m_DetailsPanelSplitter.B6046BBC" = "700"
+	"currentGroup.B6046BBC" = "all"
 }
 providers = {
 	asset = {
