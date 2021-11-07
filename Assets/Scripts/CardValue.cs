@@ -10,9 +10,10 @@ public class CardValue : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
 
 
     private RectTransform rectTransform;
-    private Vector3 startpos;
+    public Vector3 startpos;
     public Text display;
     public bool isDropped;
+    public bool candrag;
     
     private void Awake()
     {
@@ -57,35 +58,48 @@ public class CardValue : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("OnBeginDrag");
-        eventData.pointerDrag.GetComponent<CardValue>().isDropped = false;
+        
+        
+            Debug.Log("OnBeginDrag");
+            eventData.pointerDrag.GetComponent<CardValue>().isDropped = false;
+        
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("OnDrag");
+       
+         Debug.Log("OnDrag");
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
-        eventData.pointerDrag.transform.position = this.transform.position;
+        
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("OnEndDrag");
+       
+            Debug.Log("OnEndDrag");
 
-        if (!isDropped)
-        {
-            transform.position = startpos;
-        }
+            if (!isDropped)
+            {
+                transform.position = startpos;
+            }
+        
 
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("OnPointerDown");
+      
+        
+            Debug.Log("OnPointerDown");
+        
     }
 
-    public void Reset()
+    public void Rc()
     {
+        GetComponent<Image>().enabled = false;
+        isDropped = false;
+        display.enabled = false;
         transform.position = startpos;
     }
+    
 }
