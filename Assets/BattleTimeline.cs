@@ -20,6 +20,6 @@ public class BattleTimeline : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        eventData.
+        //eventData.
     }
 }
