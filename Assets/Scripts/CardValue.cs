@@ -12,6 +12,7 @@ public class CardValue : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
     private RectTransform rectTransform;
     public Vector3 startpos;
     public Text display;
+    public int value;
     public bool isDropped;
     public bool candrag;
     
@@ -55,6 +56,7 @@ public class CardValue : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
                break;
 
         }
+        
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -101,5 +103,10 @@ public class CardValue : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
         display.enabled = false;
         transform.position = startpos;
     }
-    
+    public void NextRound()
+    {
+        GetComponent<Image>().enabled = true;
+        display.enabled = true;
+        
+    }
 }
