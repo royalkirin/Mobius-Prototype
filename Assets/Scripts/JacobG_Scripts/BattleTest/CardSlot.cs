@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
+                                       //Drop handles when the mouse lets go
 public class CardSlot : MonoBehaviour, IDropHandler
 {
     // Start is called before the first frame update
@@ -12,6 +12,7 @@ public class CardSlot : MonoBehaviour, IDropHandler
     CardValue cv;
     HealthScript hs;
 
+    //Slot manager could probably be removed in the transition to a whole screen. This was to specify what cards worked in what slot.
    public enum SlotManager
     {
         Attack,
@@ -22,6 +23,7 @@ public class CardSlot : MonoBehaviour, IDropHandler
    public SlotManager CurrentSlot = SlotManager.None;
     private void Start()
     {
+        //gets the script component from canvas.
          cv = GameObject.Find("Canvas").GetComponent<CardValue>();
         hs = GetComponent<HealthScript>();
     }
@@ -35,17 +37,19 @@ public class CardSlot : MonoBehaviour, IDropHandler
         if (eventData.pointerDrag != null && assigned == false)
         {
             //eventData.pointerDrag.GetComponent<CardValue>().isDropped = true;
+            //Sets the slotvalue to the value from the card.
             slotvalue = eventData.pointerDrag.GetComponent<CardValue>().value;
-           
+           //this checks if the slot is a player
             if (!player)
             {
- assigned = true; 
+                assigned = true; 
             if (assigned)
-            {
+            {   //grabs the rc function from the card
                 eventData.pointerDrag.GetComponent<CardValue>().Rc();
                 
             }
-
+                 //This is a more obvious display of switch being an fat If check.
+                 //As said before, the switch and enum could be removed and redone.
                 switch (CurrentSlot)
                 {
                     case SlotManager.Attack:
@@ -84,6 +88,7 @@ public class CardSlot : MonoBehaviour, IDropHandler
 
                 }
             }
+            //everything here applies only to the player
             else if (eventData.pointerDrag.GetComponent<CardValue>().CurrentCard != CardValue.CardManager.Attack)
             {
                 assigned = true;
@@ -112,6 +117,7 @@ public class CardSlot : MonoBehaviour, IDropHandler
            
         }
     }
+    //This covers the enemy attack, just sets the health lower.
     public void Roundchange()
     {
 
