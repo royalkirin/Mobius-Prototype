@@ -66,7 +66,7 @@ public class CardSlot : MonoBehaviour, IDropHandler
                         //display.GetComponent<Text>().text = "Defend";
                         if (eventData.pointerDrag.GetComponent<CardValue>().CurrentCard == CardValue.CardManager.Defend)
                         {
-                            eventData.pointerDrag.GetComponent<CardValue>().isDropped = true;
+                            eventData.pointerDrag.GetComponent<CardValue>().isDropped = false;
                             // hs.health = hs.health - slotvalue;
                             assigned = false;
                         }
@@ -76,7 +76,7 @@ public class CardSlot : MonoBehaviour, IDropHandler
                         // display.GetComponent<Text>().text = "Support";
                         if (eventData.pointerDrag.GetComponent<CardValue>().CurrentCard == CardValue.CardManager.Support)
                         {
-                            eventData.pointerDrag.GetComponent<CardValue>().isDropped = true;
+                            eventData.pointerDrag.GetComponent<CardValue>().isDropped = false;
                             hs.health = hs.health + slotvalue;
                             assigned = false;
                         }
