@@ -19,6 +19,7 @@ public class CardValue : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
     public int value;
     public bool isDropped;
     public bool candrag;
+    Character ch;
     
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class CardValue : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
         rectTransform = GetComponent<RectTransform>();
         // Sets the starting position
         startpos = transform.position;
+        ch = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
         
     }
     private void Start()
@@ -129,5 +131,9 @@ public class CardValue : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
         GetComponent<Image>().enabled = true;
         display.enabled = true;
         
+    }
+    public void testat()
+    {
+        ch.Attack();
     }
 }
