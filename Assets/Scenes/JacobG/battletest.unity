@@ -270,15 +270,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
-  attack: 0
-  eattack: 0
+  attack: 10
+  eattack: 10
   ehealth: 0
   maxHealth: 100
   emaxHealth: 100
   healthBar: {fileID: 929257940}
   ehealthBar: {fileID: 516060604}
-  Basic: 0
+  Special: 0
   Debuff: 0
+  defend: 0
+  Stance: 0
 --- !u!1 &419743180
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,7 +481,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1361605171}
         m_TargetAssemblyTypeName: CardSlot, Assembly-CSharp
-        m_MethodName: Roundchange
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -488,10 +490,10 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1359736582}
-        m_TargetAssemblyTypeName: CardSlot, Assembly-CSharp
-        m_MethodName: Roundchange
+        m_CallState: 0
+      - m_Target: {fileID: 97530558}
+        m_TargetAssemblyTypeName: Character, Assembly-CSharp
+        m_MethodName: Enemyattack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1469,7 +1471,7 @@ GameObject:
   - component: {fileID: 1305805590}
   - component: {fileID: 1305805589}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Card2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1513,6 +1515,7 @@ MonoBehaviour:
   value: 10
   isDropped: 0
   candrag: 0
+  special: 0
   CurrentCard: 1
 --- !u!114 &1305805590
 MonoBehaviour:
@@ -1658,7 +1661,7 @@ GameObject:
   - component: {fileID: 1359736583}
   - component: {fileID: 1359736582}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Slot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1749,7 +1752,7 @@ GameObject:
   - component: {fileID: 1361605172}
   - component: {fileID: 1361605171}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: Slot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1915,7 +1918,7 @@ GameObject:
   - component: {fileID: 1371915356}
   - component: {fileID: 1371915355}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: Card3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1959,6 +1962,7 @@ MonoBehaviour:
   value: 10
   isDropped: 0
   candrag: 0
+  special: 0
   CurrentCard: 2
 --- !u!114 &1371915356
 MonoBehaviour:
@@ -2519,7 +2523,7 @@ GameObject:
   - component: {fileID: 1672835889}
   - component: {fileID: 1672835888}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Card1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2563,6 +2567,7 @@ MonoBehaviour:
   value: 10
   isDropped: 0
   candrag: 0
+  special: 0
   CurrentCard: 0
 --- !u!114 &1672835889
 MonoBehaviour:

@@ -18,7 +18,7 @@ public class CardValue : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
     public Text display;
     public int value;
     public bool isDropped;
-    public bool candrag;
+    public bool candrag, special;
     Character ch;
     
     private void Awake()
@@ -135,5 +135,21 @@ public class CardValue : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
     public void testat()
     {
         ch.Attack();
+    }
+    public void testat2()
+    {
+        ch.Attack2();
+    }
+    public void testdf()
+    {
+        ch.Defend();
+    }
+    public void testdf2()
+    {
+        ch.Defend2();
+    }
+    public void testsp()
+    {
+        ch.Support();
     }
 }

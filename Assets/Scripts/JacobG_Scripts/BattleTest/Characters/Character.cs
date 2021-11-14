@@ -30,7 +30,7 @@ public abstract class Character : MonoBehaviour
     public Slider ehealthBar;
 
     [SerializeField]
-    public bool Basic, Debuff;
+    public bool Special, Debuff, defend, Stance;
 
 
     // Start is called before the first frame update
@@ -57,15 +57,72 @@ public abstract class Character : MonoBehaviour
     }
   public virtual void Attack()
     {
+        //if (Special)
+        //{
+        //    ehealth -= attack;
+        //    defend = true;
+        //    Stance = true;
+        //}
+        //else
+        //{
+             ehealth -= attack;
+       //}
+        
        
-        ehealth = ehealth - 10;
     }
-  public virtual void Defend()
+    public virtual void Attack2()
+    {   
+            ehealth -= attack;
+            defend = true;
+            Stance = true;
+       
+    }
+    public virtual void Defend()
     {
-
+        defend = true;
+    }
+    public virtual void Defend2()
+    {
+        Special = true;
+        Stance = true;
     }
     public virtual void Support()
     {
+        if (Debuff)
+        {
+            Debuff = false;
+            attack *= 2;
+            Debug.Log("Player has removed all debuffs");
+        }
+        else Debug.Log("Player had no debuffs to remove");
+    }
+    public virtual void Enemyattack()
+    {
+        if (!defend)
+        {
+            health -= eattack;
+            if (!Debuff)
+            {
+  float rnum = Random.Range(0, 5);
+            if(rnum >= 3)
+            {
+                Debuff = true;
+                attack /= 2;
+                Debug.Log("Player is debuffed");
+            }
+            }
+          
+            if (Special)
+            {
+                ehealth -= attack;
+                Special = false;
+            }
+        }
+        if (defend)
+        {
+            defend = false;
+        }
 
+        
     }
 }
