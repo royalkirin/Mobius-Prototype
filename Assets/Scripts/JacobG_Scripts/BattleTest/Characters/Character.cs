@@ -8,19 +8,19 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     public int health;
 
-    [SerializeField]
+    [SerializeField] [Range(0,50)]
     public int attack;
 
-    [SerializeField]
+    [SerializeField] [Range(0,50)]
     public int eattack;
 
     [SerializeField]
     public int ehealth;
 
-    [SerializeField]
+    [SerializeField] [Range(0,200)]
     public int maxHealth = 100;
 
-    [SerializeField]
+    [SerializeField] [Range(0,200)]
     public int emaxHealth = 100;
 
     [SerializeField]
@@ -30,7 +30,7 @@ public abstract class Character : MonoBehaviour
     public Slider ehealthBar;
 
     [SerializeField]
-    public bool Special, Debuff, defend, Stance;
+    public bool Special, Debuff, defend, Stance, stun;
 
 
     // Start is called before the first frame update
@@ -85,6 +85,8 @@ public abstract class Character : MonoBehaviour
     {
         Special = true;
         Stance = true;
+        stun = true;
+
     }
     public virtual void Support()
     {
@@ -116,9 +118,21 @@ public abstract class Character : MonoBehaviour
             {
                 ehealth -= attack;
                 Special = false;
+                stun = true;
             }
         }
-        if (defend)
+        if (stun)
+        {
+            defend = true;
+            float rnum2 = Random.Range(0, 5);
+            if(rnum2 >= 3)
+            {
+                stun = false;
+                defend = false;
+                Debug.Log("Recovered");
+            }
+        }
+        if (defend && !stun)
         {
             defend = false;
         }

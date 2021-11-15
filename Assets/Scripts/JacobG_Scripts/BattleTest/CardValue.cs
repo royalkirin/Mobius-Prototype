@@ -13,7 +13,7 @@ public class CardValue : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
     //grabs the position of a rectangle
     private RectTransform rectTransform;
     // starting position
-    public Vector3 startpos;
+     Vector3 startpos;
     //text, value, and bools
     public Text display;
     public int value;
@@ -79,7 +79,7 @@ public class CardValue : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
     {
         
         
-            Debug.Log("OnBeginDrag");
+            //Debug.Log("OnBeginDrag");
         //Sets the card bool isdropped to false so that the card slot can set to true.
         //this gives us the snap back to start position we see when it is not dropped on the slot.
             eventData.pointerDrag.GetComponent<CardValue>().isDropped = false;
@@ -89,7 +89,7 @@ public class CardValue : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
     public void OnDrag(PointerEventData eventData)
     {
        
-         Debug.Log("OnDrag");
+         //Debug.Log("OnDrag");
         //This is what controls the movement of the card
         //Taking the anchored position and combining it with the delta of eventdata
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
@@ -99,7 +99,7 @@ public class CardValue : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
     public void OnEndDrag(PointerEventData eventData)
     {
        
-            Debug.Log("OnEndDrag");
+           // Debug.Log("OnEndDrag");
         //This is the check if the card got dropped into a slot
             if (!isDropped)
             {
@@ -113,7 +113,7 @@ public class CardValue : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
     {
       
         
-            Debug.Log("OnPointerDown");
+           // Debug.Log("OnPointerDown");
         
     }
 
@@ -141,7 +141,7 @@ public class CardValue : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
         ch.Attack2();
     }
     public void testdf()
-    {
+    { 
         ch.Defend();
     }
     public void testdf2()

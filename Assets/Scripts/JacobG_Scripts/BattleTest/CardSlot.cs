@@ -9,7 +9,7 @@ public class CardSlot : MonoBehaviour, IDropHandler
     // Start is called before the first frame update
     public bool assigned, player;
     int slotvalue;
-    CardValue cv;
+    CardValue cv, dragdata;
     HealthScript hs;
 
     //Slot manager could probably be removed in the transition to a whole screen. This was to specify what cards worked in what slot.
@@ -39,13 +39,14 @@ public class CardSlot : MonoBehaviour, IDropHandler
             //eventData.pointerDrag.GetComponent<CardValue>().isDropped = true;
             //Sets the slotvalue to the value from the card.
             slotvalue = eventData.pointerDrag.GetComponent<CardValue>().value;
+            dragdata = eventData.pointerDrag.GetComponent<CardValue>();
             //this checks if the slot is a player
             if (!player)
             {
                 assigned = true;
                 if (assigned)
                 {   //grabs the rc function from the card
-                    eventData.pointerDrag.GetComponent<CardValue>().Rc();
+                    dragdata.Rc();
 
                 }
                 //This is a more obvious display of switch being an fat If check.
@@ -53,31 +54,36 @@ public class CardSlot : MonoBehaviour, IDropHandler
                 switch (CurrentSlot)
                 {
                     case SlotManager.Attack:
-                        //display.GetComponent<Text>().text = "Attack";
-                        if (eventData.pointerDrag.GetComponent<CardValue>().CurrentCard == CardValue.CardManager.Attack)
+                        
+                        if (dragdata.CurrentCard == CardValue.CardManager.Attack)
                         {
-                            eventData.pointerDrag.GetComponent<CardValue>().isDropped = true;
-                            eventData.pointerDrag.GetComponent<CardValue>().testat();
+                            dragdata.isDropped = true;
+                            if (dragdata.special)
+                            {
+                                dragdata.testat2();
+                            }
+                            else dragdata.testat();
+                           
                             assigned = false;
                         }
 
                         break;
                     case SlotManager.Defend:
-                        //display.GetComponent<Text>().text = "Defend";
-                        if (eventData.pointerDrag.GetComponent<CardValue>().CurrentCard == CardValue.CardManager.Defend)
+                        
+                        if (dragdata.CurrentCard == CardValue.CardManager.Defend)
                         {
-                            eventData.pointerDrag.GetComponent<CardValue>().isDropped = false;
-                            // hs.health = hs.health - slotvalue;
+                            dragdata.isDropped = false;
+                           
                             assigned = false;
                         }
                         assigned = false;
                         break;
                     case SlotManager.Support:
-                        // display.GetComponent<Text>().text = "Support";
-                        if (eventData.pointerDrag.GetComponent<CardValue>().CurrentCard == CardValue.CardManager.Support)
+                       
+                        if (dragdata.CurrentCard == CardValue.CardManager.Support)
                         {
-                            eventData.pointerDrag.GetComponent<CardValue>().isDropped = false;
-                            eventData.pointerDrag.GetComponent<CardValue>().testsp();
+                            dragdata.isDropped = false;
+                           dragdata.testsp();
                             assigned = false;
                         }
                         break;
@@ -89,31 +95,35 @@ public class CardSlot : MonoBehaviour, IDropHandler
                 }
             }
             //everything here applies only to the player
-            else if (eventData.pointerDrag.GetComponent<CardValue>().CurrentCard != CardValue.CardManager.Attack)
+            else if (dragdata.CurrentCard != CardValue.CardManager.Attack)
             {
                 assigned = true;
                 if (assigned)
                 {
-                    eventData.pointerDrag.GetComponent<CardValue>().Rc();
+                    dragdata.Rc();
 
                 }
-                if (eventData.pointerDrag.GetComponent<CardValue>().CurrentCard == CardValue.CardManager.Defend)
+                if (dragdata.CurrentCard == CardValue.CardManager.Defend)
                 {
                     //assigned = true;
-                    eventData.pointerDrag.GetComponent<CardValue>().isDropped = true;
-                    if (eventData.pointerDrag.GetComponent<CardValue>().special)
+                    dragdata.isDropped = true;
+                    if (dragdata.special)
                     {
-                        eventData.pointerDrag.GetComponent<CardValue>().testdf2();
+                        dragdata.testdf2();
                     }
-                    eventData.pointerDrag.GetComponent<CardValue>().testdf();
+                    else
+                    {
+                       dragdata.testdf();
+                    }
+                   
 
                     assigned = false;
                 }
-                if (eventData.pointerDrag.GetComponent<CardValue>().CurrentCard == CardValue.CardManager.Support)
+                if (dragdata.CurrentCard == CardValue.CardManager.Support)
                 {
                     //assigned = true;
-                    eventData.pointerDrag.GetComponent<CardValue>().isDropped = true;
-                    eventData.pointerDrag.GetComponent<CardValue>().testsp();
+                    dragdata.isDropped = true;
+                    dragdata.testsp();
                     assigned = false;
                 }
 
