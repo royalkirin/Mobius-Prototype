@@ -90,7 +90,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efbeb03fdbcf5414c9197cd77b775a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rectTransform: {fileID: 2009593262561451376}
   isPlayed: 0
 --- !u!114 &5312294765691037161
 MonoBehaviour:
@@ -104,6 +103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e3c4dfe1840b840abd22814694047c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDropped: 0
+  rectTransform: {fileID: 0}
 --- !u!1 &6640527521513729735
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+//displaying health number on UI, just for prototyping
 public class CharacterAttackableUI : MonoBehaviour
 {
     [SerializeField]Text text;

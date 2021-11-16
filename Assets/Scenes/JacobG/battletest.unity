@@ -170,9 +170,10 @@ GameObject:
   - component: {fileID: 97530556}
   - component: {fileID: 97530555}
   - component: {fileID: 97530554}
+  - component: {fileID: 97530558}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -256,6 +257,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &97530558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97530553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c50e57e0df2606c43b6a21adf179b0a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  attack: 10
+  eattack: 10
+  ehealth: 0
+  maxHealth: 100
+  emaxHealth: 100
+  healthBar: {fileID: 929257940}
+  ehealthBar: {fileID: 516060604}
+  Special: 0
+  Debuff: 0
+  defend: 0
+  Stance: 0
 --- !u!1 &419743180
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,7 +481,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1361605171}
         m_TargetAssemblyTypeName: CardSlot, Assembly-CSharp
-        m_MethodName: Roundchange
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -465,10 +490,10 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1359736582}
-        m_TargetAssemblyTypeName: CardSlot, Assembly-CSharp
-        m_MethodName: Roundchange
+        m_CallState: 0
+      - m_Target: {fileID: 97530558}
+        m_TargetAssemblyTypeName: Character, Assembly-CSharp
+        m_MethodName: Enemyattack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -789,6 +814,36 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &530009008
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 530009010}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &530009010
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530009008}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 79.91237, y: 228.53427, z: -205.30075}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &578129480
 GameObject:
   m_ObjectHideFlags: 0
@@ -1416,7 +1471,7 @@ GameObject:
   - component: {fileID: 1305805590}
   - component: {fileID: 1305805589}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Card2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1460,6 +1515,7 @@ MonoBehaviour:
   value: 10
   isDropped: 0
   candrag: 0
+  special: 0
   CurrentCard: 1
 --- !u!114 &1305805590
 MonoBehaviour:
@@ -1604,9 +1660,8 @@ GameObject:
   - component: {fileID: 1359736584}
   - component: {fileID: 1359736583}
   - component: {fileID: 1359736582}
-  - component: {fileID: 1359736585}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Slot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1684,21 +1739,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1359736580}
   m_CullTransparentMesh: 1
---- !u!114 &1359736585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1359736580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1d531082bc8f3346b1770e3b163c376, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  maxHealth: 100
-  healthBar: {fileID: 516060604}
 --- !u!1 &1361605168
 GameObject:
   m_ObjectHideFlags: 0
@@ -1711,9 +1751,8 @@ GameObject:
   - component: {fileID: 1361605173}
   - component: {fileID: 1361605172}
   - component: {fileID: 1361605171}
-  - component: {fileID: 1361605170}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: Slot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1738,21 +1777,6 @@ RectTransform:
   m_AnchoredPosition: {x: -182, y: -39}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1361605170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1361605168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1d531082bc8f3346b1770e3b163c376, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  maxHealth: 100
-  healthBar: {fileID: 929257940}
 --- !u!114 &1361605171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1894,7 +1918,7 @@ GameObject:
   - component: {fileID: 1371915356}
   - component: {fileID: 1371915355}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: Card3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1938,6 +1962,7 @@ MonoBehaviour:
   value: 10
   isDropped: 0
   candrag: 0
+  special: 0
   CurrentCard: 2
 --- !u!114 &1371915356
 MonoBehaviour:
@@ -2498,7 +2523,7 @@ GameObject:
   - component: {fileID: 1672835889}
   - component: {fileID: 1672835888}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Card1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2542,6 +2567,7 @@ MonoBehaviour:
   value: 10
   isDropped: 0
   candrag: 0
+  special: 0
   CurrentCard: 0
 --- !u!114 &1672835889
 MonoBehaviour:
