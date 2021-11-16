@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//This class represents a Card
+//This class represents a Card on the Canvas
 //For now, it's base class for AttackCard, DefenseCard
 //In the future, we expand the base class depends on the need (Spell cards, sounds, animations...)
 
 public class Card : MonoBehaviour
 {
     public bool isPlayed = false;
+    [SerializeField] GameObject CardBodyPrefab;//the Body of this card, used to put them on the battleground
+
 
     //in the future, add fancy stuffs that relates to whenever a Card is Played here.
     //Sound effects, animation etc.

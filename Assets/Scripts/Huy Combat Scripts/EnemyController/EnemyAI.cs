@@ -29,6 +29,6 @@ public class EnemyAI : MonoBehaviour
     IEnumerator EnemyEndTurn(int secs)
     {
         yield return new WaitForSeconds(secs);
-        turnManager.ChangeTurn();
+        turnManager.DefaultChangeTurn();
     }
 }

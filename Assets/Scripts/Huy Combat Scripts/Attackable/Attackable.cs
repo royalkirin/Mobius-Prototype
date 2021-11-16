@@ -23,7 +23,7 @@ public class Attackable : MonoBehaviour
         {
             ui = GetComponent<CharacterAttackableUI>();
         }
-        ui.UpdateText(DefenseValue, health.health);
+        ui.UpdateText(DefenseValue, health.GetCurrentHealth());
     }
 
     //Call this function to deal damage to an object.
@@ -34,7 +34,7 @@ public class Attackable : MonoBehaviour
         {
             health.TakeDamage(damage);
         }
-        ui.UpdateText(DefenseValue, health.health);
+        ui.UpdateText(DefenseValue, health.GetCurrentHealth()) ;
     }
 
     //first we reduce the defense 
@@ -69,6 +69,6 @@ public class Attackable : MonoBehaviour
     {
         DefenseValue += defenseValue;
         //Debug.Log("Added " + defenseValue + " defense, current Defense is " + DefenseValue);
-        ui.UpdateText(DefenseValue, health.health);
+        ui.UpdateText(DefenseValue, health.GetCurrentHealth());
     }
 }
