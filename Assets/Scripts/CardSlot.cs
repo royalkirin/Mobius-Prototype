@@ -39,7 +39,7 @@ public class CardSlot : MonoBehaviour, IDropHandler
            
             if (!player)
             {
- assigned = true; 
+            assigned = true; 
             if (assigned)
             {
                 eventData.pointerDrag.GetComponent<CardValue>().Rc();
