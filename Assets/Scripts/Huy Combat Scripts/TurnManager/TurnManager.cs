@@ -11,7 +11,7 @@ public class TurnManager : MonoBehaviour
     public bool isPlayerTurn = true;
 
     GameObject[] PlayerActivateList;//all the things we activate when it's player turn, deactivate on Enemy Turn
-    GameObject enemyGameObject;
+    GameObject enemyGameObject;//enemy in the scene
 
     private void Start()
     {
@@ -20,11 +20,15 @@ public class TurnManager : MonoBehaviour
         ManageFeatures();
         PrintTurn();
     }
-    public void ChangeTurn()
+    
+    //Only EnemyAI (Enemy side) calls this script.
+    //manage basic logic for changing turn from both player and Enemy. Player have a separate function
+    //he should call to change turn.
+    public void DefaultChangeTurn()
     {
         isPlayerTurn = !isPlayerTurn;
         PrintTurn();
-        if (!isPlayerTurn)
+        if (!isPlayerTurn)//if it's enemy turn, we signify the enemy AI to play cards.
         {
             enemyGameObject.GetComponent<EnemyAI>().OnEnemyTurn();
         }
@@ -33,8 +37,20 @@ public class TurnManager : MonoBehaviour
 
     }
 
-    //if it's player turn, all obj activated
-    //else, all obj deactivated
+    //the player calls this script (by hitting EndTurn tn) to signify changing turn.
+    public void PlayerChangeTurn()
+    {
+        if (!isPlayerTurn)//if player clicks EndTurn during Enemy Turn, we do nothing.
+        {
+            return;
+        }
+        //player clicks during his turn, we change turn
+        DefaultChangeTurn();
+
+    }
+
+
+    //Decide which features to be enabled/disabled when swiching turns.
     private void ManageFeatures()
     {
         foreach (GameObject obj in PlayerActivateList)
@@ -43,6 +59,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    //debug in console.
     private void PrintTurn()
     {
         if (isPlayerTurn)

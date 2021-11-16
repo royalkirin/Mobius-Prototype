@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//manages the End Turn button
+//will communicate with TurnManager to decide logics.
 public class EndTurnButton : MonoBehaviour
 {
     TurnManager turnManager = null;
@@ -19,11 +21,12 @@ public class EndTurnButton : MonoBehaviour
         btn.onClick.AddListener(OnEndTurnButtonClick);
     }
 
+    //when clicked, Player signifies to TurnManager that he wants to change the turn
     public void OnEndTurnButtonClick()
     {
         if(turnManager != null)
         {
-            turnManager.ChangeTurn();
+            turnManager.PlayerChangeTurn();
         }
     }
 }
