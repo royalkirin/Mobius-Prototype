@@ -8,6 +8,7 @@ TagManager:
   - PlayerCharacter
   - EnemyCharacter
   - PlayerTurn
+  - Battleground
   layers:
   - Default
   - TransparentFX

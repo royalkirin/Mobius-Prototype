@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a696a2f057a54418d3f5a68712759b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayed: 1
-  CardBodyPrefab: {fileID: 0}
+  isPlayed: 0
+  frontImage: {fileID: 21300000, guid: 4c36d18135412a34b900e9e0b488c701, type: 3}
+  backImage: {fileID: 21300000, guid: 0494c4d967886e24b84b0ff7294882ef, type: 3}
 --- !u!1001 &4124823171043496821
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -105,10 +106,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2723413191756462426, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}
-      propertyPath: m_Text
-      value: Attack
-      objectReference: {fileID: 0}
     - target: {fileID: 5273339758978638380, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}
       propertyPath: m_Name
       value: AttackCard
@@ -117,14 +114,6 @@ PrefabInstance:
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 2512395876646211077}
-    - target: {fileID: 5955742823051288179, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5955742823051288179, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3355468037422898438, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}

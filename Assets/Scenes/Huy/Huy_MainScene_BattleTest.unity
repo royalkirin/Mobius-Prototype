@@ -391,7 +391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6230787721237368771, guid: 92ced60c246a3b443995b553d5746551, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6230787721237368771, guid: 92ced60c246a3b443995b553d5746551, type: 3}
       propertyPath: m_LocalPosition.z
@@ -750,6 +750,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Battleground
       objectReference: {fileID: 0}
+    - target: {fileID: 6752772025274384512, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
+      propertyPath: m_TagString
+      value: Battleground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
 --- !u!1001 &6076487227063824781
@@ -862,7 +866,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6230787721237368771, guid: 92ced60c246a3b443995b553d5746551, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6230787721237368771, guid: 92ced60c246a3b443995b553d5746551, type: 3}
       propertyPath: m_LocalPosition.z
