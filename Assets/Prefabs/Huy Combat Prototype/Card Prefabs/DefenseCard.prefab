@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayed: 0
+  frontImage: {fileID: 21300000, guid: cd5d522e6277d3d44aa8b86292649eab, type: 3}
+  backImage: {fileID: 21300000, guid: 0494c4d967886e24b84b0ff7294882ef, type: 3}
 --- !u!1001 &6185124489280317616
 PrefabInstance:
   m_ObjectHideFlags: 0
