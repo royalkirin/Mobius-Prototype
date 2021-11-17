@@ -12,6 +12,8 @@ public class CardPlayer : MonoBehaviour
     [SerializeField] string friendlyTag = null;
     [SerializeField] string enemyTag = null; //for players, enemyTag = Enemy. For enemy, enemyTag = PlayerCharacter
 
+
+    BattleGround battleGround = null;//reference to BG to play cards on the map
     private void Start()
     {
         friendlyCharacter = GameObject.FindWithTag(friendlyTag);
@@ -25,11 +27,22 @@ public class CardPlayer : MonoBehaviour
         {
             Debug.Log(name + "cannot find enemy with tag " + enemyTag);
         }
+
+        battleGround = GameObject.FindWithTag("Battleground").GetComponent<BattleGround>();
+        if(battleGround is null)
+        {
+            Debug.Log("Cannot find Battle Ground component in " + name);
+        }
     }
 
     //Play a random card, can be attack, defense, spell...
-    public void PlayCard(Card card)
+    //assume playing face up for now
+    public void PlayCard(Card card, bool isPlayedFaceUp = true)
     {
+        //play card face up on the BG
+        battleGround.PlayCardOnBattleGround(card, isPlayedFaceUp);
+
+        //actual logics
         if (card is AttackCard)
         {
             AttackCard attackCard = (AttackCard)card;
