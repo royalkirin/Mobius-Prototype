@@ -106,6 +106,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2723413191756462426, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}
+      propertyPath: m_Text
+      value: Attack
+      objectReference: {fileID: 0}
     - target: {fileID: 5273339758978638380, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}
       propertyPath: m_Name
       value: AttackCard
@@ -114,6 +118,18 @@ PrefabInstance:
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 2512395876646211077}
+    - target: {fileID: 5955742823051288179, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5955742823051288179, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5955742823051288179, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3355468037422898438, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}
