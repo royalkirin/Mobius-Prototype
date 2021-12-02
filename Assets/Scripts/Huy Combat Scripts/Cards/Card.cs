@@ -10,12 +10,16 @@ using UnityEngine.UI;
 public class Card : MonoBehaviour
 {
     public bool isPlayed = false;
+    public bool belongToPlayer = true; //CardPlayer.cs will set right value when play the card.
     Image uiImage = null;
 
     //images of the card. We pass these values when the cards are played onto BGCardPlayCanvas
     [SerializeField] Sprite frontImage = null;
     [SerializeField] Sprite backImage = null;
-    
+
+    public int positionInHand = 0;//represent the position in the hand of the player
+
+
     private void Start()
     {
         FindVariables();
@@ -52,7 +56,7 @@ public class Card : MonoBehaviour
         isPlayed = true;
         
 
-        //Debug.Log("Card played in base class");//for reference
+        //Debug.Log("Card played, belong to player = " + belongToPlayer);//for reference
     }
 
     public Sprite GetFrontImage()
@@ -64,5 +68,14 @@ public class Card : MonoBehaviour
     {
         return backImage;
     }
-        
+
+    public bool BelongToPlayer()
+    {
+        return belongToPlayer;
+    }
+
+    public void SetOwner(bool belongToPlayer)
+    {
+        this.belongToPlayer = belongToPlayer;
+    }
 }

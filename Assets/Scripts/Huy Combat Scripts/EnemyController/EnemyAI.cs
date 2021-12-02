@@ -14,8 +14,8 @@ public class EnemyAI : MonoBehaviour
         {
             cardPlayer = GetComponent<CardPlayer>();
         }
-
         turnManager = FindObjectOfType<TurnManager>();
+
     }
 
 
@@ -23,12 +23,18 @@ public class EnemyAI : MonoBehaviour
     public void OnEnemyTurn()
     {
         cardPlayer.PlayCard(attackCard);
-        StartCoroutine(EnemyEndTurn(7));
+        Debug.Log("Ending Enemy turn");
+        StartCoroutine(EnemyEndTurn(5));
     }
 
     IEnumerator EnemyEndTurn(int secs)
     {
         yield return new WaitForSeconds(secs);
         turnManager.DefaultChangeTurn();
+    }
+
+    public void OnEnemyReactTurn()
+    {
+        Debug.Log("Enemy reacting to player attack, do nothing. Move on.");
     }
 }

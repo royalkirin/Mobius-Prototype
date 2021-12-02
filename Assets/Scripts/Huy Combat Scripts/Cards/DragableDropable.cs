@@ -70,4 +70,11 @@ public class DragableDropable : MonoBehaviour, IDragHandler, IEndDragHandler, IB
         //eventData.pointerDrag.GetComponent<CardValue>().isDropped = false; default value is false
         //Debug.Log(name + " begins dragged");
     }
+
+    //the game moves the cards in different position in player hand
+    //so we need to reset the original position.
+    public void ResetOriginalPosition()
+    {
+        originalPosition = transform.position;
+    }
 }

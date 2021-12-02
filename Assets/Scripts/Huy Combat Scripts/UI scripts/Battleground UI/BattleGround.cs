@@ -8,17 +8,24 @@ public class BattleGround : MonoBehaviour //(BG)
 {
     [SerializeField] Canvas BGCardPlayCanvas = null;
 
+    //these vars are for cards face up
     //can make it an array but a List is easier to change in the future.
     [SerializeField] List<Image> playedCards;//initialzed in prefab with references. Length = 3.
     private const int maximumCardShowed = 3;//max number of face up card showed on BG
     private int faceUpcardsPlayed = 0; //current number of cards played face up
 
+    //these vars are for cards face down
+    [SerializeField] Image playerTrapCardImage = null;
+    [SerializeField] Image enemyTrapCardImage = null;
+    bool isPlayerTrapCardAcive = false;
+    bool isEnemyTrapCardActive = false;
 
     private void Start()
     {
         FindVariables();
     }
 
+    //set up things, check for nulls.
     private void FindVariables()
     {
         if (BGCardPlayCanvas is null)
@@ -33,7 +40,26 @@ public class BattleGround : MonoBehaviour //(BG)
         }
         //update counts
         if(faceUpcardsPlayed < 0) { faceUpcardsPlayed = 0; }
-        if (faceUpcardsPlayed > maximumCardShowed) { faceUpcardsPlayed = maximumCardShowed; } 
+        if (faceUpcardsPlayed > maximumCardShowed) { faceUpcardsPlayed = maximumCardShowed; }
+
+
+        if (playerTrapCardImage is null)
+        {
+            Debug.Log("Need Player trap card reference in " + name);
+        }
+        else
+        {
+            playerTrapCardImage.gameObject.SetActive(false);
+        }
+
+        if (enemyTrapCardImage is null)
+        {
+            Debug.Log("Need Enemy trap card reference in " + name);
+        }
+        else
+        {
+            enemyTrapCardImage.gameObject.SetActive(false);
+        }
     }
 
     public Canvas GetCanvas()
@@ -46,12 +72,12 @@ public class BattleGround : MonoBehaviour //(BG)
     //more functionalities
     //playing face up vs face down requires 2 different functions because they show the card on different
     //list, different area, cards have different functionalities after.
-    public void PlayCardOnBattleGround(Card card, bool isPlayedFaceUp = true)
+    public void PlayCardOnBattleGround(Card card, bool isPlayer = true, bool isPlayedFaceUp = true)
     {
 
         if (!isPlayedFaceUp)
         {
-            //TODO:implement playing face down here
+            PlayCardFaceDown(card, isPlayer);
             return;
         }
 
@@ -87,5 +113,22 @@ public class BattleGround : MonoBehaviour //(BG)
         {
             playedCards[i].gameObject.SetActive(true);
         }
+    }
+
+    //play a trap card on bg. isPlayer = is this card players'? if not, the enemy plays this card.
+    private void PlayCardFaceDown(Card card, bool isPlayer)
+    {
+        //TODO: implement this
+        Debug.Log("Implement this");
+    }
+
+    public bool IsPlayerTrapCardActive()
+    {
+        return isPlayerTrapCardAcive;
+    }
+
+    public bool IsEnemyTrapCardActive()
+    {
+        return isEnemyTrapCardActive;
     }
 }
