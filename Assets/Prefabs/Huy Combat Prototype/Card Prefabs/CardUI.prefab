@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDropped: 0
-  rectTransform: {fileID: 0}
+  rectTransform: {fileID: 2009593262561451376}
 --- !u!1 &6640527521513729735
 GameObject:
   m_ObjectHideFlags: 0

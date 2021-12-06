@@ -10,13 +10,21 @@ public class TurnManager : MonoBehaviour
 {
     public bool isPlayerTurn = true;
 
+
     GameObject[] PlayerActivateList;//all the things we activate when it's player turn, deactivate on Enemy Turn
-    GameObject enemyGameObject;//enemy in the scene
+    EnemyAI enemyAI;//enemy in the scene
+
+    //when someone attacks another, the other can have a reaction turn to choose to activate his trap card
+    public bool isPlayerReactTurn = false;
+    public bool isEnemyReactTurn = false;
+
+    Deck playerDeck;
 
     private void Start()
     {
         PlayerActivateList = GameObject.FindGameObjectsWithTag("PlayerTurn");
-        enemyGameObject = GameObject.FindWithTag("Enemy");
+        enemyAI = GameObject.FindWithTag("Enemy").GetComponent<EnemyAI>();
+        playerDeck = GameObject.FindWithTag("PlayerDeck").GetComponent<Deck>();
         ManageFeatures();
         PrintTurn();
     }
@@ -30,11 +38,16 @@ public class TurnManager : MonoBehaviour
         PrintTurn();
         if (!isPlayerTurn)//if it's enemy turn, we signify the enemy AI to play cards.
         {
-            enemyGameObject.GetComponent<EnemyAI>().OnEnemyTurn();
+            enemyAI.OnEnemyTurn();
         }
 
         ManageFeatures();
 
+        //if player turn, deal the cards to player.
+        if (isPlayerTurn)
+        {
+            playerDeck.FullDealToPlayer();
+        }
     }
 
     //the player calls this script (by hitting EndTurn tn) to signify changing turn.
@@ -69,6 +82,19 @@ public class TurnManager : MonoBehaviour
         else
         {
             Debug.Log("Enemy Turn");
+        }
+    }
+
+    //When player A plays a card, gives player B a chance to react (activate trap card if possible?)
+    public void CheckReactionTurn(string friendlyTag)
+    {
+        if(friendlyTag == "PlayerCharacter")
+        {
+            enemyAI.OnEnemyReactTurn();
+        }
+        else if(friendlyTag == "EnemyCharacter")
+        {
+            Debug.Log("Player reaction turn");
         }
     }
 }

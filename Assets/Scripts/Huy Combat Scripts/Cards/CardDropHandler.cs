@@ -20,7 +20,7 @@ public class CardDropHandler : MonoBehaviour, IDropHandler
             return;
         }
 
-        //if we are dragging smt DragableDropable (in this case, a Card)
+        //if we are dragging smt DragableDropable (in this case, only a Card has this component)
         if (draggedObject.TryGetComponent<DragableDropable>(out DragableDropable dragDrop))
         {
             dragDrop.isDropped = true;

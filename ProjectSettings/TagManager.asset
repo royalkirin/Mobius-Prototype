@@ -9,6 +9,8 @@ TagManager:
   - EnemyCharacter
   - PlayerTurn
   - Battleground
+  - PlayerHand
+  - PlayerDeck
   layers:
   - Default
   - TransparentFX

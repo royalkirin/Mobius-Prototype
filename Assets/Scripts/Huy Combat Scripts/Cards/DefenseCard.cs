@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//Defense card is a Card, with a Target that it will try to Defend when activated.
 public class DefenseCard : Card
 {
     float defenseValue = 1f;
@@ -13,7 +15,7 @@ public class DefenseCard : Card
     }
 
 
-    //try to Defense the target
+    //when played, try to Defense the target
     private bool Defense(GameObject target)
     {
         //if the target is Attackable -> we increase its defense
