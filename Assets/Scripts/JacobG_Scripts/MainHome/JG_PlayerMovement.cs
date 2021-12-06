@@ -94,6 +94,11 @@ public class JG_PlayerMovement : MonoBehaviour
 
         myTransform.Rotate(0, Input.GetAxis("Horizontal") * tSpeed * Time.deltaTime, 0);
     }
+
+    public GameObject GetCurrentSegment()
+    {
+        return currentpos.gameObject;
+    }
     
 }
 
