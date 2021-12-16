@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,52 +12,96 @@ public class TurnManager : MonoBehaviour
     public bool isPlayerTurn = true;
 
 
-    GameObject[] PlayerActivateList;//all the things we activate when it's player turn, deactivate on Enemy Turn
+    public GameObject[] PlayerActivateList;//all the things we activate when it's player turn, deactivate on Enemy Turn
+    public GameObject[] PlayerReactionActivateList; //all the things we activate when it's player turn/reaction turn, deactivate on Enemy reaction turn
     EnemyAI enemyAI;//enemy in the scene
 
-    //when someone attacks another, the other can have a reaction turn to choose to activate his trap card
+    //when someone attacks another, the other can have a reaction turn to choose to counter the card
     public bool isPlayerReactTurn = false;
-    public bool isEnemyReactTurn = false;
 
     Deck playerDeck;
+    CardChain cardChain;
 
+    GameObject passBtn; //pass btn for Player to surrender the chain
+
+    //end turn btn for Player to end the turn.
+    //the end turn btn only available when it's beginning of the turn, 0 cards in chain, and it's player turn
+    //that he doesn't want to play a card.
+    GameObject endTurnBtn;
     private void Start()
     {
+        FindVariables();
+        ManageFeaturesChangingTurn();
+        PrintTurn();
+        cardChain.OnNewTurn(isPlayerTurn);
+    }
+
+    private void FindVariables()
+    {
         PlayerActivateList = GameObject.FindGameObjectsWithTag("PlayerTurn");
+        PlayerReactionActivateList = PlayerActivateList;
         enemyAI = GameObject.FindWithTag("Enemy").GetComponent<EnemyAI>();
         playerDeck = GameObject.FindWithTag("PlayerDeck").GetComponent<Deck>();
-        ManageFeatures();
-        PrintTurn();
+        cardChain = GameObject.FindWithTag("CardChain").GetComponent<CardChain>();
+        if (cardChain is null)
+        {
+            Debug.Log("Cannot find cardChain in " + name);
+        }
+
+        passBtn = GameObject.Find("Pass btn");
+        if (passBtn is null)
+        {
+            Debug.Log("Could not find Pass btn. Check Card Play Canvas.");
+        }
+        CheckPassBtnActivated();
+
+        endTurnBtn = GameObject.Find("End Turn btn");
+        if(endTurnBtn is null)
+        {
+            Debug.Log("Could not find End Turn btn. Check Card Play Canvas.");
+        }
+        CheckEndTurnBtnActivated();
     }
-    
+
+
+
     //Only EnemyAI (Enemy side) calls this script.
     //manage basic logic for changing turn from both player and Enemy. Player have a separate function
     //he should call to change turn.
     public void DefaultChangeTurn()
     {
         isPlayerTurn = !isPlayerTurn;
+        isPlayerReactTurn = isPlayerTurn;
         PrintTurn();
         if (!isPlayerTurn)//if it's enemy turn, we signify the enemy AI to play cards.
         {
-            enemyAI.OnEnemyTurn();
+            StartCoroutine(enemyAI.OnEnemyTurn(8f));
         }
 
-        ManageFeatures();
+        ManageFeaturesChangingTurn();
 
-        //if player turn, deal the cards to player.
-        if (isPlayerTurn)
-        {
-            playerDeck.FullDealToPlayer();
-        }
+
+        playerDeck.FullDealToPlayer();
+
+        CheckPassBtnActivated();
+        CheckEndTurnBtnActivated();
     }
+
 
     //the player calls this script (by hitting EndTurn tn) to signify changing turn.
     public void PlayerChangeTurn()
     {
         if (!isPlayerTurn)//if player clicks EndTurn during Enemy Turn, we do nothing.
         {
+            Debug.Log("Player cannot change turn during Enemy Turn.");
             return;
         }
+        if (!isPlayerReactTurn)
+        {
+            Debug.Log("Player cannot change turn during Enemy Reaction Turn.");
+            return;
+        }
+
         //player clicks during his turn, we change turn
         DefaultChangeTurn();
 
@@ -64,11 +109,25 @@ public class TurnManager : MonoBehaviour
 
 
     //Decide which features to be enabled/disabled when swiching turns.
-    private void ManageFeatures()
+    private void ManageFeaturesChangingTurn()
     {
+        
         foreach (GameObject obj in PlayerActivateList)
         {
             obj.SetActive(isPlayerTurn);
+        }
+
+        isPlayerReactTurn = isPlayerTurn;
+    }
+
+
+    private void ManageFeaturesReactionTurn()
+    {
+        Debug.Log("is player reaction turn = " + isPlayerReactTurn);
+        foreach(GameObject obj in PlayerReactionActivateList)
+        {
+            obj.SetActive(isPlayerReactTurn);
+            
         }
     }
 
@@ -85,16 +144,53 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    //When player A plays a card, gives player B a chance to react (activate trap card if possible?)
-    public void CheckReactionTurn(string friendlyTag)
+    //When player A plays a card, gives player B a chance to react 
+    //isPlayerEndTurn = is the turn ended by player, now it's enemy turn?
+    public void EndReactionTurn(bool isPlayerEndTurn)
     {
-        if(friendlyTag == "PlayerCharacter")
+        Debug.Log("1");
+        if(isPlayerEndTurn) //when player ends his reaction turn
         {
+            //Debug.Log("Enemy now reacting");
             enemyAI.OnEnemyReactTurn();
+            
+            isPlayerReactTurn = false;
+            ManageFeaturesReactionTurn();
         }
-        else if(friendlyTag == "EnemyCharacter")
+        else  //when enemy ends his reaction turn
         {
-            Debug.Log("Player reaction turn");
+            //Debug.Log("Player now reacting");
+            isPlayerReactTurn = true;
+            //activate pass btn for player
+            CheckPassBtnActivated();
+            CheckEndTurnBtnActivated();
+            ManageFeaturesReactionTurn();
+        }
+    }
+
+    private void CheckPassBtnActivated()
+    {
+
+        if(cardChain.GetTotalCard() <= 0 || !isPlayerReactTurn)
+        {
+            passBtn.SetActive(false);
+        }
+        else
+        {
+            passBtn.SetActive(true);
+        }
+    }
+
+    private void CheckEndTurnBtnActivated()
+    {
+        endTurnBtn.SetActive(false);
+
+        if (isPlayerTurn)
+        {
+            if(cardChain.GetTotalCard() == 0)
+            {
+                endTurnBtn.SetActive(true);
+            }
         }
     }
 }

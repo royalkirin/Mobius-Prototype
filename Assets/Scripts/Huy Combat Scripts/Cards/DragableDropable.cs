@@ -53,10 +53,18 @@ public class DragableDropable : MonoBehaviour, IDragHandler, IEndDragHandler, IB
     {
         if (isDropped)
         {
-            //Debug.Log(name + " is dropped");
-            //play the card here
-            playerCardPlayer.PlayCard(GetComponent<Card>());
-            Destroy(this.gameObject);
+            //if the game accepts the card, we play it
+            bool isPlayedSucessfully = playerCardPlayer.PlayCard(GetComponent<Card>());
+            if (isPlayedSucessfully)
+            {
+                return;
+            }
+            else //if not, we move it back
+            {
+                isDropped = false;
+                transform.position = originalPosition;
+            }
+
         }
         else
         {

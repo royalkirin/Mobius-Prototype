@@ -21,6 +21,7 @@ public class AttackCard : Card
         if(target.TryGetComponent<Attackable>(out Attackable targetAttackable))
         {
             targetAttackable.TakeDamage(damage);
+            Debug.Log(targetAttackable.gameObject.name + " take 1 DAMAGE");
             return true;
         }
         else //if not, we cannot attack

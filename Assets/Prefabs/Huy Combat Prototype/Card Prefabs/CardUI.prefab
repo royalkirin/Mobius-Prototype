@@ -91,8 +91,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayed: 0
+  belongToPlayer: 1
   frontImage: {fileID: 21300000, guid: 4c36d18135412a34b900e9e0b488c701, type: 3}
   backImage: {fileID: 21300000, guid: 0494c4d967886e24b84b0ff7294882ef, type: 3}
+  positionInHand: 0
 --- !u!114 &5312294765691037161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +126,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7146773016063726689
 RectTransform:
   m_ObjectHideFlags: 0

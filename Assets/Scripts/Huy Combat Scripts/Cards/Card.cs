@@ -18,11 +18,12 @@ public class Card : MonoBehaviour
     [SerializeField] Sprite backImage = null;
 
     public int positionInHand = 0;//represent the position in the hand of the player
-
+    CardChain cardChain;
 
     private void Start()
     {
         FindVariables();
+        
     }
 
     private void FindVariables()
@@ -45,6 +46,12 @@ public class Card : MonoBehaviour
         {
             //show the image of card front
             uiImage.sprite = frontImage;
+        }
+
+        cardChain = GameObject.FindWithTag("CardChain").GetComponent<CardChain>();
+        if (cardChain is null)
+        {
+            Debug.Log("Cannot find cardChain in " + name);
         }
     }
 
@@ -77,5 +84,28 @@ public class Card : MonoBehaviour
     public void SetOwner(bool belongToPlayer)
     {
         this.belongToPlayer = belongToPlayer;
+    }
+
+    //static method to check if cardB counters cardA
+    //return true if B counters A. False otherwise.
+    public static bool Counter(Card cardA, Card cardB)
+    {
+        if(cardA is AttackCard)
+        {
+            return (cardB is DefenseCard);
+        }
+
+        if(cardA is DefenseCard)
+        {
+            return (cardB is SupportCard);
+        }
+
+        if(cardA is SupportCard)
+        {
+            return (cardB is AttackCard);
+        }
+
+        Debug.Log("First card is neither Attack, Defense, or Support.");
+        return false;
     }
 }

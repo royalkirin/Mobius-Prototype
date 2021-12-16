@@ -35,6 +35,7 @@ public class PlayerHand : MonoBehaviour
     //when the player plays a card, remove it from the cardsInHand
     public void RemoveCard(Card card)
     {
+        //Debug.Log("Removing card");
         int index = card.positionInHand;
         if(index < 0 || index > cardsInHand.Count)
         {
@@ -65,6 +66,7 @@ public class PlayerHand : MonoBehaviour
             cardsInHand[i].transform.SetParent(cardPositions[i].transform, worldPositionStays: false);
             //reset original position to new slot
             cardsInHand[i].GetComponent<DragableDropable>().ResetOriginalPosition();
+            cardsInHand[i].gameObject.SetActive(true);
         }
     }
 }
