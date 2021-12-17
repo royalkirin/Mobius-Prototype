@@ -22,6 +22,7 @@ public class DefenseCard : Card
         if (target.TryGetComponent<Attackable>(out Attackable targetAttackable))
         {
             targetAttackable.AddDefense(defenseValue);
+            Debug.Log(targetAttackable.gameObject.name + " + 1 DEFENSE");
             return true;
         }
         else //if not, we cannot attack -> we cannot add defense

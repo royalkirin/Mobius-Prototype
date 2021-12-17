@@ -9,7 +9,7 @@ using UnityEngine.UI;
 //in the future, we can add health bars, different animations, effects... here
 public class Health : MonoBehaviour
 {
-    private float health = 10f; //current Health
+    [SerializeField] float health = 10f; //current Health
     private float maxHealth = 10f; //max Health
     public Slider healthBar; //display health UI
 

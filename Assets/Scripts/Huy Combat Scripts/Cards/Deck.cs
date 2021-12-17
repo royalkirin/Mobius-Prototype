@@ -58,7 +58,6 @@ public class Deck : MonoBehaviour
             Debug.Log("There is no card left in the deck. ");
             return;
         }
-        Debug.Log("Dealing");
         playerHand.AddCard(cardsInDeck[0]);
         cardsInDeck.RemoveAt(0);
     }

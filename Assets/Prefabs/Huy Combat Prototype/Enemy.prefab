@@ -60,3 +60,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPlayer: {fileID: 2415389818247422523}
   attackCard: {fileID: 7780146314167888815, guid: dc7a78798e9a6614f8c4328bf9135151, type: 3}
+  defenseCard: {fileID: -4505860838824753587, guid: f852dfa633da18740af818e4932ccfc1, type: 3}
+  supportCard: {fileID: -7736803686065575263, guid: a47e1e4565dfebe42850c63f3d726536, type: 3}

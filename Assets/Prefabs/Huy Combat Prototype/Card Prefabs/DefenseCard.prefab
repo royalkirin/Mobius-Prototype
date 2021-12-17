@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayed: 0
+  belongToPlayer: 0
   frontImage: {fileID: 21300000, guid: cd5d522e6277d3d44aa8b86292649eab, type: 3}
   backImage: {fileID: 21300000, guid: 0494c4d967886e24b84b0ff7294882ef, type: 3}
+  positionInHand: 0
 --- !u!1001 &6185124489280317616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -113,6 +115,10 @@ PrefabInstance:
     - target: {fileID: 5273339758978638380, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}
       propertyPath: m_Name
       value: DefenseCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 5273339758978638380, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5312294765691037161, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}
       propertyPath: rectTransform
