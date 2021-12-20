@@ -11,7 +11,7 @@ using UnityEngine;
 ///             optional place to contain those features if needed for code cleanliness.    ///
 ///                                                                                         ///
 ///     Date Created: 12/10/21                                                              ///
-///     Date Updated: 12/10/21                                                              ///
+///     Date Updated: 12/17/21                                                              ///
 ///                                                                                         ///
 ///     Author: Jordan R. Douglas                                                           ///
 ///*****************************************************************************************///
@@ -61,13 +61,16 @@ public class DebugController : MonoBehaviour
     ///             not during combat.                                      ///
     ///                                                                     ///
     ///     Date Created: 12/10/21                                          ///
-    ///     Date Updated: 12/10/21                                          ///
+    ///     Date Updated: 12/17/21                                          ///
     ///                                                                     ///
     ///     Author: Jordan R. Douglas                                       ///
     ///*********************************************************************///
     void QuickRespawn()
     {
         uPlayer.transform.position = uPlayerSpawn;
+        //Need to clamp Player's Velocity and enable proper Collision.
+        //When Player clips geometry and begins falling, respawn functionality is broken due to
+        //lack of proper collision and accelerated velocity.
     }
 
     ///*********************************************************************///
