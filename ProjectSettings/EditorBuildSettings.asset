@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/JordanD/test_scene_01.unity
+    guid: e5c0b72aac894434a94567abfaef490d
+  - enabled: 1
+    path: Assets/Scenes/JordanD/test_scene_02.unity
+    guid: b8917371ca812734f9274030ce9cccbe
+  - enabled: 1
+    path: Assets/Scenes/Huy/Huy_BattleTest.unity
+    guid: e7c00bae941be734e8b0eaf89fbb7653
   m_configObjects: {}

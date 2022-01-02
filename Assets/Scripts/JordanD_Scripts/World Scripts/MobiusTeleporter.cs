@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 ///             can use this again to leave that Mobius and return to their original.       ///
 ///                                                                                         ///
 ///     Date Created: 12/17/21                                                              ///
-///     Date Updated: 12/19/21                                                              ///
+///     Date Updated: 1/2/22                                                                ///
 ///                                                                                         ///
 ///     Author: Jordan R. Douglas                                                           ///
 ///*****************************************************************************************///
@@ -20,7 +20,7 @@ public class MobiusTeleporter : MonoBehaviour
 {
     #region VARIABLES
     //Variables
-    bool bIsTelported = false;
+    public bool bIsTelported = false;
 
     //Unity Variables
     public Object uLevelToLoad; //ALWAYS SET THIS TO WHEN SPAWNING A PORTAL INTO A SCENE!
@@ -33,18 +33,26 @@ public class MobiusTeleporter : MonoBehaviour
     ///             the animation showcasing the transition between Mobius. ///
     ///                                                                     ///
     ///     Date Created: 12/19/21                                          ///
-    ///     Date Updated: 12/19/21                                          ///
+    ///     Date Updated: 1/2/22                                            ///
     ///                                                                     ///
     ///     Author: Jordan R. Douglas                                       ///
     ///*********************************************************************///
-    void TeleportFunctionality()
+    void TeleportFunctionality(Collider uPlayer)
     {
         //Play the Animation Sequence
 
+
         //Load new scene
+        Scene uLoadedLevel = SceneManager.GetSceneByName(uLevelToLoad.name);
         Debug.Log("Loading: " + uLevelToLoad.name);
         SceneManager.LoadScene(uLevelToLoad.name);
+
         //Player properly spawns
+
+
+        //Should our Player character change in any way, we need to transport them
+        //to the scene as accurately as possible to keep gameplay consistent.
+        //Note to Self: They need to have STATIC variables to help us determine these things. Make note of this in the next meeting
     }
 
     //Use this to determine if Player has entered Teleporter Range.
@@ -53,7 +61,7 @@ public class MobiusTeleporter : MonoBehaviour
         if (other.gameObject.tag == "Player" && !bIsTelported)
         {
             bIsTelported = true;
-            TeleportFunctionality();
+            TeleportFunctionality(other);
         }
     }
 
