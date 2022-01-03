@@ -308,7 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uPlayer: {fileID: 167786893}
   uPlayerSpawn: {x: 0, y: 0, z: 0}
-  uLightManager: {fileID: 0}
+  uLightManager: {fileID: 1262635027}
   uLMStartRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &188301318
 GameObject:
@@ -324,6 +324,7 @@ GameObject:
   - component: {fileID: 188301319}
   - component: {fileID: 188301323}
   - component: {fileID: 188301324}
+  - component: {fileID: 188301325}
   m_Layer: 0
   m_Name: Dummy Enemy
   m_TagString: Untagged
@@ -436,8 +437,26 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 10
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &188301325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188301318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7711af70fb7384b4d937ef992e0591e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fDetectionRange: 0.3
+  fMovementSpeed: 0.5
+  ShowDistance: 0
+  uStartingPosition: {x: 0, y: 0, z: 0}
+  uPatrolPoints: []
+  uBattleSceneToLoad: {fileID: 102900000, guid: e7c00bae941be734e8b0eaf89fbb7653, type: 3}
 --- !u!1 &219696627
 GameObject:
   m_ObjectHideFlags: 0

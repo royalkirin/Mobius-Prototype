@@ -43,7 +43,6 @@ public class MobiusTeleporter : MonoBehaviour
 
 
         //Load new scene
-        Scene uLoadedLevel = SceneManager.GetSceneByName(uLevelToLoad.name);
         Debug.Log("Loading: " + uLevelToLoad.name);
         SceneManager.LoadScene(uLevelToLoad.name);
 
