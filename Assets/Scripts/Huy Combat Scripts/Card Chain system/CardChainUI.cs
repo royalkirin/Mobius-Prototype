@@ -20,7 +20,7 @@ public class CardChainUI : MonoBehaviour
     bool isLerping = false;//when lerping, switch this
     int maximumLerpTime = 7;
     int currentLerpTime = 0;
-
+    float fSwitchCardPosX = -5.0f;
 
     //These vars are for the mechanics and logics of adding cards to the list
     [SerializeField] GameObject CardImages; //place holder for card images. Not affect mechanics.
@@ -39,7 +39,11 @@ public class CardChainUI : MonoBehaviour
     {
         Image uNewCard = Instantiate<Image>(uCardTemplate);
         uNewCard.transform.SetParent(CardImages.transform, false);
-        uNewCard.transform.position = cardsInChain[faceUpcardsPlayed - 1].transform.position - new Vector3(0.0f, 0.0f, 10.0f);
+        uNewCard.transform.position = cardsInChain[faceUpcardsPlayed - 1].transform.position - new Vector3(fSwitchCardPosX, 0.0f, 8.0f);
+        if (fSwitchCardPosX == -5.0f)
+            fSwitchCardPosX = 5.0f;
+        else
+            fSwitchCardPosX = -5.0f;
         FindVariables();
         cardsInChain[faceUpcardsPlayed - 1].sprite = card.GetFrontImage();
         cardsInChain[faceUpcardsPlayed - 1].gameObject.SetActive(true);
@@ -101,7 +105,7 @@ public class CardChainUI : MonoBehaviour
 
         //improvement: if player starts the turn, the first collumn is placed right side.
 
-        //InitiateCardImage(card);
+        InitiateCardImage(card);
 
 
         //lerping or not?
@@ -118,17 +122,15 @@ public class CardChainUI : MonoBehaviour
     {
         ResetLerpingChain();
         faceUpcardsPlayed = 0;
-        foreach(Image cardImage in cardsInChain)
-        {
-            cardImage.sprite = null;
-            Destroy(cardImage.gameObject);
-        }
 
-        for (int i = 0; i < cardsInChain.Count - 1; i++)
+        for (int i = 1; i < cardsInChain.Count; i++)
         {
+            cardsInChain[i].sprite = null;
+            Destroy(cardsInChain[i].gameObject);
             cardsInChain.RemoveAt(i);
+            i--;
         }
-
+        cardsInChain[0].sprite = null;
     }
 
     #endregion
