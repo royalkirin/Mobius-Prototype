@@ -26,12 +26,24 @@ public class CardChainUI : MonoBehaviour
     [SerializeField] GameObject CardImages; //place holder for card images. Not affect mechanics.
     [SerializeField] List<Image> cardsInChain;//fixed list of 10 images.
     private const int MaxWithoutLerping = 3;
-    private int faceUpcardsPlayed = 0; //current number of cards played face up
-    private const int MAX_CARDS_ALLOWED = 10; //maximum 10 cards in chain.
+    public int faceUpcardsPlayed = 0; //current number of cards played face up
+    public Image uCardTemplate;
+    //private const int MAX_CARDS_ALLOWED = 10; //maximum 10 cards in chain.
 
     private void Start()
     {
         FindVariables();
+    }
+
+    public void InitiateCardImage(Card card)
+    {
+        Image uNewCard = Instantiate<Image>(uCardTemplate);
+        uNewCard.transform.SetParent(CardImages.transform, false);
+        uNewCard.transform.position = cardsInChain[faceUpcardsPlayed - 1].transform.position - new Vector3(0.0f, 0.0f, 10.0f);
+        FindVariables();
+        cardsInChain[faceUpcardsPlayed - 1].sprite = card.GetFrontImage();
+        cardsInChain[faceUpcardsPlayed - 1].gameObject.SetActive(true);
+        //cardsInChain[faceUpcardsPlayed - 1].gameObject.transform.position = new Vector3(1.0f, 1.0f, 1.0f);
     }
 
     private void FindVariables()
@@ -49,7 +61,7 @@ public class CardChainUI : MonoBehaviour
         foreach(Transform child in CardImages.transform)
         {
             cardsInChain.Add(child.GetComponent<Image>());
-            child.gameObject.SetActive(false);
+            //child.gameObject.SetActive(false);
         }
     }
 
@@ -78,21 +90,19 @@ public class CardChainUI : MonoBehaviour
         }
         faceUpcardsPlayed++;
 
-        if (faceUpcardsPlayed > MAX_CARDS_ALLOWED)
+        /*if (faceUpcardsPlayed > MAX_CARDS_ALLOWED)
         {
             Debug.Log("Chain is maxed 10 cards!");
             faceUpcardsPlayed--;
             return false;
-        }
+        }*/
 
         //all is valid.
 
         //improvement: if player starts the turn, the first collumn is placed right side.
 
+        //InitiateCardImage(card);
 
-        cardsInChain[faceUpcardsPlayed-1].sprite = card.GetFrontImage();
-        cardsInChain[faceUpcardsPlayed-1].gameObject.SetActive(true);
-        
 
         //lerping or not?
         if (faceUpcardsPlayed > MaxWithoutLerping) {
@@ -111,8 +121,14 @@ public class CardChainUI : MonoBehaviour
         foreach(Image cardImage in cardsInChain)
         {
             cardImage.sprite = null;
-            cardImage.gameObject.SetActive(false);
+            Destroy(cardImage.gameObject);
         }
+
+        for (int i = 0; i < cardsInChain.Count - 1; i++)
+        {
+            cardsInChain.RemoveAt(i);
+        }
+
     }
 
     #endregion

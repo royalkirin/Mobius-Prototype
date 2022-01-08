@@ -154,11 +154,12 @@ public class CardChain : MonoBehaviour
             lastCardBelongToPlayer = false;
         }
         lastCardPlayed = card;
-        card.gameObject.transform.SetParent(Cards.transform);//move the card played into the Cards game obj for reference
+        //card.gameObject.transform.SetParent(Cards.transform);//move the card played into the Cards game obj for reference
+        chainUI.InitiateCardImage(card);
 
-        
-        
-        
+
+
+
         card.gameObject.SetActive(false);
 
         //signify to turn manager that player A plays a card, now its turn to counter.
