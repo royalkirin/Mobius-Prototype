@@ -456,7 +456,7 @@ MonoBehaviour:
   ShowDistance: 0
   uStartingPosition: {x: 0, y: 0, z: 0}
   uPatrolPoints: []
-  uBattleSceneToLoad: {fileID: 102900000, guid: e7c00bae941be734e8b0eaf89fbb7653, type: 3}
+  uBattleSceneToLoad: {fileID: 102900000, guid: 1018e82f375906640b9eaa413a656b59, type: 3}
 --- !u!1 &219696627
 GameObject:
   m_ObjectHideFlags: 0

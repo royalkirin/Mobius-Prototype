@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/JordanD/test_scene_02.unity
     guid: b8917371ca812734f9274030ce9cccbe
   - enabled: 1
-    path: Assets/Scenes/Huy/Huy_BattleTest.unity
-    guid: e7c00bae941be734e8b0eaf89fbb7653
+    path: Assets/Scenes/JordanD/Jordan_BattleTest_Clone.unity
+    guid: 1018e82f375906640b9eaa413a656b59
   m_configObjects: {}

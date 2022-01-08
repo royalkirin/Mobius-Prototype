@@ -40,10 +40,7 @@ public class CardChainUI : MonoBehaviour
         Image uNewCard = Instantiate<Image>(uCardTemplate);
         uNewCard.transform.SetParent(CardImages.transform, false);
         uNewCard.transform.position = cardsInChain[faceUpcardsPlayed - 1].transform.position - new Vector3(fSwitchCardPosX, 0.0f, 8.0f);
-        if (fSwitchCardPosX == -5.0f)
-            fSwitchCardPosX = 5.0f;
-        else
-            fSwitchCardPosX = -5.0f;
+        fSwitchCardPosX = fSwitchCardPosX * -1;
         FindVariables();
         cardsInChain[faceUpcardsPlayed - 1].sprite = card.GetFrontImage();
         cardsInChain[faceUpcardsPlayed - 1].gameObject.SetActive(true);
