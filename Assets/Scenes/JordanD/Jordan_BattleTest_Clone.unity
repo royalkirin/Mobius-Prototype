@@ -750,6 +750,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Battleground
       objectReference: {fileID: 0}
+    - target: {fileID: 7774105210161334267, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
 --- !u!1001 &6076487227063824781

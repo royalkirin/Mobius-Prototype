@@ -13,14 +13,17 @@ public class CardChainUI : MonoBehaviour
     [SerializeField] RectTransform rect;//move this transform
     float lerpLength = 1f;
     float timePassedSinceLerping = 0f;
-    float eachLerpSize = 30f / 7; //bottom Y = -30, top Y = 0, lerp from card 4th -> 10th = 7 times
+    float eachLerpSize = 30f / 4; //bottom Y = -30, top Y = 0, lerp from card 4th -> 10th = 7 times
     Vector3 targetLerpingPosition;
     Vector3 startLerpingPosition;
     Vector3 orininalPosition; //when chain finishes, reset back to original position, reset all values.
     bool isLerping = false;//when lerping, switch this
     int maximumLerpTime = 7;
     int currentLerpTime = 0;
-    float fSwitchCardPosX = -5.0f;
+
+    //Variables used for calculating functionality to the chain's flexbility.
+    float fSwitchCardPosX = -4.9f;
+    float fAlphaReduction = 1.0f;
 
     //These vars are for the mechanics and logics of adding cards to the list
     [SerializeField] GameObject CardImages; //place holder for card images. Not affect mechanics.
@@ -35,6 +38,18 @@ public class CardChainUI : MonoBehaviour
         FindVariables();
     }
 
+    ///*********************************************************************///
+    /// Function: InitiateCardImage                                         ///
+    ///                                                                     ///
+    /// Description: Used to take a card template (provided in the prefab   ///
+    ///             as Card Template) and duplicates it whenever we add a   ///
+    ///             new card to the ongoing chain.                          ///
+    ///                                                                     ///
+    ///     Date Created: 1/3/21                                            ///
+    ///     Date Updated: 1/13/22                                           ///
+    ///                                                                     ///
+    ///     Author: Jordan R. Douglas                                       ///
+    ///*********************************************************************///
     public void InitiateCardImage(Card card)
     {
         Image uNewCard = Instantiate<Image>(uCardTemplate);
@@ -44,7 +59,32 @@ public class CardChainUI : MonoBehaviour
         FindVariables();
         cardsInChain[faceUpcardsPlayed - 1].sprite = card.GetFrontImage();
         cardsInChain[faceUpcardsPlayed - 1].gameObject.SetActive(true);
-        //cardsInChain[faceUpcardsPlayed - 1].gameObject.transform.position = new Vector3(1.0f, 1.0f, 1.0f);
+    }
+
+    ///*********************************************************************///
+    /// Function: HideCardImage                                             ///
+    ///                                                                     ///
+    /// Description: Once the card chain reaches a certain card amount,     ///
+    ///             this function takes effect to hide the oldest card      ///
+    ///             still active in the scene (but it does not remove it    ///
+    ///             from play).                                             ///
+    ///                                                                     ///
+    ///     Date Created: 1/12/21                                           ///
+    ///     Date Updated: 1/13/22                                           ///
+    ///                                                                     ///
+    ///     Author: Jordan R. Douglas                                       ///
+    ///*********************************************************************///
+    private void HideCardImage(int nCard)
+    {
+        if (cardsInChain[nCard].GetComponent<Image>().color.a > 0.0f)
+        {
+            fAlphaReduction -= Time.deltaTime;
+            cardsInChain[nCard].GetComponent<Image>().color = new Color(1, 1, 1, fAlphaReduction);
+        }
+        else if (fAlphaReduction <= 0.0f)
+        {
+            fAlphaReduction = 1.0f;
+        }
     }
 
     private void FindVariables()
@@ -54,9 +94,12 @@ public class CardChainUI : MonoBehaviour
         {
             Debug.Log("Missing rect transform in " + name);
         }
-        targetLerpingPosition = rect.localPosition;
-        orininalPosition = rect.localPosition;
 
+        if (cardsInChain.Count <= 0)
+        {
+            targetLerpingPosition = rect.localPosition;
+            orininalPosition = rect.localPosition;
+        }
 
         cardsInChain = new List<Image>();
         foreach(Transform child in CardImages.transform)
@@ -71,6 +114,10 @@ public class CardChainUI : MonoBehaviour
         TestLerp();
         LerpUI();
         timePassedSinceLerping += Time.deltaTime;
+        if (faceUpcardsPlayed > 5)
+        {
+            HideCardImage(faceUpcardsPlayed - 6);
+        }
     }
 
 
@@ -108,6 +155,7 @@ public class CardChainUI : MonoBehaviour
         //lerping or not?
         if (faceUpcardsPlayed > MaxWithoutLerping) {
             SetupLerping();
+            
         }
 
         return true;
@@ -117,9 +165,6 @@ public class CardChainUI : MonoBehaviour
     //CardChain.cs call this to reset the UI when new chain starts
     public void ResetChainUI()
     {
-        ResetLerpingChain();
-        faceUpcardsPlayed = 0;
-
         for (int i = 1; i < cardsInChain.Count; i++)
         {
             cardsInChain[i].sprite = null;
@@ -127,7 +172,11 @@ public class CardChainUI : MonoBehaviour
             cardsInChain.RemoveAt(i);
             i--;
         }
+        ResetLerpingChain();
+        faceUpcardsPlayed = 0;
         cardsInChain[0].sprite = null;
+        cardsInChain[0].color = new Color(1, 1, 1, 1.0f);
+        fSwitchCardPosX = -4.9f;
     }
 
     #endregion

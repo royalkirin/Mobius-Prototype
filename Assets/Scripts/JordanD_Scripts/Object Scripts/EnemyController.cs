@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 ///             Enemy Object should be added/work alongside this script.                    ///
 ///                                                                                         ///
 ///     Date Created: 1/2/22                                                                ///
-///     Date Updated: 1/12/22                                                                ///
+///     Date Updated: 1/12/22                                                               ///
 ///                                                                                         ///
 ///     Author: Jordan R. Douglas                                                           ///
 ///*****************************************************************************************///
