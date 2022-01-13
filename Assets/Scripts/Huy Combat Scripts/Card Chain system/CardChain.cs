@@ -114,7 +114,7 @@ public class CardChain : MonoBehaviour
             return false;
         }
 
-        if(totalCardInChain != 0) //if it's 0, every card can be the first in chain.
+        if(totalCardInChain != 0) //if it's not the first card, it needs to counter the last card.
         {
             //then we check for counter
             bool counter = Card.Counter(lastCardPlayed, card);
@@ -124,7 +124,8 @@ public class CardChain : MonoBehaviour
                 return false;
             }
         }
-        //from now, either totalcardinchain = 0, or the card counters the last card in the chain -> we can  play it
+        //from now, either totalcardinchain = 0 (any card can be played)
+        //or the card counters the last card in the chain -> we can also play it
 
         //show card UI
         bool isUIValid = chainUI.PlayCardUI(card, card.belongToPlayer, isPlayedFaceUp: true);
@@ -174,7 +175,6 @@ public class CardChain : MonoBehaviour
     }
 
 
-    //Todo: cards of the winner take effect when the chain ends.
     //Enemy.AI call this to signify surrender in the current chain -> all playerCards take effect.
     //player calls this to signify surrener in the current chain -> all enemyCards take effect.
     //isPlayer = true means Player wants to surrender the chain -> Enemy wins the chain.
@@ -204,6 +204,7 @@ public class CardChain : MonoBehaviour
         {
             foreach (Card card in enemyCards)
             {
+                Debug.Log("1");
                 enemyCardPlayer.CardTakesEffect(card);
             }
         }
@@ -221,14 +222,19 @@ public class CardChain : MonoBehaviour
         CreateNewChain();
         chainUI.ResetChainUI();
 
+        //if player's chain ends, he can choose to end his turn, or starts another chain.
         if (playerGoesFirst)
         {
-            turnManager.PlayerChangeTurn();
+            turnManager.OnPlayerChainEnds();
         }
-        else {
+
+        //if enemy's turn, he automatically end his turn when his chain ends.
+        //update this for more advanced AI 
+        if (!playerGoesFirst)
+        {
             turnManager.DefaultChangeTurn();
         }
-        
+
     }
 
     public Card GetLastCardPlayed()

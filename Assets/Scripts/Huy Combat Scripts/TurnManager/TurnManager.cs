@@ -10,7 +10,7 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
     public bool isPlayerTurn = true;
-
+    
 
     public GameObject[] PlayerActivateList;//all the things we activate when it's player turn, deactivate on Enemy Turn
     public GameObject[] PlayerReactionActivateList; //all the things we activate when it's player turn/reaction turn, deactivate on Enemy reaction turn
@@ -28,12 +28,27 @@ public class TurnManager : MonoBehaviour
     //the end turn btn only available when it's beginning of the turn, 0 cards in chain, and it's player turn
     //that he doesn't want to play a card.
     GameObject endTurnBtn;
+
+    //does player have a valid number of cards in hand? ( <= Maximum = 5)
+    public bool playerNumberOfCardsValid = false;
+    bool isDiscardModeON = false;
+    PlayerHand playerHand;
+    DiscardHandler discardHandler;
     private void Start()
     {
         FindVariables();
         ManageFeaturesChangingTurn();
         PrintTurn();
         cardChain.OnNewTurn(isPlayerTurn);
+    }
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            playerNumberOfCardsValid = true;
+        }
     }
 
     private void FindVariables()
@@ -61,32 +76,121 @@ public class TurnManager : MonoBehaviour
             Debug.Log("Could not find End Turn btn. Check Card Play Canvas.");
         }
         CheckEndTurnBtnActivated();
+
+        playerHand = GameObject.FindWithTag("PlayerHand").GetComponent<PlayerHand>();
+        if(playerHand is null)
+        {
+            Debug.Log("Cannot find Player hand in " + name);
+        }
+
+        discardHandler = GameObject.FindGameObjectWithTag("DiscardHandler").GetComponent<DiscardHandler>();
+        if(discardHandler is null)
+        {
+            Debug.Log("Cannot find discard handler in " + name);
+        }
+        else
+        {
+            discardHandler.gameObject.SetActive(false);
+        }
     }
 
 
 
-    //Only EnemyAI (Enemy side) calls this script.
-    //manage basic logic for changing turn from both player and Enemy. Player have a separate function
-    //he should call to change turn.
+    //manage basic logic for changing turn from both player and Enemy.
+    //Player have a separate function he should call to change turn.
     public void DefaultChangeTurn()
     {
+        Debug.Log("default change turn");
         isPlayerTurn = !isPlayerTurn;
         isPlayerReactTurn = isPlayerTurn;
         PrintTurn();
+
+
+        CardLimitCheck();
+
+    }
+
+
+
+
+    //we turn off all features UNTIL players discard extra cards from his hand.
+    private void CardLimitCheck()
+    {
+        foreach (GameObject obj in PlayerActivateList)
+        {
+            obj.SetActive(false);
+        }
+        endTurnBtn.SetActive(false);
+
+        UpdateDiscardStatus();
+        if (playerNumberOfCardsValid)
+        {
+            Debug.Log("Number of cards Validity check: True");
+            AfterCheckingSequence();
+            
+            return;
+        }
+        else
+        {
+            SetDiscardMode(true);
+            Debug.Log("Number of cards Validity check: False");
+            InvokeRepeating(nameof(PrintWaitingMessage), time: 0.5f, repeatRate: 1f);
+            StartCoroutine(WaitUntilPlayerHasValidCardNumber());
+        }
+
+    }
+
+    private void SetDiscardMode(bool isDisCardModeON)
+    {
+        this.isDiscardModeON = isDisCardModeON;
+        if (isDiscardModeON)
+        {
+            discardHandler.gameObject.SetActive(true);
+            discardHandler.UpdateDiscardMessage();
+        }
+        else
+        {
+            discardHandler.gameObject.SetActive(false);
+        }
+
+    }
+
+    public bool GetDiscardMode()
+    {
+        return isDiscardModeON;
+    }
+
+    public void UpdateDiscardStatus()
+    {
+        playerNumberOfCardsValid = (playerHand.cardsInHand.Count <= PlayerHand.MAX_CARD_COUNT);
+    }
+
+
+    private void PrintWaitingMessage()
+    {
+        Debug.Log("Waiting...");
+    }
+    //wait until player discards all his extra cards
+    IEnumerator WaitUntilPlayerHasValidCardNumber()
+    {
+        yield return new WaitUntil(() => playerNumberOfCardsValid == true);
+        AfterCheckingSequence();
+    }
+
+    //after player has a valid amount of card, start the turn.
+    private void AfterCheckingSequence()
+    {
+        ManageFeaturesChangingTurn();
+        playerDeck.FullDealToPlayer();
+        CheckPassBtnActivated();
+        CheckEndTurnBtnActivated();
         if (!isPlayerTurn)//if it's enemy turn, we signify the enemy AI to play cards.
         {
             StartCoroutine(enemyAI.OnEnemyTurn(8f));
         }
-
-        ManageFeaturesChangingTurn();
-
-
-        playerDeck.FullDealToPlayer();
-
-        CheckPassBtnActivated();
-        CheckEndTurnBtnActivated();
+        CancelInvoke(nameof(PrintWaitingMessage));
+        SetDiscardMode(false);
     }
-
 
     //the player calls this script (by hitting EndTurn tn) to signify changing turn.
     public void PlayerChangeTurn()
@@ -104,12 +208,11 @@ public class TurnManager : MonoBehaviour
 
         //player clicks during his turn, we change turn
         DefaultChangeTurn();
-
     }
 
 
     //Decide which features to be enabled/disabled when swiching turns.
-    private void ManageFeaturesChangingTurn()
+    public void ManageFeaturesChangingTurn()
     {
         
         foreach (GameObject obj in PlayerActivateList)
@@ -148,7 +251,6 @@ public class TurnManager : MonoBehaviour
     //isPlayerEndTurn = is the turn ended by player, now it's enemy turn?
     public void EndReactionTurn(bool isPlayerEndTurn)
     {
-        Debug.Log("1");
         if(isPlayerEndTurn) //when player ends his reaction turn
         {
             //Debug.Log("Enemy now reacting");
@@ -168,7 +270,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    private void CheckPassBtnActivated()
+    public void CheckPassBtnActivated()
     {
 
         if(cardChain.GetTotalCard() <= 0 || !isPlayerReactTurn)
@@ -181,7 +283,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    private void CheckEndTurnBtnActivated()
+    public void CheckEndTurnBtnActivated()
     {
         endTurnBtn.SetActive(false);
 
@@ -192,5 +294,12 @@ public class TurnManager : MonoBehaviour
                 endTurnBtn.SetActive(true);
             }
         }
+    }
+
+    public void OnPlayerChainEnds()
+    {
+        CheckEndTurnBtnActivated();
+        CheckPassBtnActivated();
+        ManageFeaturesChangingTurn();
     }
 }

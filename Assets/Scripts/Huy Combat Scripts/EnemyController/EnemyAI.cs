@@ -12,6 +12,9 @@ public class EnemyAI : MonoBehaviour
     TurnManager turnManager;
 
     CardChain cardChain;
+
+
+    bool alwaysCounter = false;
     private void Start()
     {
         if(cardPlayer is null)
@@ -28,6 +31,14 @@ public class EnemyAI : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            alwaysCounter = !alwaysCounter;
+            Debug.Log("Enemy AI always counter = " + alwaysCounter);
+        }
+    }
 
     //when it's enemy turn, play.
     public IEnumerator OnEnemyTurn(float sec)
@@ -78,7 +89,16 @@ public class EnemyAI : MonoBehaviour
         else //last card played either NULL, or Support card
         {
             //try to play defense card, but will fail, and end the chain.
-            newCard = Instantiate(attackCard, new Vector3(0, 0, 0), Quaternion.identity);
+            if (alwaysCounter)
+            {
+                newCard = Instantiate(attackCard, new Vector3(0, 0, 0), Quaternion.identity);
+            }
+            else
+            {
+                newCard = Instantiate(defenseCard, new Vector3(0, 0, 0), Quaternion.identity);
+            }
+
+
         }
 
 

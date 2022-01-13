@@ -13,7 +13,7 @@ public class CardChainUI : MonoBehaviour
     [SerializeField] RectTransform rect;//move this transform
     float lerpLength = 1f;
     float timePassedSinceLerping = 0f;
-    float eachLerpSize = 30f / 4; //bottom Y = -30, top Y = 0, lerp from card 4th -> 10th = 7 times
+    float eachLerpSize = 10f; //bottom Y = -30, top Y = 0, lerp from card 4th -> 10th = 7 times
     Vector3 targetLerpingPosition;
     Vector3 startLerpingPosition;
     Vector3 orininalPosition; //when chain finishes, reset back to original position, reset all values.
