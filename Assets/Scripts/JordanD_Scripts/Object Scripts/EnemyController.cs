@@ -48,7 +48,7 @@ public class EnemyController : MonoBehaviour
             //Send them back to said spawn point to "reset" their lookout point!
             transform.position = Vector3.MoveTowards(transform.position, uStartingPosition, fMovementSpeed * Time.deltaTime);
         }
-        else
+        else if (transform.position == uStartingPosition)
         {
             bCurrentlyPatrolling = true;
         }
