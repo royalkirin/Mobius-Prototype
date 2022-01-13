@@ -12,6 +12,7 @@ TagManager:
   - PlayerHand
   - PlayerDeck
   - CardChain
+  - DiscardHandler
   layers:
   - Default
   - TransparentFX

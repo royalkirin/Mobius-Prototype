@@ -51,14 +51,20 @@ public class Deck : MonoBehaviour
     }
 
     //deal the first card on the list (top card on the deck) to the player
-    public void DealToPlayer()
+    public void DealToPlayer(bool cardLimited = true)
     {
         if(cardsInDeck.Count == 0)
         {
             Debug.Log("There is no card left in the deck. ");
             return;
         }
-        playerHand.AddCard(cardsInDeck[0]);
+
+        if(cardLimited == false)
+        {
+            Debug.Log("Dealing unlimited card");
+        }
+
+        playerHand.AddCard(cardsInDeck[0], cardLimited);
         cardsInDeck.RemoveAt(0);
     }
 

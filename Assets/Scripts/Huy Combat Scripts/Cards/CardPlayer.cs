@@ -11,7 +11,7 @@ public class CardPlayer : MonoBehaviour
     GameObject friendlyCharacter; 
     GameObject enemyCharacter; //the character on the other side.
     [SerializeField] string friendlyTag = null;
-    [SerializeField] string enemyTag = null; //for players, enemyTag = Enemy. For enemy, enemyTag = PlayerCharacter
+    [SerializeField] string enemyTag = null; //for players, enemyTag = EnemyCharacter. For enemy, enemyTag = PlayerCharacter
 
 
     BattleGround battleGround = null;//reference to BG to play cards on the map
@@ -22,6 +22,7 @@ public class CardPlayer : MonoBehaviour
     PlayerHand playerhand;
 
     CardChain cardChain;
+    Deck playerDeck; //deck of the player (enemy do not have a deck yet)
 
     private void Start()
     {
@@ -57,48 +58,16 @@ public class CardPlayer : MonoBehaviour
         {
             Debug.Log("Cannot find cardChain in " + name);
         }
+
+        playerDeck = GameObject.FindWithTag("PlayerDeck").GetComponent<Deck>();
+        if (playerDeck == null)
+        {
+            Debug.Log("Cannot find Deck for CardPlayer");
+        }
+
+
     }
 
-
-    //OLD PlayCard function, changed to accommodate chain system
-    ////Play a random card, can be attack, defense, spell...
-    ////assume playing face up for now
-    //public void PlayCard(Card card, bool isPlayedFaceUp = true)
-    //{
-    //    //set up the owner of the card being played
-    //    SetupCardOwner(card);
-
-    //    //add card to the chain
-    //    bool playedSuccessfully =  cardChain.TryAddCardToChain(card);
-    //    if (!playedSuccessfully)
-    //    {
-    //        return;
-    //    }
-
-    //    if (!isPlayedFaceUp)
-    //    {
-    //        Debug.Log("Playing card face down.");
-    //        //TODO: implement card face down.
-    //        return;
-    //    }
-
-
-    //    //play card face up on the BG
-    //    battleGround.PlayCardOnBattleGround(card, isPlayedFaceUp);
-
-    //    //remove the card from the player's hand
-    //    if (card.BelongToPlayer())
-    //    {
-    //        playerhand.RemoveCard(card);
-    //    }
-        
-
-    //    ////give Turn Manager notification, maybe the enemy need to react
-    //    //turnManager.EndReactionTurn(friendlyTag);
-
-    //    //CardTakesEffect(card);
-
-    //}
 
 
     public void CardTakesEffect(Card card)
@@ -135,7 +104,9 @@ public class CardPlayer : MonoBehaviour
 
         if(card is SupportCard)
         {
-            Debug.Log("Implement support card effect");
+            SupportCard supportCard = (SupportCard)card;
+            supportCard.Play(playerDeck.gameObject);
+
         }
     }
 
@@ -171,8 +142,6 @@ public class CardPlayer : MonoBehaviour
         {
             playerhand.RemoveCard(card);
         }
-
-
 
         return true;    
 
