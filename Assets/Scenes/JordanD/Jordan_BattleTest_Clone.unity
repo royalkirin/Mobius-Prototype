@@ -694,14 +694,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4680787162177828235, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5770681917658776249, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6292723566947742944, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -749,10 +741,6 @@ PrefabInstance:
     - target: {fileID: 6752772025274384512, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
       propertyPath: m_Name
       value: Battleground
-      objectReference: {fileID: 0}
-    - target: {fileID: 7774105210161334267, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -2.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
