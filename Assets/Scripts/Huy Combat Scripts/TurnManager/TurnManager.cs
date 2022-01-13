@@ -181,7 +181,11 @@ public class TurnManager : MonoBehaviour
     private void AfterCheckingSequence()
     {
         ManageFeaturesChangingTurn();
-        playerDeck.FullDealToPlayer();
+        if (isPlayerTurn)
+        {
+            playerDeck.FullDealToPlayer();
+        }
+        
         CheckPassBtnActivated();
         CheckEndTurnBtnActivated();
         if (!isPlayerTurn)//if it's enemy turn, we signify the enemy AI to play cards.
