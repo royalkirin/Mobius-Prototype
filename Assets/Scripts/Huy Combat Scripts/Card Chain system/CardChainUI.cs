@@ -203,16 +203,20 @@ public class CardChainUI : MonoBehaviour
         rect.localPosition = orininalPosition;
         targetLerpingPosition = rect.localPosition;
         isLerping = false;
+        for (int i = 0; i < cardsInChain.Count; i++)
+        {
+            cardsInChain[i].color = new Color(1, 1, 1, 1.0f);
+        }
         currentLerpTime = 0;
     }
 
     //other class calls this function to start lerping to a new position.
     private void SetupLerping()
     {
-        if (currentLerpTime >= maximumLerpTime)//already lerp to maximum position
+        /*if (currentLerpTime >= maximumLerpTime)//already lerp to maximum position
         {
             return;
-        }
+        }*/
         targetLerpingPosition += eachLerpSize * Vector3.up;
         startLerpingPosition = rect.localPosition;
         isLerping = true;   //lerp starts
