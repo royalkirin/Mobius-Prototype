@@ -44,7 +44,8 @@ public class DragableDropable : MonoBehaviour, IDragHandler, IEndDragHandler, IB
     //while dragging, update position based on mouse position
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta;
+        rectTransform.position += (Vector3)eventData.delta;
+
     }
 
 
