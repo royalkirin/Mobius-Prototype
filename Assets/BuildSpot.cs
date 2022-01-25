@@ -16,10 +16,11 @@ public class BuildSpot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P) && player.GetCurrentSegment() == this.gameObject)
+        if(Input.GetKeyDown(KeyCode.P) && player.GetCurrentSegment() == this.gameObject && !building.activeInHierarchy)
         {
             //Debug.Log("Input handling works");
             building.SetActive(true);
+            GetComponent<ParticleSystem>().Play();
         }
     }
 }
