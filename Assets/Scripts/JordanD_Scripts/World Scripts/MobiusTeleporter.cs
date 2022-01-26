@@ -21,6 +21,7 @@ public class MobiusTeleporter : MonoBehaviour
     #region VARIABLES
     //Variables
     public bool bIsTelported = false;
+    [SerializeField] bool bPortalChangesScene = false;
 
     //Unity Variables
     public Object uLevelToLoad; //ALWAYS SET THIS TO WHEN SPAWNING A PORTAL INTO A SCENE!
@@ -33,7 +34,7 @@ public class MobiusTeleporter : MonoBehaviour
     ///             the animation showcasing the transition between Mobius. ///
     ///                                                                     ///
     ///     Date Created: 12/19/21                                          ///
-    ///     Date Updated: 1/2/22                                            ///
+    ///     Date Updated: 1/21/22                                            ///
     ///                                                                     ///
     ///     Author: Jordan R. Douglas                                       ///
     ///*********************************************************************///
@@ -43,8 +44,11 @@ public class MobiusTeleporter : MonoBehaviour
 
 
         //Load new scene
-        Debug.Log("Loading: " + uLevelToLoad.name);
-        SceneManager.LoadScene(uLevelToLoad.name);
+        if (bPortalChangesScene == true)
+        {
+            Debug.Log("Loading: " + uLevelToLoad.name);
+            SceneManager.LoadScene(uLevelToLoad.name);
+        }
 
         //Player properly spawns
 
