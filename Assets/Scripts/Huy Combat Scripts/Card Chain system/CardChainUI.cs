@@ -18,12 +18,15 @@ public class CardChainUI : MonoBehaviour
     Vector3 startLerpingPosition;
     Vector3 orininalPosition; //when chain finishes, reset back to original position, reset all values.
     bool isLerping = false;//when lerping, switch this
-    int maximumLerpTime = 7;
-    int currentLerpTime = 0;
+    //int maximumLerpTime = 7;
+    //int currentLerpTime = 0;
 
     //Variables used for calculating functionality to the chain's flexbility.
     float fSwitchCardPosX = -4.9f;
     float fAlphaReduction = 1.0f;
+
+    //Temporary Bool for Debug Purposes Only
+    bool bChainManualReset = false;
 
     //These vars are for the mechanics and logics of adding cards to the list
     [SerializeField] GameObject CardImages; //place holder for card images. Not affect mechanics.
@@ -114,7 +117,7 @@ public class CardChainUI : MonoBehaviour
         TestLerp();
         LerpUI();
         timePassedSinceLerping += Time.deltaTime;
-        if (faceUpcardsPlayed > 5)
+        if (faceUpcardsPlayed > 5 && !bChainManualReset)
         {
             HideCardImage(faceUpcardsPlayed - 6);
         }
@@ -177,6 +180,8 @@ public class CardChainUI : MonoBehaviour
         cardsInChain[0].sprite = null;
         cardsInChain[0].color = new Color(1, 1, 1, 1.0f);
         fSwitchCardPosX = -4.9f;
+
+        bChainManualReset = false;
     }
 
     #endregion
@@ -191,6 +196,7 @@ public class CardChainUI : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
+            bChainManualReset = true;
             ResetLerpingChain();
         }
     }
@@ -207,7 +213,7 @@ public class CardChainUI : MonoBehaviour
         {
             cardsInChain[i].color = new Color(1, 1, 1, 1.0f);
         }
-        currentLerpTime = 0;
+        //currentLerpTime = 0;
     }
 
     //other class calls this function to start lerping to a new position.
@@ -221,7 +227,8 @@ public class CardChainUI : MonoBehaviour
         startLerpingPosition = rect.localPosition;
         isLerping = true;   //lerp starts
         timePassedSinceLerping = 0f;
-        currentLerpTime++;
+
+        //currentLerpTime++;
     }
 
     //lerp from start to target position in 1 second
