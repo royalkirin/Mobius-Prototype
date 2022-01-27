@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Main/MainScene_BattleTest.unity
+    guid: 7d5ba650b43fd044bac0a7166465408b
+  - enabled: 1
     path: Assets/Scenes/JordanD/test_scene_01.unity
     guid: e5c0b72aac894434a94567abfaef490d
   - enabled: 1

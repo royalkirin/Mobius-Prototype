@@ -80,6 +80,7 @@ public class PlayerHand : MonoBehaviour
         else
         {
             cardsInHand.RemoveAt(index);
+            Debug.Log("Sucessfully remove card from hand.");
         }
         //update card UI position here
         UpdateCardPosition();
@@ -177,6 +178,8 @@ public class PlayerHand : MonoBehaviour
     }
 
     //Discard a card from the hand, notify TurnManager to check if still need to discard.
+    //only use at beginning of new turn, when player have more than 5 cards.
+    //Dont use this to remove card during play.
     public void Discard(Card card)
     {
         RemoveCard(card);

@@ -101,13 +101,20 @@ public class EnemyAI : MonoBehaviour
 
         }
 
+        if(newCard is null)
+        {
+            Debug.Log("new card is null");
+        }
 
         bool isPlayed = cardPlayer.PlayCard(newCard);
         if (!isPlayed)
         {
             Debug.Log("Destroy new card just created because fail to play");
             Destroy(newCard.gameObject);
-            cardChain.ChainEnd(isPlayer: false);
+            if (!cardChain.chainEnding)
+            {
+                cardChain.ChainEnd(isPlayer: false);
+            }
         }
        
     }

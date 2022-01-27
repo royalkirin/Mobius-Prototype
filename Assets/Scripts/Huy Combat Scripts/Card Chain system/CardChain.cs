@@ -13,6 +13,8 @@ public class CardChain : MonoBehaviour
 
     bool playerGoesFirst = true;//who start this chain?
     bool lastCardBelongToPlayer = true;//when end the chain, depends on this we activate card effects
+    bool lastCardIsTrapCard = false;//when a trap card is activated, special effect is handled.
+
 
     public List<Card> playerCards = new List<Card> ();
     public List<Card> enemyCards = new List<Card>();
@@ -35,7 +37,9 @@ public class CardChain : MonoBehaviour
 
     //NEW WAY TO HANDLE UI
     CardChainUI chainUI;
-    
+
+    //between delays, cannot play any cards.
+    public bool chainEnding = false;
 
     private void Start()
     {
@@ -77,7 +81,7 @@ public class CardChain : MonoBehaviour
         {
             //when player click this btn, signify he wants to end the chain.
             //passBtn will be activated/deactivated in TurnManager.cs
-            passBtn.GetComponent<Button>().onClick.AddListener(() => ChainEnd(isPlayer:true));
+            passBtn.GetComponent<Button>().onClick.AddListener(PassBtnClick);
         }
 
         battleGround = GameObject.FindWithTag("Battleground").GetComponent<BattleGround>();
@@ -93,7 +97,8 @@ public class CardChain : MonoBehaviour
         }
     }
 
-    public void CreateNewChain()
+    //create new chain when chain ends
+    private void CreateNewChain()
     {
         lastCardPlayed = null;
         totalCardInChain = 0;
@@ -104,36 +109,24 @@ public class CardChain : MonoBehaviour
     //CardPlayer try to play a card into the chain.
     //return true if successfully played
     //return false otherwise
-    public bool TryAddCardToChain(Card card)
+    //if trying to activate a trap card, isTrapCard = true, and pass in TrapCard component.
+    public bool TryAddCardToChain(Card card, bool isTrapCard = false, TrapCard trapcard = null)
     {
-
-        //prevent player/enemy from playing 2 cards at once
-        if(totalCardInChain != 0 && card.belongToPlayer == lastCardBelongToPlayer)
+        if (chainEnding)
         {
-            Debug.Log("Someone is trying to play 2 cards at once in the chain!");
             return false;
         }
 
-        if(totalCardInChain != 0) //if it's not the first card, it needs to counter the last card.
+        bool isCardValid = CardValidityCheck(card, isTrapCard, trapcard);
+        if (!isCardValid)
         {
-            //then we check for counter
-            bool counter = Card.Counter(lastCardPlayed, card);
-            if (!counter)// if card doesn't counter lastCardPlayed, we cannot play it
-            {
-                Debug.Log("Fail to counter");
-                return false;
-            }
+            return false;
         }
+
         //from now, either totalcardinchain = 0 (any card can be played)
         //or the card counters the last card in the chain -> we can also play it
 
-        //show card UI
-        bool isUIValid = chainUI.PlayCardUI(card, card.belongToPlayer, isPlayedFaceUp: true);
-        if (!isUIValid)
-        {
-            Debug.Log("Chain UI stops chain from playing!");
-            return false;
-        }
+
 
         if (totalCardInChain == 0)//take note that this Chain starts by player or enemy
         {
@@ -155,6 +148,13 @@ public class CardChain : MonoBehaviour
             lastCardBelongToPlayer = false;
         }
         lastCardPlayed = card;
+
+        if (isTrapCard)
+        {
+            lastCardIsTrapCard = true;
+        }
+
+
         card.gameObject.transform.SetParent(Cards.transform);//move the card played into the Cards game obj for reference
         //chainUI.InitiateCardImage(card);
 
@@ -162,11 +162,102 @@ public class CardChain : MonoBehaviour
 
         card.gameObject.SetActive(false);
 
-        //signify to turn manager that player A plays a card, now its turn to counter.
-        StartCoroutine(EndReactionTurnInTime(3f));
+        if(isTrapCard is false)
+        {
+            //signify to turn manager that player A plays a card, now its turn to counter.
+            StartCoroutine(EndReactionTurnInTime(3f));
+        }
+        else //player succesfully plays a trap card. The chain ends right now.
+        {
+            Debug.Log("END CHAIN RIGHT NOW!");
+            ChainEnd(lastCardBelongToPlayer, trapCardBypass: true);
+        }
+
 
         return true;
     }
+
+    //Helper function for ONLY TryAddCardToChain() 
+    private bool CardValidityCheck(Card card, bool isTrapCard, TrapCard trapcard)
+    {
+        if(isTrapCard == true && trapcard == null)
+        {
+            Debug.LogWarning("Try to activate trap card BUT missing Trapcard component!");
+            return false;
+        }
+
+
+        //prevent player/enemy from playing 2 cards at once
+        if (totalCardInChain != 0 && card.belongToPlayer == lastCardBelongToPlayer)
+        {
+            Debug.LogWarning("Someone is trying to play 2 cards at once in the chain!");
+            return false;
+        }
+
+        if(totalCardInChain == 0 && isTrapCard)
+        {
+            Debug.LogWarning("Cannot play trap card as the FIRST card in the chain!");
+            return false;
+        }
+
+
+        //Check for counters
+        if (totalCardInChain != 0)
+        {
+            //check counters for normal card
+            if(isTrapCard == false)
+            {
+                bool counter = Card.Counter(lastCardPlayed, card);
+                if (!counter)// if card doesn't counter lastCardPlayed, we cannot play it
+                {
+                    Debug.Log("Fail to counter");
+                    return false;
+                }
+            }
+
+            if(isTrapCard && trapcard != null)
+            {
+                //isTrapCard = true, trapcard is not null
+                //check counters for trap card, remember, each trap card can counter ANY type of card.
+                if (CheckTrapCardCounter(lastCardPlayed, trapcard) == false)
+                {
+                    Debug.Log("Trap card fail to counter");
+                    return false;
+                }
+            }
+
+        }
+
+        //show card UI
+        bool isUIValid = chainUI.PlayCardUI(card, card.belongToPlayer, isPlayedFaceUp: true);
+        if (!isUIValid)
+        {
+            Debug.Log("Chain UI stops chain from playing!");
+            return false;
+        }
+        return true;
+    }
+
+
+    //check if the trapcard Counters the LastcardPlayed.
+    private bool CheckTrapCardCounter(Card lastCardPlayed, TrapCard trapCard)
+    {
+        if(lastCardPlayed is AttackCard)
+        {
+            return trapCard.doesCounterAttackCard();
+        }
+        if(lastCardPlayed is DefenseCard)
+        {
+            return trapCard.doesCounterDefenseCard();
+        }
+        if(lastCardPlayed is SupportCard)
+        {
+            return trapCard.doesCounterSupportCard();
+        }
+        Debug.LogWarning("Code should be unreachable. Check for errors.");
+        return false;
+    }
+
 
     IEnumerator EndReactionTurnInTime(float sec)
     {
@@ -178,21 +269,50 @@ public class CardChain : MonoBehaviour
     //Enemy.AI call this to signify surrender in the current chain -> all playerCards take effect.
     //player calls this to signify surrener in the current chain -> all enemyCards take effect.
     //isPlayer = true means Player wants to surrender the chain -> Enemy wins the chain.
-    public void ChainEnd(bool isPlayer)
+    //trapcardbypass allows us to end the chain right away when a trapcard is activated.
+    public void ChainEnd(bool isPlayer, bool trapCardBypass = false)
     {
-        if(isPlayer && lastCardBelongToPlayer)
+        chainEnding = true;
+
+        if (trapCardBypass is false) //if not a trap card, check for validities as usual
         {
-            Debug.Log("Player ends when it's enemy turn to counter!!");
-            return;
+
+            if (isPlayer && lastCardBelongToPlayer)
+            {
+                Debug.Log("Player ends when it's enemy turn to counter!!");
+                return;
+            }
+            if (!isPlayer && !lastCardBelongToPlayer)
+            {
+                Debug.Log("Enemy ends when it's player turn to counter!!");
+                return;
+            }
         }
-        if(!isPlayer && !lastCardBelongToPlayer)
+        else
         {
-            Debug.Log("Enemy ends when it's player turn to counter!!");
-            return;
+            Debug.Log("Trap card bypass is true. We end the chain.");
+        }
+
+        //either trapcardbypass is true -> we end the chain no matter what.
+        //or, all conditions are passed.
+
+
+
+        //activate trap card effect, remove it from the list
+        if (lastCardIsTrapCard)
+        {
+            Debug.Log("Activating TRAP CARD EFFECT...");
+            lastCardPlayed.GetComponent<TrapCard>().ActivateTrapCard();
+            if (lastCardBelongToPlayer)
+            {
+                playerCards.RemoveAt(playerCards.Count - 1);
+            }
         }
 
 
 
+
+        //activate other cards as usual
         if (lastCardBelongToPlayer)
         {
             foreach(Card card in playerCards)
@@ -217,8 +337,19 @@ public class CardChain : MonoBehaviour
         {
             Destroy(card.gameObject);
         }
+        
+        StartCoroutine(ChainEndDelay(5f));
 
 
+
+
+
+    }
+
+    IEnumerator ChainEndDelay(float sec)
+    {
+        yield return new WaitForSeconds(sec);
+        chainEnding = false;
         CreateNewChain();
         chainUI.ResetChainUI();
 
@@ -236,6 +367,7 @@ public class CardChain : MonoBehaviour
         }
 
     }
+
 
     public Card GetLastCardPlayed()
     {
@@ -267,4 +399,13 @@ public class CardChain : MonoBehaviour
         return totalCardInChain;
     }
 
+
+    private void PassBtnClick()
+    {
+        if (chainEnding)
+        {
+            return;
+        }
+        ChainEnd(isPlayer: true);
+    }
 }

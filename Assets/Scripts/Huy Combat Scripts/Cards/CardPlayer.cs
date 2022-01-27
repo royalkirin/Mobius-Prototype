@@ -8,7 +8,7 @@ using UnityEngine;
 public class CardPlayer : MonoBehaviour
 {
     //the character on the side of this card player. For enemy, friendlyCharacter's value is enemyCharacter
-    GameObject friendlyCharacter; 
+    GameObject friendlyCharacter;
     GameObject enemyCharacter; //the character on the other side.
     [SerializeField] string friendlyTag = null;
     [SerializeField] string enemyTag = null; //for players, enemyTag = EnemyCharacter. For enemy, enemyTag = PlayerCharacter
@@ -23,6 +23,9 @@ public class CardPlayer : MonoBehaviour
 
     CardChain cardChain;
     Deck playerDeck; //deck of the player (enemy do not have a deck yet)
+
+    //handle trap card plays
+    TrapCardManager trapCardManager;
 
     private void Start()
     {
@@ -65,6 +68,11 @@ public class CardPlayer : MonoBehaviour
             Debug.Log("Cannot find Deck for CardPlayer");
         }
 
+        trapCardManager = GameObject.FindWithTag("TrapCardManager").GetComponent<TrapCardManager>();
+        if(trapCardManager is null)
+        {
+            Debug.Log("Cannot find Trap Card Manager in " + name);
+        }
 
     }
 
@@ -102,7 +110,7 @@ public class CardPlayer : MonoBehaviour
             return;
         }
 
-        if(card is SupportCard)
+        if (card is SupportCard)
         {
             SupportCard supportCard = (SupportCard)card;
             supportCard.Play(playerDeck.gameObject);
@@ -113,7 +121,7 @@ public class CardPlayer : MonoBehaviour
     //set up the right owner.
     private void SetupCardOwner(Card card)
     {
-        if(enemyTag == "EnemyCharacter")
+        if (enemyTag == "EnemyCharacter")
         {
             card.SetOwner(belongToPlayer: true);
         }
@@ -124,27 +132,56 @@ public class CardPlayer : MonoBehaviour
     }
 
 
-    public bool PlayCard(Card card)
+    public bool PlayCard(Card card, bool isFaceUp = true)
     {
         SetupCardOwner(card);
-        bool playedSuccesfully = cardChain.TryAddCardToChain(card);
-
-        if(!playedSuccesfully)
+        bool playedSuccessfully = false;
+        if (isFaceUp)
         {
-            Debug.Log("CAN'T PLAYED!");
-            return false;
+            Debug.Log("Card Player trying to play face UP");
+            playedSuccessfully = PlayCardFaceUp(card);
+        }
+        else
+        {
+            Debug.Log("Card Player trying to play face DOWN");
+            playedSuccessfully = PlayCardFaceDown(card);
         }
 
-
-        
-        //battleGround.PlayCardOnBattleGround(card, isPlayedFaceUp: true);
-        if (card.BelongToPlayer())
+        //if its played down/up, remove it from the player hand
+        if (card.BelongToPlayer() && playedSuccessfully)
         {
             playerhand.RemoveCard(card);
         }
 
-        return true;    
-
+        return playedSuccessfully;
     }
 
+    //helper function to handle play card face up
+    private bool PlayCardFaceUp(Card card)
+    {
+        bool playedSuccessfully = cardChain.TryAddCardToChain(card);
+
+        if (!playedSuccessfully)
+        {
+            Debug.Log("CAN'T PLAYED!");
+            return false;
+        }
+        return true;
+    }
+
+    //helper function to handle play card face down
+    private bool PlayCardFaceDown(Card card)
+    {
+        if(cardChain.GetTotalCard() != 0)
+        {
+            Debug.Log("Card chain is not empty. Cannot play face down.");
+            return false;
+        }
+        else
+        {
+            Debug.Log("Card chain is empty. Can try to play");
+            bool playedSuccessfully = trapCardManager.PlayTrapCardFaceDown(card);
+            return playedSuccessfully;
+        }
+    }
 }

@@ -24,7 +24,13 @@ public class DragableDropable : MonoBehaviour, IDragHandler, IEndDragHandler, IB
     //Card Player component of the Player
     //only Cards that belong to players can be dragged and dropped.
     //we only use this reference during drag/drop events.
-    CardPlayer playerCardPlayer; 
+    CardPlayer playerCardPlayer;
+
+
+    //these variables are for playing face down or face up.
+    //dragging with left mouse is face up, right mouse is face down
+    bool isFaceUp = true;
+
 
     private void Start()
     {
@@ -55,7 +61,8 @@ public class DragableDropable : MonoBehaviour, IDragHandler, IEndDragHandler, IB
         if (isDropped)
         {
             //if the game accepts the card, we play it
-            bool isPlayedSucessfully = playerCardPlayer.PlayCard(GetComponent<Card>());
+            //pass the info of trying to play it face down or up.
+            bool isPlayedSucessfully = playerCardPlayer.PlayCard(GetComponent<Card>(), isFaceUp);
             if (isPlayedSucessfully)
             {
                 return;
@@ -65,11 +72,10 @@ public class DragableDropable : MonoBehaviour, IDragHandler, IEndDragHandler, IB
                 isDropped = false;
                 transform.position = originalPosition;
             }
-
         }
         else
         {
-            //Debug.Log(name + " is not dropped");
+            Debug.Log(name + " is not dropped, return to original position");
             transform.position = originalPosition;
         }
     }
@@ -78,6 +84,15 @@ public class DragableDropable : MonoBehaviour, IDragHandler, IEndDragHandler, IB
     {
         //eventData.pointerDrag.GetComponent<CardValue>().isDropped = false; default value is false
         //Debug.Log(name + " begins dragged");
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            Debug.Log("Dragging with Left mouse, playing face up");
+            isFaceUp = true;
+        }else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            Debug.Log("Dragging with Right mouse, playing face down");
+            isFaceUp = false;
+        }
     }
 
     //the game moves the cards in different position in player hand

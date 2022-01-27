@@ -34,6 +34,15 @@ public class TurnManager : MonoBehaviour
     bool isDiscardModeON = false;
     PlayerHand playerHand;
     DiscardHandler discardHandler;
+
+    //integrate trapcard
+    TrapCardManager trapCardManager;
+    GameObject TrapCardOptionsHandler;
+    public bool didPlayerChooseATrapOption = false; //did player choose?
+    public bool playerChooseToSkipTurn = false;//player options
+
+
+
     private void Start()
     {
         FindVariables();
@@ -43,13 +52,6 @@ public class TurnManager : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            playerNumberOfCardsValid = true;
-        }
-    }
 
     private void FindVariables()
     {
@@ -92,6 +94,23 @@ public class TurnManager : MonoBehaviour
         {
             discardHandler.gameObject.SetActive(false);
         }
+
+        trapCardManager = GameObject.FindWithTag("TrapCardManager").GetComponent<TrapCardManager>();
+        if (trapCardManager is null)
+        {
+            Debug.LogWarning("Cannot find TrapCard Manager in " + name);
+        }
+
+
+        TrapCardOptionsHandler = GameObject.FindWithTag("TrapCardOptionsHandler");
+        if(TrapCardOptionsHandler is null)
+        {
+            Debug.Log("Cannot find Trap Card options Handler in " + name);
+        }
+        else
+        {
+            TrapCardOptionsHandler.SetActive(false);
+        }
     }
 
 
@@ -106,9 +125,12 @@ public class TurnManager : MonoBehaviour
         PrintTurn();
 
 
+        
+        TrapCardCheck();
         CardLimitCheck();
-
     }
+
+
 
 
 
@@ -139,6 +161,50 @@ public class TurnManager : MonoBehaviour
         }
 
     }
+
+    //check if player has a trap card at the beginning of his turn
+    //if so, he either discard it and play, or skip his turn.
+    private void TrapCardCheck()
+    {
+        foreach (GameObject obj in PlayerActivateList)
+        {
+            obj.SetActive(false);
+        }
+        endTurnBtn.SetActive(false);
+
+
+        if (isPlayerTurn && trapCardManager.DoesPlayerHaveATrapCard())
+        {
+            didPlayerChooseATrapOption = false;
+            Debug.LogWarning("Implement trap card check here");
+            TrapCardOptionsHandler.SetActive(true);
+            StartCoroutine(WaitUntilPlayerReactToDiscardTrapCardOptions());
+        }
+        else
+        {
+            ManageFeaturesChangingTurn();
+        }
+
+
+    }
+
+    IEnumerator WaitUntilPlayerReactToDiscardTrapCardOptions()
+    {
+        yield return new WaitUntil(() => didPlayerChooseATrapOption == true);
+        if (playerChooseToSkipTurn)
+        {
+            Debug.Log("Player chose to skip turn");
+            PlayerChangeTurn();
+        }
+        else
+        {
+            Debug.Log("Player chose to discard");
+            trapCardManager.DiscardPlayerTrap();
+        }
+        TrapCardOptionsHandler.SetActive(false);
+    }
+
+
 
     private void SetDiscardMode(bool isDisCardModeON)
     {
@@ -197,6 +263,7 @@ public class TurnManager : MonoBehaviour
     }
 
     //the player calls this script (by hitting EndTurn tn) to signify changing turn.
+    //the trapcardManager call this to end player turn after he plays a trap card.
     public void PlayerChangeTurn()
     {
         if (!isPlayerTurn)//if player clicks EndTurn during Enemy Turn, we do nothing.

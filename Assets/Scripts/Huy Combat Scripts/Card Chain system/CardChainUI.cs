@@ -136,6 +136,7 @@ public class CardChainUI : MonoBehaviour
         if (!isPlayedFaceUp)
         {
             //handle playing trap card here
+            //NOTE: playing trap card is handled in TrapCardManager.cs, this is no longer required.
             Debug.Log("playing card face down is not handled yet.");
             return false;
         }

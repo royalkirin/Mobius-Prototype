@@ -3,42 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//Trap card is a special class because each trap card has unique implementation.
-//most likely, each trap card requires its own script.
-//So, this is just a new "base" for trap cards. Script is simple. Just need to know if it's activated or not.
-//child scripts that handle implementation of each trap card should handle isActivated depends on the situation.
-
-public class TrapCard : Card
+//this is a base class for every trap card in the game.
+//The TrapCard is not derived from Card because each type of card can also have a trap card effect
+//the trapcard is a separate component that SOME cards have
+//Each trap card component of each character will be implemented separately, derived them from this class
+//this script only handles the logic of the trap, not the UI. UI is already handled in Card -> BackImage
+//While this script can be attached to an object, I prefer creating new script for each trap card and attach
+//those scripts into specific att/defense/supp card prefab.
+public class TrapCard : MonoBehaviour
 {
 
+    //each trapcard counters attack/defense/support separately, not like the usual logic 
+    //(usual logic: att < defense < support < att)
+    //SET UP THESE BOOLS WHEN CREATING EACH TRAP CARD.
+    bool counterAttackCard = true; //does this trap counter attack card?
+    bool counterDefenseCard = true;//does this trap counter defense card?
+    bool counterSupportCard = true; //does this trap counter support card?
 
-    //while isPlayed (bool in Card.cs) refers to when the card is played,
-    //for trap card, isPlayed doesn't really do anything when played (except being shown on the bg)
-    //it does things when activated, so we need another variable
-    //so we don't mess things up with base Card logic.
-    bool isActivated = false;
-
-   
-
-
-
-    public bool IsActivated()
+    //TODO: expand this later.
+    public bool ActivateTrapCard()
     {
-        return isActivated;
+        Debug.Log("TRAP CARD ACTIVATED. IMPLEMENT IT HERE ");
+        //temporary solution: activate normal effect of the card
+        GameObject.FindWithTag("Player").GetComponent<CardPlayer>().CardTakesEffect(
+            GetComponent<Card>());
+        return false;
     }
 
-
-    public void SetActivated(bool isActivated)
+    public bool doesCounterAttackCard()
     {
-        this.isActivated = isActivated;
+        return counterAttackCard;
     }
 
-
-
-    //all individual trap card scripts must override this function.
-    public void Activate()
+    public bool doesCounterDefenseCard()
     {
-        SetActivated(true);
+        return counterDefenseCard;
     }
 
+    public bool doesCounterSupportCard()
+    {
+        return counterSupportCard;
+    }
 }

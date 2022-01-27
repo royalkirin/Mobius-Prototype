@@ -13,6 +13,8 @@ TagManager:
   - PlayerDeck
   - CardChain
   - DiscardHandler
+  - TrapCardManager
+  - TrapCardOptionsHandler
   layers:
   - Default
   - TransparentFX
