@@ -1,41 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+
 
 public class TooltipCaller : MonoBehaviour {
 
-    Ray ray;
-    RaycastHit hit;
-    Camera cameraObject;
 
+    Card card;
 
-    private void Awake() {
-        cameraObject = Camera.main;
+    int UILayer;
+
+    [SerializeField] private bool showUI;
+
+    private void Start() {
+        showUI = true;
+        UILayer = LayerMask.NameToLayer("UI");
+    }
+
+    private void Update() {
+        if (showUI) {
+            ShowToolTipIfItsACard(GetEventSystemRaycastResults());
+        }
     }
 
 
-    /**
-     * 
-     * 
-     *    we are not using this for now, but will be usefull to show the card stats on the screen
-     *      just remember to change the raycas layer before use!
-     * 
-     * 
-     * 
-     * 
-    void Update() {
 
-        //to get the car more informations
-        ray = cameraObject.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit)) {
-            TooltipInfo tooltipInfo = hit.collider.gameObject.GetComponent<TooltipInfo>(); ;
-            if (tooltipInfo != null) {
-                print("--------------- " + hit.collider.name);
+    private void ShowToolTipIfItsACard(List<RaycastResult> eventSystemRaysastResults) {
+        for (int index = 0; index < eventSystemRaysastResults.Count; index++) {
+            RaycastResult curRaysastResult = eventSystemRaysastResults[index];
+
+            if (curRaysastResult.gameObject.layer == UILayer) {
+
+                card = curRaysastResult.gameObject.GetComponent<Card>();
+                if (card != null) {
+                    TooltipUI.Instance.Show(null, card, 0.1f);
+                    return;
+                }
+
+
             }
         }
-
     }
 
-    **/
+
+    //Gets all event system raycast results of current mouse or touch position.
+    static List<RaycastResult> GetEventSystemRaycastResults() {
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Input.mousePosition;
+        List<RaycastResult> raysastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, raysastResults);
+        return raysastResults;
+    }
+
+
+
+    public void StopShowingUI() {
+        showUI = false;
+    }
+
+    public void ResumeShowingUI() {
+        showUI = true;
+    }
 
 }

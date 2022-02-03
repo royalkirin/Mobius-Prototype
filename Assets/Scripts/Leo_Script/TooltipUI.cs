@@ -12,6 +12,7 @@ public class TooltipUI : MonoBehaviour {
 
     [SerializeField] private RectTransform canvasRectTransform;
 
+    private TooltipCaller tooltipCaller;
     private Image toolTipSprite;
     private RectTransform rectTransform;
     private TextMeshProUGUI textMeshPro;
@@ -21,6 +22,7 @@ public class TooltipUI : MonoBehaviour {
     private void Awake() {
         Instance = this;
 
+        tooltipCaller = this.transform.parent.GetComponent<TooltipCaller>();
         rectTransform = GetComponent<RectTransform>();
         textMeshPro = transform.Find("text").GetComponent<TextMeshProUGUI>();
         backgroundRectTransform = transform.Find("background").GetComponent<RectTransform>();
@@ -91,5 +93,14 @@ public class TooltipUI : MonoBehaviour {
 
         gameObject.SetActive(false);
     }
+
+    public void StopShowingUI() {
+        tooltipCaller.StopShowingUI();
+    }
+
+    public void ResumeShowingUI() {
+        tooltipCaller.ResumeShowingUI();
+    }
+
 
 }
