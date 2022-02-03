@@ -12,7 +12,7 @@ public class RadMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MenuRoot = this.transform.GetChild(0);
+        MenuRoot = this.transform.GetChild(transform.childCount - 1);
     }
 
     // Update is called once per frame
