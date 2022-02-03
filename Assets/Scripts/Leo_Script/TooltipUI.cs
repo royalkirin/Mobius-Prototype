@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class TooltipUI : MonoBehaviour {
 
@@ -11,12 +12,11 @@ public class TooltipUI : MonoBehaviour {
 
     [SerializeField] private RectTransform canvasRectTransform;
 
-
-    //remove o [SerializeField] 
-    [SerializeField] private RectTransform rectTransform;
-    [SerializeField] private TextMeshProUGUI textMeshPro;
-    [SerializeField] private RectTransform backgroundRectTransform;
-    [SerializeField] private TooltipTimer tooltipTimer;
+    private Image toolTipSprite;
+    private RectTransform rectTransform;
+    private TextMeshProUGUI textMeshPro;
+    private RectTransform backgroundRectTransform;
+    private float tooltipTimer;
 
     private void Awake() {
         Instance = this;
@@ -24,6 +24,7 @@ public class TooltipUI : MonoBehaviour {
         rectTransform = GetComponent<RectTransform>();
         textMeshPro = transform.Find("text").GetComponent<TextMeshProUGUI>();
         backgroundRectTransform = transform.Find("background").GetComponent<RectTransform>();
+        toolTipSprite = transform.Find("toolTipSprite").GetComponent<Image>();
 
         Hide();
     }
@@ -31,9 +32,9 @@ public class TooltipUI : MonoBehaviour {
     private void Update() {
         HandleFollowMouse();
 
-        if (tooltipTimer != null) {
-            tooltipTimer.timer -= Time.deltaTime;
-            if (tooltipTimer.timer <= 0) {
+        if (tooltipTimer != 0) {
+            tooltipTimer -= Time.deltaTime;
+            if (tooltipTimer <= 0) {
                 Hide();
             }
         }
@@ -53,6 +54,9 @@ public class TooltipUI : MonoBehaviour {
     }
 
     private void SetText(string tooltipText) {
+        textMeshPro.gameObject.SetActive(true);
+        backgroundRectTransform.gameObject.SetActive(true);
+
         textMeshPro.SetText(tooltipText);
         textMeshPro.ForceMeshUpdate();
 
@@ -61,21 +65,31 @@ public class TooltipUI : MonoBehaviour {
         backgroundRectTransform.sizeDelta = textSize + padding;
     }
 
-    public void Show(string tooltipText, TooltipTimer tooltipTimer = null) {
-        this.tooltipTimer = tooltipTimer;
+    public void Show(string tooltipText = null, Card _card = null, float _tooltipTimer = 0) {
+        this.tooltipTimer = _tooltipTimer;
         gameObject.SetActive(true);
-        SetText(tooltipText);
+
+        if (_card != null) {
+            toolTipSprite.gameObject.SetActive(true);
+            toolTipSprite.sprite = _card.GetFrontImage();
+        }
+
+        if (tooltipText != null) {
+            textMeshPro.gameObject.SetActive(true);
+            backgroundRectTransform.gameObject.SetActive(true);
+            SetText(tooltipText);
+        }
+
         HandleFollowMouse();
     }
 
     public void Hide() {
+
+        toolTipSprite.gameObject.SetActive(false);
+        textMeshPro.gameObject.SetActive(false);
+        backgroundRectTransform.gameObject.SetActive(false);
+
         gameObject.SetActive(false);
     }
-
-
-    public class TooltipTimer {
-        public float timer;
-    }
-
 
 }
