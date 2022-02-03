@@ -58,6 +58,9 @@ public class DragableDropable : MonoBehaviour, IDragHandler, IEndDragHandler, IB
     //when done dragging, check if it's dropped on a card drop zone. If so, play the card
     public void OnEndDrag(PointerEventData eventData)
     {
+
+        TooltipUI.Instance.ResumeShowingUI();
+
         if (isDropped)
         {
             //if the game accepts the card, we play it
@@ -82,6 +85,9 @@ public class DragableDropable : MonoBehaviour, IDragHandler, IEndDragHandler, IB
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+
+        TooltipUI.Instance.StopShowingUI();
+
         //eventData.pointerDrag.GetComponent<CardValue>().isDropped = false; default value is false
         //Debug.Log(name + " begins dragged");
         if (eventData.button == PointerEventData.InputButton.Left)
