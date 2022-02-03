@@ -79,7 +79,7 @@ public class JG_PlayerMovement : MonoBehaviour
         {
 
 
-            sNormal = Vector3.up;
+            //sNormal = Vector3.up;
         }
 
         myNormal = Vector3.Lerp(myNormal, sNormal, lSpeed * Time.deltaTime);
