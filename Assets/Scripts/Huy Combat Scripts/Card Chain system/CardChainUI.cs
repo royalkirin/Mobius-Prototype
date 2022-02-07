@@ -13,17 +13,27 @@ public class CardChainUI : MonoBehaviour
     [SerializeField] RectTransform rect;//move this transform
     float lerpLength = 1f;
     float timePassedSinceLerping = 0f;
-    float eachLerpSize = 10f; //bottom Y = -30, top Y = 0, lerp from card 4th -> 10th = 7 times
+    float eachLerpSize = 8.0f; //bottom Y = -30, top Y = 0, lerp from card 4th -> 10th = 7 times
     Vector3 targetLerpingPosition;
     Vector3 startLerpingPosition;
     Vector3 orininalPosition; //when chain finishes, reset back to original position, reset all values.
     bool isLerping = false;//when lerping, switch this
-    //int maximumLerpTime = 7;
-    //int currentLerpTime = 0;
 
     //Variables used for calculating functionality to the chain's flexbility.
     float fSwitchCardPosX = -4.9f;
     float fAlphaReduction = 1.0f;
+    float fAlphaIncrease = 0.0f;
+
+    //Determines what to do for Scrolling.
+    bool bGoingUp = false;
+    bool bManualScroll = false;
+
+    //This variable is meant to be a switch. 1 = Scrolling Down, 2 = Scrolling Up
+    short sPriorFlip = 0;
+
+    //Tracks the most recently played Card and Oldest Card still visible on screen.
+    [SerializeField] int nRecentCard;
+    [SerializeField] int nNextOldestCard;
 
     //Temporary Bool for Debug Purposes Only
     bool bChainManualReset = false;
@@ -49,7 +59,7 @@ public class CardChainUI : MonoBehaviour
     ///             new card to the ongoing chain.                          ///
     ///                                                                     ///
     ///     Date Created: 1/3/21                                            ///
-    ///     Date Updated: 1/13/22                                           ///
+    ///     Date Updated: 2/05/22                                           ///
     ///                                                                     ///
     ///     Author: Jordan R. Douglas                                       ///
     ///*********************************************************************///
@@ -67,13 +77,11 @@ public class CardChainUI : MonoBehaviour
     ///*********************************************************************///
     /// Function: HideCardImage                                             ///
     ///                                                                     ///
-    /// Description: Once the card chain reaches a certain card amount,     ///
-    ///             this function takes effect to hide the oldest card      ///
-    ///             still active in the scene (but it does not remove it    ///
-    ///             from play).                                             ///
+    /// Description: This will hide a Card based on the number given        ///
+    ///             (its position/play in the current chain).               ///
     ///                                                                     ///
-    ///     Date Created: 1/12/21                                           ///
-    ///     Date Updated: 1/13/22                                           ///
+    ///     Date Created: 1/12/22                                           ///
+    ///     Date Updated: 2/06/22                                           ///
     ///                                                                     ///
     ///     Author: Jordan R. Douglas                                       ///
     ///*********************************************************************///
@@ -84,9 +92,131 @@ public class CardChainUI : MonoBehaviour
             fAlphaReduction -= Time.deltaTime;
             cardsInChain[nCard].GetComponent<Image>().color = new Color(1, 1, 1, fAlphaReduction);
         }
-        else if (fAlphaReduction <= 0.0f)
+        else
+            fAlphaReduction = 0.0f;
+    }
+
+    ///*********************************************************************///
+    /// Function: RevealCardImage                                           ///
+    ///                                                                     ///
+    /// Description: This will reveal a Card based on the number given      ///
+    ///             (its position/play in the current chain). Will not be   ///
+    ///             called during normal play, only when the Player chooses ///
+    ///             to manually scroll through the Card Chain.              ///
+    ///                                                                     ///
+    ///     Date Created: 2/04/22                                           ///
+    ///     Date Updated: 2/06/22                                           ///
+    ///                                                                     ///
+    ///     Author: Jordan R. Douglas                                       ///
+    ///*********************************************************************///
+    private void RevealCardImage(int nCard)
+    {
+        if (cardsInChain[nCard].GetComponent<Image>().color.a < 1.0f)
         {
-            fAlphaReduction = 1.0f;
+            fAlphaIncrease += Time.deltaTime;
+            cardsInChain[nCard].GetComponent<Image>().color = new Color(1, 1, 1, fAlphaIncrease);
+        }
+        else
+            fAlphaIncrease = 1.0f;
+    }
+
+    ///*********************************************************************///
+    /// Function: ReturnToRecent                                            ///
+    ///                                                                     ///
+    /// Description: Use to reset the Card Chain's position back to what    ///
+    ///             it should be with the most recently played card.        ///
+    ///             Effectively resets scroll position back to most         ///
+    ///             recently played card. Should not be called unless a     ///
+    ///             new Card is played and the Chain View is not focused    ///
+    ///             on the most recent card.                                ///
+    ///                                                                     ///
+    ///     Date Created: 2/05/22                                           ///
+    ///     Date Updated: 2/06/22                                           ///
+    ///                                                                     ///
+    ///     Author: Jordan R. Douglas                                       ///
+    ///*********************************************************************///
+    private void ReturnToRecent()
+    {
+        while (nRecentCard != faceUpcardsPlayed)
+        {
+            //Determine if we start Lerping or Continue the Current Lerp.
+            if (!isLerping)
+                SetupLerping(true);
+            else
+            {
+                timePassedSinceLerping += Time.deltaTime;
+                LerpUI(true);
+            }
+
+            //Once Oldest Card has disappeared, increment Card Trackers and let the
+            //loop determine if it continues or breaks.
+            if (timePassedSinceLerping > lerpLength && cardsInChain[nRecentCard].GetComponent<Image>().color.a >= 1.0f)
+            { 
+                nNextOldestCard++;
+                nRecentCard++;
+            }
+        }
+    }
+
+    ///*********************************************************************///
+    /// Function: CardScroll                                                ///
+    ///                                                                     ///
+    /// Description: Used to determine how scrolling through the chain will ///
+    ///             work. It has two core parts, one that determines going  ///
+    ///             up, the other determines going down.                    ///
+    ///                                                                     ///
+    ///     Date Created: 2/04/22                                           ///
+    ///     Date Updated: 2/06/22                                           ///
+    ///                                                                     ///
+    ///     Author: Jordan R. Douglas                                       ///
+    ///*********************************************************************///
+    private void CardScroll()
+    {
+        if (!isLerping)
+        {
+            //Chain cannot be scrolled upwards any farther once the oldest card (first in chain) is reached.
+            if (Input.GetKeyDown(KeyCode.L) && nRecentCard != faceUpcardsPlayed + 1)
+            {
+                //If beyond the highest point in the chain when activating, take a step forward in the chain immediately.
+                if (nNextOldestCard < 0)
+                {
+                    nNextOldestCard = 0;
+                    nRecentCard = 6;
+                }
+                else if (sPriorFlip == 2)
+                {
+                    nNextOldestCard++;
+                    nRecentCard++;
+                }
+
+                sPriorFlip = 1;
+
+                //Cards will Lerp Upwards to show newer cards in the Chain.
+                SetupLerping(true);
+                bManualScroll = true;
+            }
+
+            //Chain cannot be scrolled downwards any farther once the newest card (most recently played) is reached.
+            if (Input.GetKeyDown(KeyCode.Period) && nNextOldestCard >= 0)
+            {
+                //If we are beyond the very bottom of the chain when activating, take a step back in the chain immediately
+                if (nRecentCard > faceUpcardsPlayed)
+                {
+                    nNextOldestCard = faceUpcardsPlayed - 6;
+                    nRecentCard = faceUpcardsPlayed;
+                }
+                else if (sPriorFlip == 1)
+                {
+                    nNextOldestCard--;
+                    nRecentCard--;
+                }
+
+                sPriorFlip = 2;
+
+                //Cards will Lerp Downwards to show older cards in the Chain.
+                SetupLerping(false);
+                bManualScroll = true;
+            }
         }
     }
 
@@ -115,11 +245,11 @@ public class CardChainUI : MonoBehaviour
     private void Update()
     {
         TestLerp();
-        LerpUI();
+        LerpUI(bGoingUp);
         timePassedSinceLerping += Time.deltaTime;
-        if (faceUpcardsPlayed > 5 && !bChainManualReset)
+        if (faceUpcardsPlayed > 5)
         {
-            HideCardImage(faceUpcardsPlayed - 6);
+            CardScroll();
         }
     }
 
@@ -132,6 +262,12 @@ public class CardChainUI : MonoBehaviour
     //return true if can play
     public bool PlayCardUI(Card card, bool isPlayer = true, bool isPlayedFaceUp = true)
     {
+        if (bManualScroll)
+        {
+            //nRecentCard--;
+            bManualScroll = false;
+        }
+
         //checking validity
         if (!isPlayedFaceUp)
         {
@@ -141,13 +277,7 @@ public class CardChainUI : MonoBehaviour
             return false;
         }
         faceUpcardsPlayed++;
-
-        /*if (faceUpcardsPlayed > MAX_CARDS_ALLOWED)
-        {
-            Debug.Log("Chain is maxed 10 cards!");
-            faceUpcardsPlayed--;
-            return false;
-        }*/
+        sPriorFlip = 0;
 
         //all is valid.
 
@@ -157,10 +287,24 @@ public class CardChainUI : MonoBehaviour
 
 
         //lerping or not?
-        if (faceUpcardsPlayed > MaxWithoutLerping) {
-            SetupLerping();
-            
+        if (faceUpcardsPlayed > MaxWithoutLerping) 
+        {
+            // If LERPing from here, is the chain currently at the most recent point prior to the newest card?
+            if (nRecentCard != faceUpcardsPlayed - 1)
+            {
+                //If not, run a loop to reach the most recently played card prior to the newest one.
+                if (nNextOldestCard < 0)
+                {
+                    nNextOldestCard = 0;
+                    nRecentCard = 6;
+                }
+                ReturnToRecent();
+            }
+            SetupLerping(true);
         }
+
+        nNextOldestCard = faceUpcardsPlayed - 6;
+        nRecentCard = faceUpcardsPlayed;
 
         return true;
     }
@@ -191,10 +335,6 @@ public class CardChainUI : MonoBehaviour
 
     private void TestLerp()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            SetupLerping();
-        }
         if (Input.GetKeyDown(KeyCode.R))
         {
             bChainManualReset = true;
@@ -214,35 +354,100 @@ public class CardChainUI : MonoBehaviour
         {
             cardsInChain[i].color = new Color(1, 1, 1, 1.0f);
         }
-        //currentLerpTime = 0;
+        bManualScroll = false;
+        nNextOldestCard = faceUpcardsPlayed - 6;
+        nRecentCard = faceUpcardsPlayed - 1;
     }
 
     //other class calls this function to start lerping to a new position.
-    private void SetupLerping()
-    {
-        /*if (currentLerpTime >= maximumLerpTime)//already lerp to maximum position
+    private void SetupLerping(bool bIsGoingUp)
+    {  
+        if (bIsGoingUp)
         {
-            return;
-        }*/
-        targetLerpingPosition += eachLerpSize * Vector3.up;
-        startLerpingPosition = rect.localPosition;
-        isLerping = true;   //lerp starts
-        timePassedSinceLerping = 0f;
+            targetLerpingPosition += eachLerpSize * Vector3.up;
+            startLerpingPosition = rect.localPosition;
+            isLerping = true;   //lerp starts
+            timePassedSinceLerping = 0f;
 
-        //currentLerpTime++;
+            bGoingUp = true;
+        }
+        else if (!bIsGoingUp)
+        {
+            targetLerpingPosition -= eachLerpSize * Vector3.up;
+            startLerpingPosition = rect.localPosition;
+            isLerping = true;   //lerp starts
+            timePassedSinceLerping = 0f;
+
+            bGoingUp = false;
+        }
     }
 
+    ///*********************************************************************///
+    /// Function: ManualLERPScroll                                          ///
+    ///                                                                     ///
+    /// Description: Determines if we incremate/decrease the currently      ///
+    ///             tracked card #s ONLY when Manually Scrolling.           ///
+    ///             Otherwise, it is to be handled elsewhere in the card    ///
+    ///             playing process.                                        ///
+    ///                                                                     ///
+    ///     Date Created: 2/06/22                                           ///
+    ///     Date Updated: 2/06/22                                           ///
+    ///                                                                     ///
+    ///     Author: Jordan R. Douglas                                       ///
+    ///*********************************************************************///
+    private void ManualLERPScroll(bool bIsGoingUp)
+    {
+        if (bManualScroll)
+        {   
+            if (bIsGoingUp)
+            {
+                nNextOldestCard++;
+                nRecentCard++;
+            }
+            else
+            {
+                nNextOldestCard--;
+                nRecentCard--;
+            }
+        }
+    }    
+
     //lerp from start to target position in 1 second
-    private void LerpUI()
+    private void LerpUI(bool bIsGoingUp)
     {
         if (!isLerping)
         {
             return;
         }
-        if(timePassedSinceLerping > lerpLength)//lerp ends
+        if(timePassedSinceLerping > lerpLength && (fAlphaIncrease >= 1.0f || fAlphaReduction <= 0.0f))//lerp ends
         {
+            fAlphaReduction = 1.0f;
+            fAlphaIncrease = 0.0f;
+
+            ManualLERPScroll(bIsGoingUp);
+
             isLerping = false;
             return;
+        }
+
+        if (faceUpcardsPlayed > 5)
+        {
+            if (bIsGoingUp)
+            {
+                //Reveal the next lowest card of the Chain.
+                RevealCardImage(nRecentCard);
+
+                //Hide the current oldest card present in the chain.
+                HideCardImage(nNextOldestCard);
+            }
+            else
+            {
+                //Reveal the next old card in the Chain.
+                RevealCardImage(nNextOldestCard);
+
+                //Hide the lowest card of the Chain.
+                HideCardImage(nRecentCard);
+            }
         }
         float fractionOfJourney = timePassedSinceLerping / lerpLength;
 
