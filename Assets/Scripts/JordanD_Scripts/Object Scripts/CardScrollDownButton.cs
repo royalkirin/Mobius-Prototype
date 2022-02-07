@@ -56,7 +56,8 @@ public class CardScrollDownButton : MonoBehaviour
     ///*********************************************************************///
     void ScrollDownButtonClick()
     {
-        cCardChainUI.CardScrollUp();
+        if (cCardChainUI.faceUpcardsPlayed > 5)
+            cCardChainUI.CardScrollUp();
     }
 
     void Start()

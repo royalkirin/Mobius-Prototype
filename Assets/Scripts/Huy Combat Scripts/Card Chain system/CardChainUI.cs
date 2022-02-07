@@ -158,46 +158,79 @@ public class CardChainUI : MonoBehaviour
         }
     }
 
+    ///*********************************************************************///
+    /// Function: CardScrollUp                                              ///
+    ///                                                                     ///
+    /// Description: Scrolls the card chain upwards until it reaches the    ///
+    ///             bottom of the chain.                                    ///
+    ///                                                                     ///
+    ///     Date Created: 2/07/22                                           ///
+    ///     Date Updated: 2/07/22                                           ///
+    ///                                                                     ///
+    ///     Author: Jordan R. Douglas                                       ///
+    ///*********************************************************************///
     public void CardScrollUp()
     {
-        //If beyond the highest point in the chain when activating, take a step forward in the chain immediately.
-        if (nNextOldestCard < 0)
+        if (!isLerping && nRecentCard != faceUpcardsPlayed + 1)
         {
-            nNextOldestCard = 0;
-            nRecentCard = 6;
-        }
-        else if (sPriorFlip == 2)
-        {
-            nNextOldestCard++;
-            nRecentCard++;
-        }
+            if (!bManualScroll)
+            {
+                return;
+            }
 
-        sPriorFlip = 1;
+            //If beyond the highest point in the chain when activating, take a step forward in the chain immediately.
+            if (nNextOldestCard < 0)
+            {
+                nNextOldestCard = 0;
+                nRecentCard = 6;
+            }
+            else if (sPriorFlip == 2)
+            {
+                nNextOldestCard++;
+                nRecentCard++;
+            }
 
-        //Cards will Lerp Upwards to show newer cards in the Chain.
-        SetupLerping(true);
-        bManualScroll = true;
+            sPriorFlip = 1;
+
+            //Cards will Lerp Upwards to show newer cards in the Chain.
+            SetupLerping(true);
+            bManualScroll = true;
+        }
     }
 
+    ///*********************************************************************///
+    /// Function: CardScrollDown                                            ///
+    ///                                                                     ///
+    /// Description: Scrolls the card chain downwards until it reaches the  ///
+    ///             top of the chain.                                       ///
+    ///                                                                     ///
+    ///     Date Created: 2/07/22                                           ///
+    ///     Date Updated: 2/07/22                                           ///
+    ///                                                                     ///
+    ///     Author: Jordan R. Douglas                                       ///
+    ///*********************************************************************///
     public void CardScrollDown()
     {
         //If we are beyond the very bottom of the chain when activating, take a step back in the chain immediately
-        if (nRecentCard > faceUpcardsPlayed)
+        if (!isLerping && nNextOldestCard >= 0)
         {
-            nNextOldestCard = faceUpcardsPlayed - 6;
-            nRecentCard = faceUpcardsPlayed;
-        }
-        else if (sPriorFlip == 1)
-        {
-            nNextOldestCard--;
-            nRecentCard--;
-        }
+            if (nRecentCard > faceUpcardsPlayed)
+            {
+                nNextOldestCard = faceUpcardsPlayed - 6;
+                nRecentCard = faceUpcardsPlayed;
+            }
+            else if (sPriorFlip == 1)
+            {
+                nNextOldestCard--;
+                nRecentCard--;
+            }
 
-        sPriorFlip = 2;
+            sPriorFlip = 2;
 
-        //Cards will Lerp Downwards to show older cards in the Chain.
-        SetupLerping(false);
-        bManualScroll = true;
+            //Cards will Lerp Downwards to show older cards in the Chain.
+            SetupLerping(false);
+            bManualScroll = true;
+        }
     }
 
     ///*********************************************************************///
@@ -214,20 +247,17 @@ public class CardChainUI : MonoBehaviour
     ///*********************************************************************///
     private void CardScroll()
     {
-        if (!isLerping)
-        {
             //Chain cannot be scrolled upwards any farther once the oldest card (first in chain) is reached.
-            if (Input.GetKeyDown(KeyCode.L) && nRecentCard != faceUpcardsPlayed + 1)
+            if (Input.GetKeyDown(KeyCode.L))
             {
                 CardScrollUp();
             }
 
             //Chain cannot be scrolled downwards any farther once the newest card (most recently played) is reached.
-            if (Input.GetKeyDown(KeyCode.Period) && nNextOldestCard >= 0)
+            else if (Input.GetKeyDown(KeyCode.Period))
             {
                 CardScrollDown();
             }
-        }
     }
 
     private void FindVariables()
