@@ -29,6 +29,10 @@ public class TurnManager : MonoBehaviour
     //that he doesn't want to play a card.
     GameObject endTurnBtn;
 
+    //Objects that deal with the Scrolling Functionality
+    GameObject uScrollUpBtn;
+    GameObject uScrollDownBtn;
+
     //does player have a valid number of cards in hand? ( <= Maximum = 5)
     public bool playerNumberOfCardsValid = false;
     bool isDiscardModeON = false;
@@ -78,6 +82,14 @@ public class TurnManager : MonoBehaviour
             Debug.Log("Could not find End Turn btn. Check Card Play Canvas.");
         }
         CheckEndTurnBtnActivated();
+
+        uScrollUpBtn = GameObject.Find("Scroll Up");
+        uScrollDownBtn = GameObject.Find("Scroll Down");
+        if (uScrollUpBtn is null || uScrollDownBtn is null)
+        {
+            Debug.Log("Could not find one or both Scroll Buttons;. Check Card Play Canvas.");
+        }
+        CheckScrollBtnsActivated();
 
         playerHand = GameObject.FindWithTag("PlayerHand").GetComponent<PlayerHand>();
         if(playerHand is null)
@@ -254,6 +266,7 @@ public class TurnManager : MonoBehaviour
         
         CheckPassBtnActivated();
         CheckEndTurnBtnActivated();
+        CheckScrollBtnsActivated();
         if (!isPlayerTurn)//if it's enemy turn, we signify the enemy AI to play cards.
         {
             StartCoroutine(enemyAI.OnEnemyTurn(8f));
@@ -337,6 +350,7 @@ public class TurnManager : MonoBehaviour
             //activate pass btn for player
             CheckPassBtnActivated();
             CheckEndTurnBtnActivated();
+            CheckScrollBtnsActivated();
             ManageFeaturesReactionTurn();
         }
     }
@@ -367,10 +381,26 @@ public class TurnManager : MonoBehaviour
         }
     }
 
+    public void CheckScrollBtnsActivated()
+    {
+        uScrollUpBtn.SetActive(false);
+        uScrollDownBtn.SetActive(false);
+
+        if (isPlayerTurn)
+        {
+            if (cardChain.GetTotalCard() > 5)
+            {
+                uScrollUpBtn.SetActive(true);
+                uScrollDownBtn.SetActive(true);
+            }
+        }
+    }
+
     public void OnPlayerChainEnds()
     {
         CheckEndTurnBtnActivated();
         CheckPassBtnActivated();
+        CheckScrollBtnsActivated();
         ManageFeaturesChangingTurn();
     }
 }

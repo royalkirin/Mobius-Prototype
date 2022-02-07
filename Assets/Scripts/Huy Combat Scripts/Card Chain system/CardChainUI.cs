@@ -158,6 +158,48 @@ public class CardChainUI : MonoBehaviour
         }
     }
 
+    public void CardScrollUp()
+    {
+        //If beyond the highest point in the chain when activating, take a step forward in the chain immediately.
+        if (nNextOldestCard < 0)
+        {
+            nNextOldestCard = 0;
+            nRecentCard = 6;
+        }
+        else if (sPriorFlip == 2)
+        {
+            nNextOldestCard++;
+            nRecentCard++;
+        }
+
+        sPriorFlip = 1;
+
+        //Cards will Lerp Upwards to show newer cards in the Chain.
+        SetupLerping(true);
+        bManualScroll = true;
+    }
+
+    public void CardScrollDown()
+    {
+        //If we are beyond the very bottom of the chain when activating, take a step back in the chain immediately
+        if (nRecentCard > faceUpcardsPlayed)
+        {
+            nNextOldestCard = faceUpcardsPlayed - 6;
+            nRecentCard = faceUpcardsPlayed;
+        }
+        else if (sPriorFlip == 1)
+        {
+            nNextOldestCard--;
+            nRecentCard--;
+        }
+
+        sPriorFlip = 2;
+
+        //Cards will Lerp Downwards to show older cards in the Chain.
+        SetupLerping(false);
+        bManualScroll = true;
+    }
+
     ///*********************************************************************///
     /// Function: CardScroll                                                ///
     ///                                                                     ///
@@ -177,45 +219,13 @@ public class CardChainUI : MonoBehaviour
             //Chain cannot be scrolled upwards any farther once the oldest card (first in chain) is reached.
             if (Input.GetKeyDown(KeyCode.L) && nRecentCard != faceUpcardsPlayed + 1)
             {
-                //If beyond the highest point in the chain when activating, take a step forward in the chain immediately.
-                if (nNextOldestCard < 0)
-                {
-                    nNextOldestCard = 0;
-                    nRecentCard = 6;
-                }
-                else if (sPriorFlip == 2)
-                {
-                    nNextOldestCard++;
-                    nRecentCard++;
-                }
-
-                sPriorFlip = 1;
-
-                //Cards will Lerp Upwards to show newer cards in the Chain.
-                SetupLerping(true);
-                bManualScroll = true;
+                CardScrollUp();
             }
 
             //Chain cannot be scrolled downwards any farther once the newest card (most recently played) is reached.
             if (Input.GetKeyDown(KeyCode.Period) && nNextOldestCard >= 0)
             {
-                //If we are beyond the very bottom of the chain when activating, take a step back in the chain immediately
-                if (nRecentCard > faceUpcardsPlayed)
-                {
-                    nNextOldestCard = faceUpcardsPlayed - 6;
-                    nRecentCard = faceUpcardsPlayed;
-                }
-                else if (sPriorFlip == 1)
-                {
-                    nNextOldestCard--;
-                    nRecentCard--;
-                }
-
-                sPriorFlip = 2;
-
-                //Cards will Lerp Downwards to show older cards in the Chain.
-                SetupLerping(false);
-                bManualScroll = true;
+                CardScrollDown();
             }
         }
     }
