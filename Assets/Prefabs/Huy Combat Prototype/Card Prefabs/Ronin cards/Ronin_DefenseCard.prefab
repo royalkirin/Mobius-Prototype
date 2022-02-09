@@ -29,6 +29,7 @@ MonoBehaviour:
   belongToPlayer: 1
   frontImage: {fileID: 21300000, guid: 9ce75903fb081094eb4a4fba16b7ee20, type: 3}
   backImage: {fileID: 21300000, guid: 0494c4d967886e24b84b0ff7294882ef, type: 3}
+  trapImage: {fileID: 21300000, guid: 9d57aa07a723b65489c9b8cc10dbf25e, type: 3}
   positionInHand: 0
 --- !u!1001 &3932157711741426837
 PrefabInstance:
