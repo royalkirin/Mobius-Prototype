@@ -12,6 +12,7 @@ using UnityEngine;
 //those scripts into specific att/defense/supp card prefab.
 public class TrapCard : MonoBehaviour
 {
+    public string TrapCardName = "default_trap_card";
 
     //each trapcard counters attack/defense/support separately, not like the usual logic 
     //(usual logic: att < defense < support < att)
@@ -20,13 +21,20 @@ public class TrapCard : MonoBehaviour
     bool counterDefenseCard = true;//does this trap counter defense card?
     bool counterSupportCard = true; //does this trap counter support card?
 
+
+
+
     //TODO: expand this later.
-    public bool ActivateTrapCard()
+    public virtual bool ActivateTrapCard()
     {
         Debug.Log("TRAP CARD ACTIVATED. IMPLEMENT IT HERE ");
+
+
         //temporary solution: activate normal effect of the card
-        GameObject.FindWithTag("Player").GetComponent<CardPlayer>().CardTakesEffect(
-            GetComponent<Card>());
+        GameObject.FindWithTag("Player").GetComponent<CardPlayer>().
+            CardTakesEffect(GetComponent<Card>());
+
+
         return false;
     }
 
@@ -43,5 +51,18 @@ public class TrapCard : MonoBehaviour
     public bool doesCounterSupportCard()
     {
         return counterSupportCard;
+    }
+
+    public void SetCounterAttackCard(bool counterAttackCard)
+    {
+        this.counterAttackCard = counterAttackCard;
+    }
+    public void SetCounterDefenseCard(bool counterDefenseCard)
+    {
+        this.counterDefenseCard = counterDefenseCard;
+    }
+    public void SetCounterSupportCard(bool counterSupportCard)
+    {
+        this.counterSupportCard = counterSupportCard;
     }
 }

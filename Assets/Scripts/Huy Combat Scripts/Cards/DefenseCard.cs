@@ -8,7 +8,7 @@ public class DefenseCard : Card
 {
     float defenseValue = 1f;
 
-    public new void Play(GameObject target)
+    public override void Play(GameObject target)
     {
         base.Play(target);
         Defense(target);
@@ -16,7 +16,7 @@ public class DefenseCard : Card
 
 
     //when played, try to Defense the target
-    private bool Defense(GameObject target)
+    public bool Defense(GameObject target)
     {
         //if the target is Attackable -> we increase its defense
         if (target.TryGetComponent<Attackable>(out Attackable targetAttackable))

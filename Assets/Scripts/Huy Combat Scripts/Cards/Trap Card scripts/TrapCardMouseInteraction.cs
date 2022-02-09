@@ -33,7 +33,7 @@ public class TrapCardMouseInteraction : MonoBehaviour
         //turn on the switch here
         isShowingTrapInfo = true;
 
-
+        TooltipUI.Instance.Show(null, card, 0.1f);
         //Try to activate the trap card when player right click it
         if (Input.GetMouseButtonDown(1))
         {

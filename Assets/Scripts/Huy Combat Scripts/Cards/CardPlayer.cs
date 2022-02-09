@@ -150,6 +150,7 @@ public class CardPlayer : MonoBehaviour
         //if its played down/up, remove it from the player hand
         if (card.BelongToPlayer() && playedSuccessfully)
         {
+            //Debug.LogWarning("here");
             playerhand.RemoveCard(card);
         }
 
@@ -181,6 +182,7 @@ public class CardPlayer : MonoBehaviour
         {
             Debug.Log("Card chain is empty. Can try to play");
             bool playedSuccessfully = trapCardManager.PlayTrapCardFaceDown(card);
+            //Debug.LogError(playedSuccessfully);
             return playedSuccessfully;
         }
     }

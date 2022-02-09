@@ -8,14 +8,14 @@ public class AttackCard : Card
 {
     float damage = 1f;
 
-    public new void Play(GameObject target)
+    public override void Play(GameObject target)
     {
         base.Play(target);
         Attack(target);
     }
  
     //when played, try to attack target
-    private bool Attack(GameObject target)
+    public bool Attack(GameObject target)
     {
         //if the target is Attackable
         if(target.TryGetComponent<Attackable>(out Attackable targetAttackable))

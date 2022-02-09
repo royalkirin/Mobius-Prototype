@@ -10,14 +10,15 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
     public bool isPlayerTurn = true;
-    
+    //when someone attacks another, the other can have a reaction turn to choose to counter the card
+    public bool isPlayerReactTurn = false;
+
 
     public GameObject[] PlayerActivateList;//all the things we activate when it's player turn, deactivate on Enemy Turn
     public GameObject[] PlayerReactionActivateList; //all the things we activate when it's player turn/reaction turn, deactivate on Enemy reaction turn
     EnemyAI enemyAI;//enemy in the scene
 
-    //when someone attacks another, the other can have a reaction turn to choose to counter the card
-    public bool isPlayerReactTurn = false;
+    
 
     Deck playerDeck;
     CardChain cardChain;
@@ -44,7 +45,18 @@ public class TurnManager : MonoBehaviour
     GameObject TrapCardOptionsHandler;
     public bool didPlayerChooseATrapOption = false; //did player choose?
     public bool playerChooseToSkipTurn = false;//player options
+    //help managing character Buffs from trapcards
+    CharacterBuffs playerCharacterBuffs;
+    CharacterBuffs enemyCharacterBuffs;
+    
 
+
+    //these bools are for the stages of a turn 
+    //the 2nd stage have to wait until the first stage finish to continue, and so on...
+    public bool firstStageCheckTrapCard = true; //some character skips this first stage
+    public bool firstStageFinished = false;
+    public bool secondStageCheckCardLimit = true;
+    public bool secondStageFinished = false;
 
 
     private void Start()
@@ -123,6 +135,20 @@ public class TurnManager : MonoBehaviour
         {
             TrapCardOptionsHandler.SetActive(false);
         }
+
+
+        
+        playerCharacterBuffs = GameObject.FindWithTag("PlayerCharacter").GetComponent<CharacterBuffs>();
+        if(playerCharacterBuffs is null)
+        {
+            Debug.Log("Cannot find Player Character Buffs in " + name);
+        }
+        enemyCharacterBuffs = GameObject.FindWithTag("EnemyCharacter").GetComponent<CharacterBuffs>();
+        if (playerCharacterBuffs is null)
+        {
+            Debug.Log("Cannot find Enemy Character Buffs in " + name);
+        }
+
     }
 
 
@@ -131,129 +157,40 @@ public class TurnManager : MonoBehaviour
     //Player have a separate function he should call to change turn.
     public void DefaultChangeTurn()
     {
+        
+
         Debug.Log("default change turn");
         isPlayerTurn = !isPlayerTurn;
         isPlayerReactTurn = isPlayerTurn;
         PrintTurn();
 
-
-        
-        TrapCardCheck();
-        CardLimitCheck();
+        StartNewTurnStages();
     }
 
-
-
-
-
-
-    //we turn off all features UNTIL players discard extra cards from his hand.
-    private void CardLimitCheck()
+    //before we change the Turn from player A -> B, we remove some buffs from player A
+    //player A can maybe have some buffs that last a turn, for example, Inner Peace.
+    private void RemoveBuffs()
     {
-        foreach (GameObject obj in PlayerActivateList)
+        if (isPlayerTurn)
         {
-            obj.SetActive(false);
-        }
-        endTurnBtn.SetActive(false);
-
-        UpdateDiscardStatus();
-        if (playerNumberOfCardsValid)
-        {
-            Debug.Log("Number of cards Validity check: True");
-            AfterCheckingSequence();
-            
-            return;
+            playerCharacterBuffs.RemoveBuffsEndOfTurn();
         }
         else
         {
-            SetDiscardMode(true);
-            Debug.Log("Number of cards Validity check: False");
-            InvokeRepeating(nameof(PrintWaitingMessage), time: 0.5f, repeatRate: 1f);
-            StartCoroutine(WaitUntilPlayerHasValidCardNumber());
+            enemyCharacterBuffs.RemoveBuffsEndOfTurn();
         }
-
     }
 
-    //check if player has a trap card at the beginning of his turn
-    //if so, he either discard it and play, or skip his turn.
-    private void TrapCardCheck()
+    private void StartNewTurnStages()
     {
-        foreach (GameObject obj in PlayerActivateList)
+        if (firstStageCheckTrapCard == true)
         {
-            obj.SetActive(false);
+            firstStageFinished = false;
+            FirstStageTrapCardCheck();
         }
-        endTurnBtn.SetActive(false);
-
-
-        if (isPlayerTurn && trapCardManager.DoesPlayerHaveATrapCard())
-        {
-            didPlayerChooseATrapOption = false;
-            Debug.LogWarning("Implement trap card check here");
-            TrapCardOptionsHandler.SetActive(true);
-            StartCoroutine(WaitUntilPlayerReactToDiscardTrapCardOptions());
-        }
-        else
-        {
-            ManageFeaturesChangingTurn();
-        }
-
-
+        StartCoroutine(SecondStageCardLimitCheck());
     }
 
-    IEnumerator WaitUntilPlayerReactToDiscardTrapCardOptions()
-    {
-        yield return new WaitUntil(() => didPlayerChooseATrapOption == true);
-        if (playerChooseToSkipTurn)
-        {
-            Debug.Log("Player chose to skip turn");
-            PlayerChangeTurn();
-        }
-        else
-        {
-            Debug.Log("Player chose to discard");
-            trapCardManager.DiscardPlayerTrap();
-        }
-        TrapCardOptionsHandler.SetActive(false);
-    }
-
-
-
-    private void SetDiscardMode(bool isDisCardModeON)
-    {
-        this.isDiscardModeON = isDisCardModeON;
-        if (isDiscardModeON)
-        {
-            discardHandler.gameObject.SetActive(true);
-            discardHandler.UpdateDiscardMessage();
-        }
-        else
-        {
-            discardHandler.gameObject.SetActive(false);
-        }
-
-    }
-
-    public bool GetDiscardMode()
-    {
-        return isDiscardModeON;
-    }
-
-    public void UpdateDiscardStatus()
-    {
-        playerNumberOfCardsValid = (playerHand.cardsInHand.Count <= PlayerHand.MAX_CARD_COUNT);
-    }
-
-
-    private void PrintWaitingMessage()
-    {
-        Debug.Log("Waiting...");
-    }
-    //wait until player discards all his extra cards
-    IEnumerator WaitUntilPlayerHasValidCardNumber()
-    {
-        yield return new WaitUntil(() => playerNumberOfCardsValid == true);
-        AfterCheckingSequence();
-    }
 
     //after player has a valid amount of card, start the turn.
     private void AfterCheckingSequence()
@@ -275,6 +212,8 @@ public class TurnManager : MonoBehaviour
         SetDiscardMode(false);
     }
 
+
+
     //the player calls this script (by hitting EndTurn tn) to signify changing turn.
     //the trapcardManager call this to end player turn after he plays a trap card.
     public void PlayerChangeTurn()
@@ -289,7 +228,7 @@ public class TurnManager : MonoBehaviour
             Debug.Log("Player cannot change turn during Enemy Reaction Turn.");
             return;
         }
-
+        RemoveBuffs();
         //player clicks during his turn, we change turn
         DefaultChangeTurn();
     }
@@ -298,7 +237,6 @@ public class TurnManager : MonoBehaviour
     //Decide which features to be enabled/disabled when swiching turns.
     public void ManageFeaturesChangingTurn()
     {
-        
         foreach (GameObject obj in PlayerActivateList)
         {
             obj.SetActive(isPlayerTurn);
@@ -310,7 +248,7 @@ public class TurnManager : MonoBehaviour
 
     private void ManageFeaturesReactionTurn()
     {
-        Debug.Log("is player reaction turn = " + isPlayerReactTurn);
+        //Debug.Log("is player reaction turn = " + isPlayerReactTurn);
         foreach(GameObject obj in PlayerReactionActivateList)
         {
             obj.SetActive(isPlayerReactTurn);
@@ -403,4 +341,200 @@ public class TurnManager : MonoBehaviour
         CheckScrollBtnsActivated();
         ManageFeaturesChangingTurn();
     }
+
+
+
+
+
+    #region FIRST_STAGE_TRAP_CARD_OPTIONS
+
+    //check if player has a trap card at the beginning of his turn
+    //if so, he either discard it and play, or skip his turn.
+    private void FirstStageTrapCardCheck()
+    {
+        //deactivate features until the check is finished
+        foreach (GameObject obj in PlayerActivateList)
+        {
+            obj.SetActive(false);
+        }
+        endTurnBtn.SetActive(false);
+
+
+        CheckForRoninInnerPeace();
+
+        //check for general trap card.
+        if (isPlayerTurn && trapCardManager.DoesPlayerHaveATrapCard())
+        {
+            didPlayerChooseATrapOption = false;
+            Debug.LogWarning("Implement trap card check here");
+            TrapCardOptionsHandler.SetActive(true);
+            StartCoroutine(WaitUntilPlayerReactToDiscardTrapCardOptions());
+        }
+        else
+        {
+            ManageFeaturesChangingTurn();
+            firstStageFinished = true;
+        }
+    }
+
+    private bool CheckForRoninInnerPeace()
+    {
+        if (trapCardManager.DoesPlayerHaveATrapCard())
+        {
+            TrapCard playerTrapCard = trapCardManager.GetPlayerTrapcard();
+            if(playerTrapCard != null && playerTrapCard is Ronin_innerPeace_trapcard)
+            {
+                //it is Ronin's Inner Peace
+                //Handle Ronin's Inner Peace: automatically activate  and discard it
+
+                trapCardManager.TryActivateRoninInnerPeace(isPlayerTurn);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    IEnumerator WaitUntilPlayerReactToDiscardTrapCardOptions()
+    {
+        yield return new WaitUntil(() => didPlayerChooseATrapOption == true);
+        if (playerChooseToSkipTurn)
+        {
+            Debug.Log("Player chose to skip turn");
+            PlayerChangeTurn();
+        }
+        else
+        {
+            Debug.Log("Player chose to discard");
+            trapCardManager.DiscardPlayerTrap();
+        }
+        TrapCardOptionsHandler.SetActive(false);
+        firstStageFinished = true;
+    }
+
+    private void SetDiscardMode(bool isDisCardModeON)
+    {
+        this.isDiscardModeON = isDisCardModeON;
+        if (isDiscardModeON)
+        {
+            StartCoroutine(ActivateDiscardModeObjects(2f));
+        }
+        else
+        {
+            discardHandler.gameObject.SetActive(false);
+        }
+
+    }
+    //we have to activate a little bit later to handle race condition
+    //to make sure that we read the player hand count after we remove the card 
+    IEnumerator ActivateDiscardModeObjects(float sec)
+    {
+        yield return new WaitForSeconds(sec);
+        discardHandler.gameObject.SetActive(true);
+        discardHandler.UpdateDiscardMessage();
+    }
+
+    public bool GetDiscardMode()
+    {
+        return isDiscardModeON;
+    }
+
+
+    #endregion
+
+
+
+    #region SECOND_STAGE_CARD_LIMIT
+
+    IEnumerator SecondStageCardLimitCheck()
+    {
+        //wait until the first stage is finished
+        yield return new WaitUntil(() => firstStageFinished);
+
+        //start 2nd stage
+        Debug.LogWarning("2nd stage, CARD LIMIT CHECK started");
+        if (secondStageCheckCardLimit)
+        {
+            secondStageFinished = false;
+
+            CardLimitCheck();
+            secondStageFinished = true;
+
+        }
+        Debug.LogWarning("2nd stage, CARD LIMIT CHECK finished");
+    }
+
+
+    //we turn off all features UNTIL players discard extra cards from his hand.
+    //only check if it's enemy turn.
+    private void CardLimitCheck()
+    {
+        foreach (GameObject obj in PlayerActivateList)
+        {
+            obj.SetActive(false);
+        }
+        endTurnBtn.SetActive(false);
+
+        UpdateDiscardStatus();//should the player discard?
+
+
+        //if his turn, no need to discard   
+        //if he has valid amount of card, no need to discard.
+        if (isPlayerTurn || playerNumberOfCardsValid)
+        {
+            Debug.Log("Number of cards Validity check: True");
+            AfterCheckingCardLimitSequence();
+
+            return;
+        }
+        else //he should discard. Wait until he discard, then move on.
+        {
+            SetDiscardMode(true);
+            Debug.Log("Number of cards Validity check: False");
+            InvokeRepeating(nameof(PrintWaitingMessage), time: 0.5f, repeatRate: 1f);//print Waiting... on console
+            StartCoroutine(WaitUntilPlayerHasValidCardNumber());//wait until he discard, then activate other features
+        }
+
+    }
+
+    private void PrintWaitingMessage()
+    {
+        Debug.Log("Waiting...");
+    }
+    //wait until player discards all his extra cards
+    IEnumerator WaitUntilPlayerHasValidCardNumber()
+    {
+        yield return new WaitUntil(() => playerNumberOfCardsValid == true);
+        Debug.LogWarning("Player now has valid card number");
+        AfterCheckingCardLimitSequence();
+    }
+
+    //after player has a valid amount of card, start the turn.
+    private void AfterCheckingCardLimitSequence()
+    {
+        //Debug.Log("after checking sequence");
+        ManageFeaturesChangingTurn();
+        if (isPlayerTurn)
+        {
+            playerDeck.FullDealToPlayer();
+        }
+
+        CheckPassBtnActivated();
+        CheckEndTurnBtnActivated();
+        if (!isPlayerTurn)//if it's enemy turn, we signify the enemy AI to play cards.
+        {
+            StartCoroutine(enemyAI.OnEnemyTurn(8f));
+        }
+        CancelInvoke(nameof(PrintWaitingMessage));
+        SetDiscardMode(false);
+    }
+
+
+
+    public void UpdateDiscardStatus()
+    {
+        playerNumberOfCardsValid = (playerHand.cardsInHand.Count <= PlayerHand.MAX_CARD_COUNT);
+    }
+    #endregion
+
+
 }

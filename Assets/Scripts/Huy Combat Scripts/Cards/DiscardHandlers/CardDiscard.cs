@@ -43,7 +43,7 @@ public class CardDiscard : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            Debug.Log("Right Mouse Button Clicked on: " + name);
+            //Debug.Log("Right Mouse Button Clicked on: " + name);
             if (turnManager.GetDiscardMode())//if discard mode is ON
             {
                 playerHand.Discard(GetComponent<Card>());

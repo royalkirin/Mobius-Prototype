@@ -27,6 +27,9 @@ public class TrapCardManager : MonoBehaviour
     //placeholder to move the trapcard UIs under, so the card UI disappears on screen when played.
     [SerializeField] GameObject trapCards;
 
+    //if true, we activate at beginning of turn.
+    public bool AutoActivatedAtBeginning = false;
+
 
     private void Start()
     {
@@ -41,7 +44,6 @@ public class TrapCardManager : MonoBehaviour
             Debug.Log("Cannot find cardChain in " + name);
         }
     }
-
 
 
     //Try to play a trap card on the battle.
@@ -108,6 +110,7 @@ public class TrapCardManager : MonoBehaviour
 
     //the player activate trap card by right click it
     //(check TrapCardMouseInteraction.cs)
+    //works for general trap card where it can be played in the chain.
     public bool TryActivateTrapCard(bool isPlayer)
     {
         if (!isPlayer)
@@ -125,13 +128,53 @@ public class TrapCardManager : MonoBehaviour
 
         if (isActivated)
         {
-            //clear trap card of player
-            playerTrapCard = null;
-            playerTrapCardImage.gameObject.GetComponent<TrapCardMouseInteraction>().SetCard(null);
-            playerTrapCardImage.gameObject.SetActive(false);
-            playerHasATrapCard = false;
+            ResetPlayerTrapCard();
         }
         return false;
+    }
+
+    //Turn manager calls this function to activate Inner Peace automatically
+    public bool TryActivateRoninInnerPeace(bool isPlayer)
+    {
+        if (!isPlayer)
+        {
+            Debug.Log("Enemy cannot activate Inner Peace.");
+            return false;
+        }
+        if (!playerHasATrapCard)
+        {
+            Debug.LogWarning("Player doesn't have a trap card. Cannot activate");
+            return false;
+        }
+
+        if (playerTrapCard is Ronin_innerPeace_trapcard)
+        {
+            //activate here
+            GameObject friendlyChar = GameObject.FindWithTag("PlayerCharacter");
+            CharacterBuffs characterBuffs = friendlyChar.GetComponent<CharacterBuffs>();
+            characterBuffs.SetNextAttackCardCannotBeCountered(true);
+
+            ResetPlayerTrapCard();
+            return true;
+        }
+        else
+        {
+            Debug.LogWarning("Player trap card is not Inner Peace. Wrong function invoked.");
+            return false;
+        }
+
+    }
+
+
+
+
+    private void ResetPlayerTrapCard()
+    {
+        //clear trap card of player
+        playerTrapCard = null;
+        playerTrapCardImage.gameObject.GetComponent<TrapCardMouseInteraction>().SetCard(null);
+        playerTrapCardImage.gameObject.SetActive(false);
+        playerHasATrapCard = false;
     }
 
 
@@ -142,12 +185,43 @@ public class TrapCardManager : MonoBehaviour
         return playerHasATrapCard;
     }
 
+    public TrapCard GetPlayerTrapcard()
+    {
+        if (playerHasATrapCard)
+        {
+            return playerTrapCard;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public TrapCard GetEnemyTrapCard()
+    {
+        if (enemyHasATrapCard)
+        {
+            return enemyTrapCard;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+
     //dont need to explain this function
     public bool DoesEnemyHaveATrapCard()
     {
         return enemyHasATrapCard;
     }
 
+
+
+
+    #region FIRST_STAGE_TRAP_CARD_CHECK
+    //Player choose to discard at the beginning of his turn.
+    //communicate with TurnManager.
     public void DiscardPlayerTrap()
     {
         if (!playerHasATrapCard)
@@ -159,4 +233,9 @@ public class TrapCardManager : MonoBehaviour
         playerTrapCard = null;
         playerTrapCardImage.gameObject.SetActive(false);
     }
+
+
+
+    #endregion
+
 }

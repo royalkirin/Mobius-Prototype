@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,14 +33,33 @@ public class CardChain : MonoBehaviour
 
     GameObject passBtn; //pass btn for Player to surrender the chain
 
-    //OLD WAY TO HANDLE UI
-    BattleGround battleGround = null;
 
-    //NEW WAY TO HANDLE UI
+    //old way of handle UI
+    BattleGround battleGround;
+
+    //HANDLE UI
     CardChainUI chainUI;
 
     //between delays, cannot play any cards.
     public bool chainEnding = false;
+
+
+
+
+    ///////////////////////////
+    //if invincible, automatically wins the chain when its played
+    public enum InvincibleCard
+    {
+        None, //default
+        Attack, //whenever someone plays this card, he wins the chain
+        Defense,
+        Support
+    }
+    public InvincibleCard playerInvincibleCard = InvincibleCard.None;
+    public InvincibleCard enemyInvincibleCard = InvincibleCard.None;
+    ///////////////////////////
+
+
 
     private void Start()
     {
@@ -158,23 +178,52 @@ public class CardChain : MonoBehaviour
         card.gameObject.transform.SetParent(Cards.transform);//move the card played into the Cards game obj for reference
         //chainUI.InitiateCardImage(card);
 
-
+        bool isInvincible = CheckInvincibleCard(card, isTrapCard);
 
         card.gameObject.SetActive(false);
 
-        if(isTrapCard is false)
+
+
+        //not a trap, not invincible, we continue playing the chain
+        if(isTrapCard is false && isInvincible is false)
         {
             //signify to turn manager that player A plays a card, now its turn to counter.
             StartCoroutine(EndReactionTurnInTime(3f));
         }
-        else //player succesfully plays a trap card. The chain ends right now.
+        else if(isTrapCard)//player succesfully plays a trap card. The chain ends right now.
         {
-            Debug.Log("END CHAIN RIGHT NOW!");
+            Debug.LogWarning("PLAYER PLAYS TRAP CARD. CHAIN ENDS!");
             ChainEnd(lastCardBelongToPlayer, trapCardBypass: true);
+        }else //player plays an invincible card. ends right now.
+        {
+            Debug.LogWarning("PLAYER PLAYS INVINCIBLE CARD. CHAIN ENDS!");
+            ChainEnd(lastCardBelongToPlayer, trapCardBypass: false, invincibleCardBypass: true);
         }
 
 
         return true;
+    }
+
+    //after player successfully play a card
+    //if that card is an invincible card, end the chain.
+    //(for ronin's inner peace)
+    private bool CheckInvincibleCard(Card card, bool isTrapCard)
+    {
+        //enemy card = cannot be invincible
+        if (!card.belongToPlayer){
+            return false;
+        }
+        if (isTrapCard)//invincible card cannot be trap card
+        {
+            return false;
+        }
+
+        if(playerInvincibleCard == InvincibleCard.Attack && card is AttackCard)
+        {
+            Debug.LogWarning("Implement inner peace here");
+            return true;
+        }
+        return false;
     }
 
     //Helper function for ONLY TryAddCardToChain() 
@@ -190,7 +239,14 @@ public class CardChain : MonoBehaviour
         //prevent player/enemy from playing 2 cards at once
         if (totalCardInChain != 0 && card.belongToPlayer == lastCardBelongToPlayer)
         {
-            Debug.LogWarning("Someone is trying to play 2 cards at once in the chain!");
+            if (lastCardBelongToPlayer)
+            {
+                Debug.LogWarning("Player is trying to play 2 cards at once in the chain!");
+            }
+            else
+            {
+                Debug.LogWarning("Enemy is trying to play 2 cards at once in the chain!");
+            }
             return false;
         }
 
@@ -270,11 +326,12 @@ public class CardChain : MonoBehaviour
     //player calls this to signify surrener in the current chain -> all enemyCards take effect.
     //isPlayer = true means Player wants to surrender the chain -> Enemy wins the chain.
     //trapcardbypass allows us to end the chain right away when a trapcard is activated.
-    public void ChainEnd(bool isPlayer, bool trapCardBypass = false)
+    public void ChainEnd(bool isPlayer, bool trapCardBypass = false, bool invincibleCardBypass = false)
     {
         chainEnding = true;
 
-        if (trapCardBypass is false) //if not a trap card, check for validities as usual
+        if (trapCardBypass is false && invincibleCardBypass is false) //if not a trap card, and not invincible card,
+                                                                     //check for validities as usual
         {
 
             if (isPlayer && lastCardBelongToPlayer)
@@ -288,12 +345,17 @@ public class CardChain : MonoBehaviour
                 return;
             }
         }
-        else
+        else if (trapCardBypass is true)
         {
             Debug.Log("Trap card bypass is true. We end the chain.");
         }
+        else //invincible bypass is true
+        {
+            Debug.Log("Invincible card bypass is true. We end the chain.");
+        }
 
-        //either trapcardbypass is true -> we end the chain no matter what.
+        //either trapcardbypass is true -> we end the chain
+        //or invincibleCardBypass is true -> we end the chain
         //or, all conditions are passed.
 
 
@@ -303,14 +365,11 @@ public class CardChain : MonoBehaviour
         {
             Debug.Log("Activating TRAP CARD EFFECT...");
             lastCardPlayed.GetComponent<TrapCard>().ActivateTrapCard();
-            if (lastCardBelongToPlayer)
+            if (lastCardBelongToPlayer) //remove trap card, index = end of the list of cards.
             {
                 playerCards.RemoveAt(playerCards.Count - 1);
             }
         }
-
-
-
 
         //activate other cards as usual
         if (lastCardBelongToPlayer)
@@ -337,15 +396,34 @@ public class CardChain : MonoBehaviour
         {
             Destroy(card.gameObject);
         }
-        
+
+        RemoveBuffInvincibleCard(isPlayer);
+
         StartCoroutine(ChainEndDelay(5f));
-
-
-
-
-
     }
 
+    //invincible card is successfully activated, we remove the buff from the character.
+    private void RemoveBuffInvincibleCard(bool isPlayer)
+    {
+        string friendlyTag = "PlayerCharacter";
+        if (isPlayer)
+        {
+            playerInvincibleCard = InvincibleCard.None;
+        }
+        else
+        {
+            enemyInvincibleCard = InvincibleCard.None;
+            friendlyTag = "EnemyCharacter";
+        }
+        //remove the buff from character
+        GameObject friendlyChar = GameObject.FindWithTag(friendlyTag);
+        CharacterBuffs characterBuffs = friendlyChar.GetComponent<CharacterBuffs>();
+        characterBuffs.SetNextAttackCardCannotBeCountered(false);
+    }
+
+
+    //end the chain after a few secs
+    //reset the chains
     IEnumerator ChainEndDelay(float sec)
     {
         yield return new WaitForSeconds(sec);
@@ -390,6 +468,7 @@ public class CardChain : MonoBehaviour
         lastCardBelongToPlayer = false; //no cards played yet
         playerCards.Clear();
         enemyCards.Clear();
+        
 
     }
 

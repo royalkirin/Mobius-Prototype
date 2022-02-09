@@ -58,7 +58,7 @@ public class Card : MonoBehaviour
 
 
 
-    public void Play(GameObject target)
+    public virtual void Play(GameObject target)
     {
         isPlayed = true;
         
