@@ -59,6 +59,11 @@ public class TurnManager : MonoBehaviour
     public bool secondStageFinished = false;
 
 
+
+    //Enemy hand and deck
+    EnemyHand enemyHand;
+    Deck enemyDeck;
+
     private void Start()
     {
         FindVariables();
@@ -149,6 +154,16 @@ public class TurnManager : MonoBehaviour
             Debug.Log("Cannot find Enemy Character Buffs in " + name);
         }
 
+        enemyHand = GameObject.FindWithTag("EnemyHand").GetComponent<EnemyHand>();
+        if(enemyHand is null)
+        {
+            Debug.Log("Cannot find Enemy Hand in " + name);
+        }
+        enemyDeck = GameObject.FindWithTag("EnemyDeck").GetComponent<Deck>();
+        if (enemyDeck is null)
+        {
+            Debug.Log("Cannot find Enemy Deck in " + name);
+        }
     }
 
 
@@ -159,10 +174,15 @@ public class TurnManager : MonoBehaviour
     {
         
 
-        Debug.Log("default change turn");
+        //Debug.Log("default change turn");
         isPlayerTurn = !isPlayerTurn;
         isPlayerReactTurn = isPlayerTurn;
         PrintTurn();
+
+        if (!isPlayerTurn)
+        {
+            enemyDeck.FullDealToEnemy();
+        }
 
         StartNewTurnStages();
     }

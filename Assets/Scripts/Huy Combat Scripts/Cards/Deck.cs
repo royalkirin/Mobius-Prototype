@@ -35,12 +35,24 @@ public class Deck : MonoBehaviour
     //for now, only PlayerHand, AI doesn't have a hand.
     private PlayerHand playerHand = null;
 
+
+
+    //Enemy Hand
+    [SerializeField] EnemyHand enemyHand;
+
+
     private void Start()
     {
         FindVariables();
         LoadCardListBasedOnCharacter();
         InitiateRandomDeck();
-        FullDealToPlayer();
+        if(friendlyTag == "PlayerCharacter")
+        {
+            FullDealToPlayer();
+        }else if (friendlyTag == "EnemyCharacter")
+        {
+            FullDealToEnemy();
+        }
     }
 
     
@@ -89,6 +101,9 @@ public class Deck : MonoBehaviour
         {
             Debug.Log(name + "cannot find friendly character with tag " + friendlyTag);
         }
+
+
+
     }
 
 
@@ -103,6 +118,11 @@ public class Deck : MonoBehaviour
             cardsInDeck.Add(cardGenerateList[rdIndex]); //add it to the deck
         }
     }
+
+
+    //Dealing to player needs communicatation with PlayerHand
+
+    #region DEALING_TO_PLAYER
 
     //deal the first card on the list (top card on the deck) to the player
     public void DealToPlayer(bool cardLimited = true)
@@ -130,4 +150,47 @@ public class Deck : MonoBehaviour
             DealToPlayer();
         }
     }
+
+    #endregion
+
+
+    //Deal to enemy doesn't need to communicate with player hand, but enemy hand
+    //they are different because player hands have interactions with player (mouse drag/drop, right/left click...)
+    //while enemy hand just need to show some images.
+    #region DEALING_TO_ENEMY
+    public void DealToEnemy(bool cardLimited = true)
+    {
+        if(friendlyTag != "EnemyCharacter")
+        {
+            Debug.LogError("Cannot deal to Enemy when this deck doesn't belong to Enemy.");
+            return;
+        }
+
+        if(enemyHand is null)
+        {
+            Debug.LogError("Cannot deal to Enemy without EnemyHand");
+            return;
+        }
+
+        if (cardsInDeck.Count == 0)
+        {
+            Debug.Log("There is no card left in the deck. ");
+            return;
+        }
+
+        //playerHand.AddCard(cardsInDeck[0], cardLimited);
+        enemyHand.AddCard(cardsInDeck[0], cardLimited);
+        cardsInDeck.RemoveAt(0);
+    }
+
+    public void FullDealToEnemy()
+    {
+        while (enemyHand.cardsInHand.Count < 5 && cardsInDeck.Count > 0)
+        {
+            DealToEnemy();
+        }
+    }
+
+
+    #endregion
 }

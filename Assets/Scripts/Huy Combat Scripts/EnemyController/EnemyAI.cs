@@ -6,29 +6,49 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] CardPlayer cardPlayer = null;
+
+    /////////////////
+    ///these vars are used to help enemy play simple card
+    ///improved by reading card information in Enemyhand and deduct proper play
     [SerializeField] AttackCard attackCard;
     [SerializeField] DefenseCard defenseCard;
     [SerializeField] SupportCard supportCard;
+    /////////////////
+
     TurnManager turnManager;
 
     CardChain cardChain;
 
 
     bool alwaysCounter = false;
+
+    EnemyHand enemyHand;
+
+
     private void Start()
     {
-        if(cardPlayer is null)
+        FindVariables();
+
+    }
+
+    private void FindVariables()
+    {
+        if (cardPlayer is null)
         {
             cardPlayer = GetComponent<CardPlayer>();
         }
         turnManager = FindObjectOfType<TurnManager>();
 
         cardChain = GameObject.FindWithTag("CardChain").GetComponent<CardChain>();
-        if(cardChain is null)
+        if (cardChain is null)
         {
             Debug.Log("Cannot find cardChain in " + name);
         }
-
+        enemyHand = GameObject.FindWithTag("EnemyHand").GetComponent<EnemyHand>();
+        if (enemyHand is null)
+        {
+            Debug.LogWarning("Cannot find Enemy Hand in " + name);
+        }
     }
 
     private void Update()
@@ -38,15 +58,80 @@ public class EnemyAI : MonoBehaviour
             alwaysCounter = !alwaysCounter;
             Debug.Log("Enemy AI always counter = " + alwaysCounter);
         }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            CountAttackCard();
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            CountDefenseCard();
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            CountSupportCard();
+        }
     }
 
     //when it's enemy turn, play.
     public IEnumerator OnEnemyTurn(float sec)
     {
         yield return new WaitForSeconds(sec);
-        AttackCard newAttackCard = Instantiate(attackCard, new Vector3(0, 0, 0), Quaternion.identity);
-        cardPlayer.PlayCard(newAttackCard);
+        PlayFirstCardInChain();
         Debug.Log("Ending Enemy turn");
+    }
+
+    private void PlayFirstCardInChain()
+    {
+
+        int numbAtt = CountAttackCard() ;
+        int numbDef = CountDefenseCard();
+        int numbSup = CountSupportCard();
+
+        int max = Mathf.Max(Mathf.Max(numbAtt, numbDef), numbSup);
+        Debug.Log(numbAtt + " " + numbDef + " " + numbSup + " " + max);
+
+        if(enemyHand is null)
+        {
+            Debug.Log("Enemy Hand is null, we proceed with simple AI");
+            //very simple instruction, first crack at Enemy AI, just for testing purposes
+            AttackCard newAttackCard = Instantiate(attackCard, new Vector3(0, 0, 0), Quaternion.identity);
+            cardPlayer.PlayCard(newAttackCard);
+            return;
+        }
+        else
+        { //PLAY the card that we have the most in hand first.
+          //priority if equal: Attack > Defense > Support
+            //cardPlayer.PlayCard(enemyHand.cardsInHand[0]);
+            if(numbAtt == max)
+            {
+                int firstAtt = FindAttackCard();
+                if(firstAtt != -1)
+                {
+                    cardPlayer.PlayCard(enemyHand.cardsInHand[firstAtt]);
+                }
+
+            } else if (numbDef == max)
+            {
+                int firstDef = FindDefenseCard();
+                if (firstDef != -1)
+                {
+                    cardPlayer.PlayCard(enemyHand.cardsInHand[firstDef]);
+                }
+            }
+            else if (numbSup == max)
+            {
+                int firstSup = FindSupportCard();
+                if (firstSup != -1)
+                {
+                    cardPlayer.PlayCard(enemyHand.cardsInHand[firstSup]);
+                }
+            }
+            else
+            {
+                Debug.LogError("This part should not be reached.");
+            }
+        }
+
     }
 
     public void EndEnemyTurn()
@@ -77,47 +162,146 @@ public class EnemyAI : MonoBehaviour
         yield return new WaitForSeconds(sec);
 
         Card lastCardInChain = cardChain.GetLastCardPlayed();
-        Card newCard;
+        
+        /////////
+        ///TRY to counter until we run out of card, or we cannot counter
+        int indexToPlay = -1;
         if (lastCardInChain is AttackCard)
         {
-            newCard = Instantiate(defenseCard, new Vector3(0, 0, 0), Quaternion.identity);
+            indexToPlay = FindDefenseCard();
         }
         else if (lastCardInChain is DefenseCard)
         {
-            newCard = Instantiate(supportCard, new Vector3(0, 0, 0), Quaternion.identity);
+            indexToPlay = FindSupportCard();
         }
-        else //last card played either NULL, or Support card
+        else //last card played =  Support card
         {
-            //try to play defense card, but will fail, and end the chain.
-            if (alwaysCounter)
-            {
-                newCard = Instantiate(attackCard, new Vector3(0, 0, 0), Quaternion.identity);
-            }
-            else
-            {
-                newCard = Instantiate(defenseCard, new Vector3(0, 0, 0), Quaternion.identity);
-            }
-
-
+            indexToPlay = FindAttackCard();
         }
-
-        if(newCard is null)
+        if(indexToPlay == -1)//meaning we have 0 cards in hand, or cannot counter the last card
         {
-            Debug.Log("new card is null");
-        }
-
-        bool isPlayed = cardPlayer.PlayCard(newCard);
-        if (!isPlayed)
-        {
-            Debug.Log("Destroy new card just created because fail to play");
-            Destroy(newCard.gameObject);
-            if (!cardChain.chainEnding)
+            if (!cardChain.chainEnding) //give up the chain
             {
                 cardChain.ChainEnd(isPlayer: false);
             }
         }
-       
+        else //counter the last card in the chain
+        {
+            bool isPlayed = cardPlayer.PlayCard(enemyHand.cardsInHand[indexToPlay]);
+            if (!isPlayed)
+            {
+                Debug.LogError("Cannot play? Check counter logic.");
+            }
+        }
+
+        //OLD CODE
+        //bool isPlayed = cardPlayer.PlayCard(newCard);
+        //if (!isPlayed)
+        //{
+        //    Debug.Log("Destroy new card just created because fail to play");
+        //    Destroy(newCard.gameObject);
+        //if (!cardChain.chainEnding)
+        //{
+        //    cardChain.ChainEnd(isPlayer: false);
+        //}
+        //}
+
     }
 
 
+    //functions to Analyze EnemyHand.cardsInHand to deduct a good play
+    #region ANALYZE_HAND
+
+    //return index of attack card in cardsInHand.
+    //return -1 if fail
+    private int FindAttackCard()
+    {
+        for(int i = 0; i < enemyHand.cardsInHand.Count; i++)
+        {
+            if(enemyHand.cardsInHand[i] is AttackCard)
+            {
+                //Debug.Log("Attack card index = " + i);
+                return i;
+            }
+        }
+        //Debug.Log(-1);
+        return -1;
+    }
+
+    //return index of defense card in cardsInHand.
+    //return -1 if fail
+    private int FindDefenseCard()
+    {
+        for (int i = 0; i < enemyHand.cardsInHand.Count; i++)
+        {
+            if (enemyHand.cardsInHand[i] is DefenseCard)
+            {
+                //Debug.Log("Defense card index = " + i);
+                return i;
+            }
+        }
+        //Debug.Log(-1);
+        return -1;
+    }
+
+    //return index of support card in cardsInHand.
+    //return -1 if fail
+    private int FindSupportCard()
+    {
+        for (int i = 0; i < enemyHand.cardsInHand.Count; i++)
+        {
+            if (enemyHand.cardsInHand[i] is SupportCard)
+            {
+                //Debug.Log("Support card index = " + i);
+                return i;
+            }
+        }
+        //Debug.Log(-1);
+        return -1;
+    }
+
+    private int CountAttackCard()
+    {
+        int count = 0;
+        for (int i = 0; i < enemyHand.cardsInHand.Count; i++)
+        {
+            if (enemyHand.cardsInHand[i] is AttackCard)
+            {
+                count++;
+            }
+        }
+        //Debug.Log(count);
+        return count;
+    }
+
+    private int CountDefenseCard()
+    {
+        int count = 0;
+        for (int i = 0; i < enemyHand.cardsInHand.Count; i++)
+        {
+            if (enemyHand.cardsInHand[i] is DefenseCard)
+            {
+                count++;
+            }
+        }
+        //Debug.Log(count);
+        return count;
+    }
+
+    private int CountSupportCard()
+    {
+        int count = 0;
+        for (int i = 0; i < enemyHand.cardsInHand.Count; i++)
+        {
+            if (enemyHand.cardsInHand[i] is SupportCard)
+            {
+                count++;
+            }
+        }
+        //Debug.Log(count);
+        return count;
+    }
+
+
+    #endregion
 }

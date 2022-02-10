@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &417075215169414644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8390634760639336574}
+  - component: {fileID: 1986977786488125433}
+  m_Layer: 0
+  m_Name: EnemyHand
+  m_TagString: EnemyHand
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8390634760639336574
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417075215169414644}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8067424230217586309}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1986977786488125433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417075215169414644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 300dc3cb0f7d7a542b97d3ac1106dc44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardsInHand: []
 --- !u!1 &4327169210479373028
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,6 +360,7 @@ GameObject:
   - component: {fileID: 8067424231330864582}
   - component: {fileID: 8067424231330864583}
   - component: {fileID: 7203777289642188848}
+  - component: {fileID: 8636619619414264885}
   - component: {fileID: 6316866377057626839}
   m_Layer: 0
   m_Name: Enemy char
@@ -336,6 +381,8 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 7867303301606764928}
+  - {fileID: 1262450613141849104}
+  - {fileID: 8390634760639336574}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -445,6 +492,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 0}
+--- !u!114 &8636619619414264885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8067424230217586305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dfdb5662e9f23545962068a1780651f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterCards: {fileID: 11400000, guid: cf6288bb318a9f441a5944eb4d8adbc9, type: 2}
 --- !u!114 &6316866377057626839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,7 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa300916ef815eb438b3d982d65572c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextAttackCannotBeCountered: 0
+  belongToPlayer: 0
 --- !u!1 &8181900192985585811
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,3 +628,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &8788794599617291593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1262450613141849104}
+  - component: {fileID: 3124962983859189994}
+  m_Layer: 0
+  m_Name: EnemyDeck
+  m_TagString: EnemyDeck
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1262450613141849104
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8788794599617291593}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8067424230217586309}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3124962983859189994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8788794599617291593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba5a06b0d931bb43a2b6b68529a73de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardsInDeck: []
+  cardGenerateList: []
+  friendlyTag: EnemyCharacter
+  enemyHand: {fileID: 1986977786488125433}
