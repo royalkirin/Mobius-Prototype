@@ -16,6 +16,7 @@ public class Card : MonoBehaviour
     //images of the card. We pass these values when the cards are played onto BGCardPlayCanvas
     [SerializeField] Sprite frontImage = null;
     [SerializeField] Sprite backImage = null;
+    [SerializeField] Sprite trapImage = null;
 
     public int positionInHand = 0;//represent the position in the hand of the player
     CardChain cardChain;
@@ -36,6 +37,11 @@ public class Card : MonoBehaviour
         {
             Debug.Log("Missing back image in: " + name);
         }
+        if(trapImage is null)
+        {
+            Debug.LogError("Missing Trap immage in " + name);
+        }
+
 
         uiImage = GetComponent<Image>();
         if(uiImage is null)

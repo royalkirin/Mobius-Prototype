@@ -21,11 +21,15 @@ public class CardPlayer : MonoBehaviour
     //Playerhand prefab in canvas.
     PlayerHand playerhand;
 
+    //for the enemy AI
+    EnemyHand enemyHand;
+
     CardChain cardChain;
     Deck playerDeck; //deck of the player (enemy do not have a deck yet)
 
     //handle trap card plays
     TrapCardManager trapCardManager;
+
 
     private void Start()
     {
@@ -54,6 +58,15 @@ public class CardPlayer : MonoBehaviour
         turnManager = FindObjectOfType<TurnManager>();
 
         playerhand = GameObject.FindWithTag("PlayerHand").GetComponent<PlayerHand>();
+        if (playerhand is null)
+        {
+            Debug.LogError("Cannot find Player Hand in " + name);
+        }
+
+        enemyHand = GameObject.FindWithTag("EnemyHand").GetComponent<EnemyHand>();
+        if (enemyHand is null) {
+            Debug.LogError("Cannot find Enemyhand in " + name);
+        }
 
 
         cardChain = GameObject.FindWithTag("CardChain").GetComponent<CardChain>();
@@ -152,6 +165,9 @@ public class CardPlayer : MonoBehaviour
         {
             //Debug.LogWarning("here");
             playerhand.RemoveCard(card);
+        }else if (!card.belongToPlayer && playedSuccessfully) //remove card from enemy hand
+        {
+            enemyHand.RemoveCard(card.positionInHand);
         }
 
         return playedSuccessfully;

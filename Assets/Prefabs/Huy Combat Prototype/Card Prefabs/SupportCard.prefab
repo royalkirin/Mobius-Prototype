@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayed: 0
   belongToPlayer: 1
-  frontImage: {fileID: 21300000, guid: 71ab3543331c57f4eaea563112c07e5d, type: 3}
+  frontImage: {fileID: 21300000, guid: f7ce3e9404821314cbbeb3ef591eccab, type: 3}
   backImage: {fileID: 21300000, guid: 0494c4d967886e24b84b0ff7294882ef, type: 3}
+  trapImage: {fileID: 21300000, guid: 71ab3543331c57f4eaea563112c07e5d, type: 3}
   positionInHand: 0
 --- !u!1001 &7472661080438889474
 PrefabInstance:
@@ -110,7 +111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5273339758978638380, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}
       propertyPath: m_Name
-      value: SupportCard 1
+      value: SupportCard
       objectReference: {fileID: 0}
     - target: {fileID: 5312294765691037161, guid: ae873cb765c6c2b42a8717a0376bc3cd, type: 3}
       propertyPath: rectTransform

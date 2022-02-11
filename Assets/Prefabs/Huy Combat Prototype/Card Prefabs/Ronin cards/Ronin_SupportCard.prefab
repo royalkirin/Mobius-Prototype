@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayed: 0
   belongToPlayer: 1
-  frontImage: {fileID: 21300000, guid: 39c385364c3ffad49bf0c2efbcc6a5e6, type: 3}
+  frontImage: {fileID: 21300000, guid: 55c3a9340bd58384096a7d527491ca3a, type: 3}
   backImage: {fileID: 21300000, guid: 0494c4d967886e24b84b0ff7294882ef, type: 3}
+  trapImage: {fileID: 21300000, guid: 6cbf7986cfb8e1d4fa2d4b4cce47823a, type: 3}
   positionInHand: 0
 --- !u!114 &7928674510634702427
 MonoBehaviour:

@@ -12,11 +12,11 @@ public class Ronin_counterStrike_trapcard : TrapCard
         SetCounterDefenseCard(false);
         SetCounterSupportCard(false);
 
-        TrapCardName = "ronin_tsuka_ate";
+        TrapCardName = "ronin_counter_strike";
     }
     public override bool ActivateTrapCard()
     {
-        Debug.LogWarning("Tsuka Ate just end the chain and have no other effect.");
+        Debug.LogWarning("Counter Strike just end the chain and have no other effect.");
         return true;
     }
 }
