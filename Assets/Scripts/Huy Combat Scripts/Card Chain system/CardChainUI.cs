@@ -31,12 +31,15 @@ public class CardChainUI : MonoBehaviour
     //This variable is meant to be a switch. 1 = Scrolling Down, 2 = Scrolling Up
     short sPriorFlip = 0;
 
+    short sIncreasePace = 4; // Never should be 0, increasing it higher speeds up various markers such as LERPing and Fade In/Fade Out for Cards.
+
     //Tracks the most recently played Card and Oldest Card still visible on screen.
     [SerializeField] int nRecentCard;
     [SerializeField] int nNextOldestCard;
 
     //Temporary Bool for Debug Purposes Only
     bool bChainManualReset = false;
+    public bool bDEBUGENABLE = false;
 
     //These vars are for the mechanics and logics of adding cards to the list
     [SerializeField] GameObject CardImages; //place holder for card images. Not affect mechanics.
@@ -49,6 +52,8 @@ public class CardChainUI : MonoBehaviour
     private void Start()
     {
         FindVariables();
+        if (bDEBUGENABLE)
+            cardsInChain[faceUpcardsPlayed].GetComponent<Image>().color = new Color(1, 1, 1, 1.0f);
     }
 
     ///*********************************************************************///
@@ -72,6 +77,10 @@ public class CardChainUI : MonoBehaviour
         FindVariables();
         cardsInChain[faceUpcardsPlayed - 1].sprite = card.GetFrontImage();
         cardsInChain[faceUpcardsPlayed - 1].gameObject.SetActive(true);
+        if (!bDEBUGENABLE)
+            cardsInChain[faceUpcardsPlayed - 1].GetComponent<Image>().color = new Color(1, 1, 1, 1.0f);
+        else
+            cardsInChain[faceUpcardsPlayed].GetComponent<Image>().color = new Color(1, 1, 1, 1.0f);
     }
 
     ///*********************************************************************///
@@ -89,7 +98,7 @@ public class CardChainUI : MonoBehaviour
     {
         if (cardsInChain[nCard].GetComponent<Image>().color.a > 0.0f)
         {
-            fAlphaReduction -= Time.deltaTime;
+            fAlphaReduction -= Time.deltaTime * sIncreasePace;
             cardsInChain[nCard].GetComponent<Image>().color = new Color(1, 1, 1, fAlphaReduction);
         }
         else
@@ -111,9 +120,17 @@ public class CardChainUI : MonoBehaviour
     ///*********************************************************************///
     private void RevealCardImage(int nCard)
     {
+        if (!bDEBUGENABLE)
+        {
+           if (cardsInChain[nCard].GetComponent<Image>().sprite == null)
+            {
+                fAlphaIncrease = 1.0f;
+                return;
+            }
+        }
         if (cardsInChain[nCard].GetComponent<Image>().color.a < 1.0f)
         {
-            fAlphaIncrease += Time.deltaTime;
+            fAlphaIncrease += Time.deltaTime * sIncreasePace;
             cardsInChain[nCard].GetComponent<Image>().color = new Color(1, 1, 1, fAlphaIncrease);
         }
         else
@@ -151,7 +168,7 @@ public class CardChainUI : MonoBehaviour
             //Once Oldest Card has disappeared, increment Card Trackers and let the
             //loop determine if it continues or breaks.
             if (timePassedSinceLerping > lerpLength && cardsInChain[nRecentCard].GetComponent<Image>().color.a >= 1.0f)
-            { 
+            {
                 nNextOldestCard++;
                 nRecentCard++;
             }
@@ -179,6 +196,12 @@ public class CardChainUI : MonoBehaviour
             }
 
             //If beyond the highest point in the chain when activating, take a step forward in the chain immediately.
+            //if (nRecentCard > faceUpcardsPlayed - 1)
+            //{
+            //    nNextOldestCard = faceUpcardsPlayed - 7;
+            //    nRecentCard = faceUpcardsPlayed - 1;
+            //}
+
             if (nNextOldestCard < 0)
             {
                 nNextOldestCard = 0;
@@ -247,17 +270,17 @@ public class CardChainUI : MonoBehaviour
     ///*********************************************************************///
     private void CardScroll()
     {
-            //Chain cannot be scrolled upwards any farther once the oldest card (first in chain) is reached.
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                CardScrollUp();
-            }
+        //Chain cannot be scrolled upwards any farther once the oldest card (first in chain) is reached.
+        if (Input.GetKeyDown(KeyCode.L) || Input.mouseScrollDelta.y > 0.1f)
+        {
+            CardScrollUp();
+        }
 
-            //Chain cannot be scrolled downwards any farther once the newest card (most recently played) is reached.
-            else if (Input.GetKeyDown(KeyCode.Period))
-            {
-                CardScrollDown();
-            }
+        //Chain cannot be scrolled downwards any farther once the newest card (most recently played) is reached.
+        else if (Input.GetKeyDown(KeyCode.Period) || Input.mouseScrollDelta.y <= -0.1f)
+        {
+            CardScrollDown();
+        }
     }
 
     private void FindVariables()
@@ -275,7 +298,7 @@ public class CardChainUI : MonoBehaviour
         }
 
         cardsInChain = new List<Image>();
-        foreach(Transform child in CardImages.transform)
+        foreach (Transform child in CardImages.transform)
         {
             cardsInChain.Add(child.GetComponent<Image>());
             //child.gameObject.SetActive(false);
@@ -286,7 +309,7 @@ public class CardChainUI : MonoBehaviour
     {
         TestLerp();
         LerpUI(bGoingUp);
-        timePassedSinceLerping += Time.deltaTime;
+        timePassedSinceLerping += Time.deltaTime * sIncreasePace;
         if (faceUpcardsPlayed > 5)
         {
             CardScroll();
@@ -304,7 +327,6 @@ public class CardChainUI : MonoBehaviour
     {
         if (bManualScroll)
         {
-            //nRecentCard--;
             bManualScroll = false;
         }
 
@@ -327,7 +349,7 @@ public class CardChainUI : MonoBehaviour
 
 
         //lerping or not?
-        if (faceUpcardsPlayed > MaxWithoutLerping) 
+        if (faceUpcardsPlayed > MaxWithoutLerping)
         {
             // If LERPing from here, is the chain currently at the most recent point prior to the newest card?
             if (nRecentCard != faceUpcardsPlayed - 1)
@@ -363,7 +385,10 @@ public class CardChainUI : MonoBehaviour
         ResetLerpingChain();
         faceUpcardsPlayed = 0;
         cardsInChain[0].sprite = null;
-        cardsInChain[0].color = new Color(1, 1, 1, 1.0f);
+        if (!bDEBUGENABLE)
+            cardsInChain[0].color = new Color(1, 1, 1, 0.0f);
+        else
+            cardsInChain[0].color = new Color(1, 1, 1, 1.0f);
         fSwitchCardPosX = -4.9f;
 
         bChainManualReset = false;
@@ -401,7 +426,7 @@ public class CardChainUI : MonoBehaviour
 
     //other class calls this function to start lerping to a new position.
     private void SetupLerping(bool bIsGoingUp)
-    {  
+    {
         if (bIsGoingUp)
         {
             targetLerpingPosition += eachLerpSize * Vector3.up;
@@ -438,7 +463,7 @@ public class CardChainUI : MonoBehaviour
     private void ManualLERPScroll(bool bIsGoingUp)
     {
         if (bManualScroll)
-        {   
+        {
             if (bIsGoingUp)
             {
                 nNextOldestCard++;
@@ -450,7 +475,7 @@ public class CardChainUI : MonoBehaviour
                 nRecentCard--;
             }
         }
-    }    
+    }
 
     //lerp from start to target position in 1 second
     private void LerpUI(bool bIsGoingUp)
@@ -459,7 +484,7 @@ public class CardChainUI : MonoBehaviour
         {
             return;
         }
-        if(timePassedSinceLerping > lerpLength && (fAlphaIncrease >= 1.0f || fAlphaReduction <= 0.0f))//lerp ends
+        if (timePassedSinceLerping > lerpLength && (fAlphaIncrease >= 1.0f || fAlphaReduction <= 0.0f))//lerp ends
         {
             fAlphaReduction = 1.0f;
             fAlphaIncrease = 0.0f;
@@ -489,7 +514,7 @@ public class CardChainUI : MonoBehaviour
                 HideCardImage(nRecentCard);
             }
         }
-        float fractionOfJourney = timePassedSinceLerping / lerpLength;
+        float fractionOfJourney = (timePassedSinceLerping / lerpLength) * sIncreasePace;
 
         rect.localPosition = Vector3.Lerp(startLerpingPosition, targetLerpingPosition, fractionOfJourney);
     }

@@ -678,6 +678,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3042857461113907915, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
+      propertyPath: bDEBUGENABLE
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5640269424904094585, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6292723566947742944, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -725,6 +733,22 @@ PrefabInstance:
     - target: {fileID: 6752772025274384512, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
       propertyPath: m_Name
       value: Battleground
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428519662051119353, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428519662051119353, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
+      propertyPath: m_Color.b
+      value: 0.7686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428519662051119353, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
+      propertyPath: m_Color.g
+      value: 0.7686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 8428519662051119353, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
+      propertyPath: m_Color.r
+      value: 0.7686275
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
