@@ -9,12 +9,47 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] CardPlayer cardPlayer = null;
+    AudioSource sfx;
+    Animator anim;
+
+    [SerializeField] AudioClip Attack, Defend, Support;
 
     private void Start()
     {
         if(cardPlayer is null)
         {
             Debug.Log("Missing CardPlayer in " + name);
+        }
+        else
+        {
+            sfx = GetComponent<AudioSource>();
+            anim = GetComponent<Animator>();
+        }
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            sfx.clip = Attack;
+            sfx.Play();
+
+            anim.SetTrigger("Attack");
+        }
+        else if(Input.GetKeyDown(KeyCode.D))
+        {
+            sfx.clip = Defend;
+            sfx.Play();
+
+            //Unity wouldn't let me rename anim parameters for some stupid reason
+            anim.SetTrigger("New Trigger");
+        }
+        else if(Input.GetKeyDown(KeyCode.S))
+        {
+            sfx.clip = Support;
+            sfx.Play();
+
+            anim.SetTrigger("New Trigger 0");
         }
     }
 }
