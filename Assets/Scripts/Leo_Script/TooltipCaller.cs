@@ -26,6 +26,7 @@ public class TooltipCaller : MonoBehaviour {
 
 
 
+    //Ray cast and show cards on the UI canvas
     private void ShowToolTipIfItsACard(List<RaycastResult> eventSystemRaysastResults) {
         for (int index = 0; index < eventSystemRaysastResults.Count; index++) {
             RaycastResult curRaysastResult = eventSystemRaysastResults[index];

@@ -41042,21 +41042,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6556645216354065487, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6556645216354065521, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6752772025274384512, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
       propertyPath: m_Name
       value: Battleground
-      objectReference: {fileID: 0}
-    - target: {fileID: 6752772025274384512, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a52eccd0bff58db4c81904e780ee8998, type: 3}

@@ -99,4 +99,20 @@ public class Card : MonoBehaviour {
         Debug.Log("First card is neither Attack, Defense, or Support.");
         return false;
     }
+
+
+    private void CardOnHandGlowIfCanBeUsed() {
+
+
+        if (isPlayed ==false) {
+            if (Card.Counter(CardChain.Instance.GetLastCardPlayed(), this)) {
+
+            }
+        }
+
+    }
+
+
+
+
 }
