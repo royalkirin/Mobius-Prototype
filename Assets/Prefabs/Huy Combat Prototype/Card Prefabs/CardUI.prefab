@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5312294765691037161}
   - component: {fileID: -3771172128867687332}
   - component: {fileID: -8939810714064223861}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: CardUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 7146773016063726689}
   - component: {fileID: 266688530497196201}
   - component: {fileID: 2723413191756462426}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Card Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}

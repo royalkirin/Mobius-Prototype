@@ -274,6 +274,11 @@ public class TurnManager : MonoBehaviour
             obj.SetActive(isPlayerReactTurn);
             
         }
+
+        Debug.Log("Huy!!!!!!!! THIS CODE IS RUNING AFTER THE PLAYER PUT A CARD ON THE TABLE, PLEASE HELP ME FIX IT SO IT WILL SHOW ONLY WHEN THE PLAYER IS ALLOWED TO PERFORM A MOVE");
+        //set card animation
+        playerHand.TurnOnOffAnimationCardThatCanBePlayed(isPlayerReactTurn);
+
     }
 
     //debug in console.

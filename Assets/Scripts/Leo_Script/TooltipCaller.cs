@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using UnityEngine.UI;
 
 public class TooltipCaller : MonoBehaviour {
 
@@ -15,7 +15,7 @@ public class TooltipCaller : MonoBehaviour {
 
     private void Start() {
         showUI = true;
-        UILayer = LayerMask.NameToLayer("UI");
+        UILayer = LayerMask.NameToLayer("Card");
     }
 
     private void Update() {
@@ -37,6 +37,14 @@ public class TooltipCaller : MonoBehaviour {
                 if (card != null) {
                     TooltipUI.Instance.Show(null, card, 0.1f);
                     return;
+                } else {
+
+                    //if its a card on the table, will show the sprite of the card
+                    Image image = curRaysastResult.gameObject.GetComponent<Image>();
+                    if (image != null) {
+                        TooltipUI.Instance.Show(null, null, 0.1f,true, image);
+                    }
+                    
                 }
 
 

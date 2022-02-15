@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,9 +56,8 @@ public class Card : MonoBehaviour {
 
 
     public virtual void Play(GameObject target) {
+
         isPlayed = true;
-
-
         //Debug.Log("Card played, belong to player = " + belongToPlayer);//for reference
     }
 
@@ -101,13 +101,23 @@ public class Card : MonoBehaviour {
     }
 
 
-    private void CardOnHandGlowIfCanBeUsed() {
+    public void CardOnHandPulseIfCanBeUsed(bool isPlayerTurn) {
 
+        //if 
+        //   not played yet
+        //   is the player turn
+        //   the card can be used....
+        //else
+        //   stop animation
+        //
 
-        if (isPlayed ==false) {
-            if (Card.Counter(CardChain.Instance.GetLastCardPlayed(), this)) {
+        if (isPlayed == false && isPlayerTurn && Card.Counter(CardChain.Instance.GetLastCardPlayed(), this)) {
 
-            }
+                this.gameObject.transform.DOScale(1.1f, 0.9f).SetLoops(-1, LoopType.Yoyo);
+            
+        } else {
+            transform.DORewind();
+            DOTween.Kill(transform);
         }
 
     }
