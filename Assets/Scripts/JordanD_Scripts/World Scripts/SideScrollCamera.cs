@@ -50,10 +50,11 @@ public class SideScrollCamera : MonoBehaviour
     ///*********************************************************************///
     void FollowPlayer()
     {
-        //Vector3 newthing = new Vector3(Mathf.Cos(uPlayerTransform.position.x) + uCamDistance.x, uCamDistance.y, Mathf.Sin(uPlayerTransform.position.z) + uCamDistance.z);
+        Vector3 newthing = new Vector3(Mathf.Cos(uPlayerTransform.position.x) + uCamDistance.x, uCamDistance.y, Mathf.Sin(uPlayerTransform.position.z) + uCamDistance.z);
         //Vector3 newthing = new Vector3(Mathf.Cos(uPlayerTransform.position.x) + uCamDistance.x, uCamDistance.y, uCamDistance.z);
 
-        transform.position = uPlayerTransform.position * -1.0f;
+        transform.position = uPlayerTransform.position + newthing;
+        //transform.position = uPlayerTransform.position * -1.0f;
 
         /*transform.position = new Vector3(uPlayerTransform.position.x - uCamDistance.x, uCamDistance.y, uPlayerTransform.position.z - uCamDistance.z);
         transform.position = uPlayerTransform.position - uCamDistance;*/
