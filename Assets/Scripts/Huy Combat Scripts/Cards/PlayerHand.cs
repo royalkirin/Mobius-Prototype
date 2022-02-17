@@ -91,6 +91,10 @@ public class PlayerHand : MonoBehaviour
     //update positions of cards on screen
     private void UpdateCardPosition()
     {
+
+        TurnOnOffAnimationCardThatCanBePlayed(true);
+
+
         //reset info in each card its position in the hand
         for (int i = 0; i < cardsInHand.Count; i++)
         {
@@ -194,5 +198,17 @@ public class PlayerHand : MonoBehaviour
         turnManager.UpdateDiscardStatus();
 
     }
+
+
+    public void TurnOnOffAnimationCardThatCanBePlayed(bool isPlayerTurn) {
+
+        for (int i = 0; i < cardsInHand.Count; i++) {
+            //update card animation
+            cardsInHand[i].CardOnHandPulseIfCanBeUsed(isPlayerTurn);
+        }
+
+    }
+
+
 
 }

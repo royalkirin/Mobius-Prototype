@@ -60,8 +60,14 @@ public class CardChain : MonoBehaviour
     ///////////////////////////
 
 
+    //singleton
+    public static CardChain Instance { get; private set; }
+    private void Awake() {
+        Instance = this;
+    }
 
-    private void Start()
+
+        private void Start()
     {
         FindVariables();
 

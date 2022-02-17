@@ -65,6 +65,7 @@ public class CardChainUI : MonoBehaviour
     ///                                                                     ///
     ///     Date Created: 1/3/21                                            ///
     ///     Date Updated: 2/05/22                                           ///
+    ///     Date Updated: 2/15/22 Leo--> add layer Card                     ///
     ///                                                                     ///
     ///     Author: Jordan R. Douglas                                       ///
     ///*********************************************************************///
@@ -73,6 +74,7 @@ public class CardChainUI : MonoBehaviour
         Image uNewCard = Instantiate<Image>(uCardTemplate);
         uNewCard.transform.SetParent(CardImages.transform, false);
         uNewCard.transform.position = cardsInChain[faceUpcardsPlayed - 1].transform.position - new Vector3(fSwitchCardPosX, 0.0f, 8.0f);
+        uNewCard.transform.gameObject.layer = 7; //card
         fSwitchCardPosX = fSwitchCardPosX * -1;
         FindVariables();
         cardsInChain[faceUpcardsPlayed - 1].sprite = card.GetFrontImage();
