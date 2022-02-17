@@ -30,7 +30,7 @@ public class CardChainUI : MonoBehaviour
 
     //This variable is meant to be a switch. 1 = Scrolling Down, 2 = Scrolling Up
     short sPriorFlip = 0;
-    short sVisibleCardLimit = 46;
+    public short sVisibleCardLimit = 6;
 
     short sIncreasePace = 4; // Never should be 0, increasing it higher speeds up various markers such as LERPing and Fade In/Fade Out for Cards.
 
