@@ -435,7 +435,7 @@ public class CardChain : MonoBehaviour
         yield return new WaitForSeconds(sec);
         chainEnding = false;
         CreateNewChain();
-        chainUI.ResetChainUI();
+        chainUI.ResetChainUI(playerGoesFirst);
 
         //if player's chain ends, he can choose to end his turn, or starts another chain.
         if (playerGoesFirst)
