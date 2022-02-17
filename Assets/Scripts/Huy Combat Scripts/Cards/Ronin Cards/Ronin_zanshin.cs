@@ -25,13 +25,13 @@ public class Ronin_zanshin : DefenseCard {
         if (belongToPlayer) {
             Characters = GameObject.FindGameObjectsWithTag("PlayerCharacter");
             foreach (GameObject Character in Characters) {
-                (Character.GetComponent<Health>()).RaiseTheShield();
+                (Character.GetComponent<Attackable>()).RaiseTheShield();
                 return;
             }
         } else {
             Characters = GameObject.FindGameObjectsWithTag("EnemyCharacter");
             foreach (GameObject Character in Characters) {
-                ( Character.GetComponent<Health>() ).RaiseTheShield();
+                ( Character.GetComponent<Attackable>() ).RaiseTheShield();
                 return;
             }
         }

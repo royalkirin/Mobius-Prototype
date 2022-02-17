@@ -10,6 +10,9 @@ public class PlayerHand : MonoBehaviour
     public List<Card> cardsInHand;
     public const int MAX_CARD_COUNT = 5;
 
+    CardChain cardChain;
+
+
     //UI component, positions of the cards in the hand.
     
 
@@ -41,6 +44,12 @@ public class PlayerHand : MonoBehaviour
         if (turnManager is null)
         {
             Debug.Log("Cannot find Turn manager in " + name);
+        }
+
+        cardChain = GameObject.FindWithTag("CardChain").GetComponent<CardChain>();
+        if (cardChain is null)
+        {
+            Debug.Log("Cannot find cardChain in " + name);
         }
 
     }
@@ -92,7 +101,7 @@ public class PlayerHand : MonoBehaviour
     private void UpdateCardPosition()
     {
 
-        TurnOnOffAnimationCardThatCanBePlayed(true);
+        //TurnOnOffAnimationCardThatCanBePlayed(true);
 
 
         //reset info in each card its position in the hand
@@ -200,11 +209,28 @@ public class PlayerHand : MonoBehaviour
     }
 
 
-    public void TurnOnOffAnimationCardThatCanBePlayed(bool isPlayerTurn) {
+    public void TurnOnOffAnimationCardThatCanBePlayed(bool isActive) {
+
+        if (isActive) //if it's active, we check some condiditons to see if it's really not
+        {
+
+            if (cardChain.GetTotalCard() == 0) //no card in chain, not active
+            {
+                isActive = false;
+            }
+            else if (cardChain.GetLastCardPlayed().belongToPlayer) //last card in chain is Player's, not active
+            { 
+                {
+                    isActive = false;
+                }
+            }
+        }
+
+        //out here: last card in chain is Enemy -> player's turn to counter.
 
         for (int i = 0; i < cardsInHand.Count; i++) {
             //update card animation
-            cardsInHand[i].CardOnHandPulseIfCanBeUsed(isPlayerTurn);
+            cardsInHand[i].CardOnHandPulseIfCanBeUsed(isActive);
         }
 
     }

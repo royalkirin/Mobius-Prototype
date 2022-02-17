@@ -10,6 +10,7 @@ public class EnemyAI : MonoBehaviour
     /////////////////
     ///these vars are used to help enemy play simple card
     ///improved by reading card information in Enemyhand and deduct proper play
+    ///no longer of use.
     [SerializeField] AttackCard attackCard;
     [SerializeField] DefenseCard defenseCard;
     [SerializeField] SupportCard supportCard;
@@ -24,6 +25,9 @@ public class EnemyAI : MonoBehaviour
 
     EnemyHand enemyHand;
 
+
+    bool testing = false;
+   
 
     private void Start()
     {
@@ -49,6 +53,9 @@ public class EnemyAI : MonoBehaviour
         {
             Debug.LogWarning("Cannot find Enemy Hand in " + name);
         }
+
+
+
     }
 
     private void Update()
@@ -70,18 +77,31 @@ public class EnemyAI : MonoBehaviour
         {
             CountSupportCard();
         }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            testing = !testing;
+            Debug.Log("Testing = " + testing);
+        }
     }
 
     //when it's enemy turn, play.
-    public IEnumerator OnEnemyTurn(float sec)
+    public IEnumerator OnEnemyTurn(float sec = 8f)
     {
         yield return new WaitForSeconds(sec);
         PlayFirstCardInChain();
-        Debug.Log("Ending Enemy turn");
     }
 
     private void PlayFirstCardInChain()
     {
+        //if enemy hand is empty
+        if(enemyHand.cardsInHand.Count <= 3)
+        {
+            Debug.Log("Enemy hand has <= 3 cards. Give up the turn.");
+            turnManager.DefaultChangeTurn();
+            return;
+        }
+
 
         int numbAtt = CountAttackCard() ;
         int numbDef = CountDefenseCard();
@@ -89,6 +109,8 @@ public class EnemyAI : MonoBehaviour
 
         int max = Mathf.Max(Mathf.Max(numbAtt, numbDef), numbSup);
         Debug.Log(numbAtt + " " + numbDef + " " + numbSup + " " + max);
+
+
 
         if(enemyHand is null)
         {
@@ -101,13 +123,16 @@ public class EnemyAI : MonoBehaviour
         else
         { //PLAY the card that we have the most in hand first.
           //priority if equal: Attack > Defense > Support
-            //cardPlayer.PlayCard(enemyHand.cardsInHand[0]);
+          //cardPlayer.PlayCard(enemyHand.cardsInHand[0]);
+
+            bool isPlayed = false;
             if(numbAtt == max)
             {
                 int firstAtt = FindAttackCard();
                 if(firstAtt != -1)
                 {
-                    cardPlayer.PlayCard(enemyHand.cardsInHand[firstAtt]);
+                    Debug.Log("playing attack");
+                    isPlayed = cardPlayer.PlayCard(enemyHand.cardsInHand[firstAtt]);
                 }
 
             } else if (numbDef == max)
@@ -115,7 +140,8 @@ public class EnemyAI : MonoBehaviour
                 int firstDef = FindDefenseCard();
                 if (firstDef != -1)
                 {
-                    cardPlayer.PlayCard(enemyHand.cardsInHand[firstDef]);
+                    Debug.Log("playing defense");
+                    isPlayed = cardPlayer.PlayCard(enemyHand.cardsInHand[firstDef]);
                 }
             }
             else if (numbSup == max)
@@ -123,13 +149,15 @@ public class EnemyAI : MonoBehaviour
                 int firstSup = FindSupportCard();
                 if (firstSup != -1)
                 {
-                    cardPlayer.PlayCard(enemyHand.cardsInHand[firstSup]);
+                    Debug.Log("playing support");
+                    isPlayed = cardPlayer.PlayCard(enemyHand.cardsInHand[firstSup]);
                 }
             }
             else
             {
                 Debug.LogError("This part should not be reached.");
             }
+            Debug.Log("isPlayed: " + isPlayed);
         }
 
     }
@@ -139,12 +167,14 @@ public class EnemyAI : MonoBehaviour
         StartCoroutine(WaitEnemyEndTurn(5));
     }
 
+    //delays little bit until we end the turn in Turn manager
     IEnumerator WaitEnemyEndTurn(int secs)
     {
         yield return new WaitForSeconds(secs);
         turnManager.DefaultChangeTurn();
     }
 
+    //enemy reacts to player in the chain. why try his best to counter.
     public void OnEnemyReactTurn()
     {
         Card lastCardPlayed = cardChain.GetLastCardPlayed();
@@ -156,43 +186,56 @@ public class EnemyAI : MonoBehaviour
         StartCoroutine(EnemyPlayReactionCard(1f));
 
     }
-
+    //always play a reaction card if possible
     IEnumerator EnemyPlayReactionCard(float sec)
     {
         yield return new WaitForSeconds(sec);
 
-        Card lastCardInChain = cardChain.GetLastCardPlayed();
-        
-        /////////
-        ///TRY to counter until we run out of card, or we cannot counter
-        int indexToPlay = -1;
-        if (lastCardInChain is AttackCard)
-        {
-            indexToPlay = FindDefenseCard();
-        }
-        else if (lastCardInChain is DefenseCard)
-        {
-            indexToPlay = FindSupportCard();
-        }
-        else //last card played =  Support card
-        {
-            indexToPlay = FindAttackCard();
-        }
-        if(indexToPlay == -1)//meaning we have 0 cards in hand, or cannot counter the last card
+        if (testing)
         {
             if (!cardChain.chainEnding) //give up the chain
             {
                 cardChain.ChainEnd(isPlayer: false);
             }
         }
-        else //counter the last card in the chain
+        else
         {
-            bool isPlayed = cardPlayer.PlayCard(enemyHand.cardsInHand[indexToPlay]);
-            if (!isPlayed)
+            Card lastCardInChain = cardChain.GetLastCardPlayed();
+
+            /////////
+            ///TRY to counter until we run out of card, or we cannot counter
+            int indexToPlay = -1;
+            if (lastCardInChain is AttackCard)
             {
-                Debug.LogError("Cannot play? Check counter logic.");
+                indexToPlay = FindDefenseCard();
+            }
+            else if (lastCardInChain is DefenseCard)
+            {
+                indexToPlay = FindSupportCard();
+            }
+            else //last card played =  Support card
+            {
+                indexToPlay = FindAttackCard();
+            }
+            if (indexToPlay == -1)//meaning we have 0 cards in hand, or cannot counter the last card
+            {
+                if (!cardChain.chainEnding) //give up the chain
+                {
+                    cardChain.ChainEnd(isPlayer: false);
+                }
+            }
+            else //counter the last card in the chain
+            {
+                bool isPlayed = cardPlayer.PlayCard(enemyHand.cardsInHand[indexToPlay]);
+                if (!isPlayed)
+                {
+                    Debug.LogError("Cannot play? Check counter logic.");
+                }
             }
         }
+
+
+
 
         //OLD CODE
         //bool isPlayed = cardPlayer.PlayCard(newCard);

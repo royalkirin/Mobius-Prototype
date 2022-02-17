@@ -13,7 +13,7 @@ public class Health : MonoBehaviour
     private float maxHealth = 10f; //max Health
     public Slider healthBar; //display health UI
 
-    [SerializeField] private GameObject Shield; //if gameobject active, the shielsd will be destroied and the player will not receive damage
+   
 
 
     private void Start()
@@ -45,11 +45,6 @@ public class Health : MonoBehaviour
     //because there are a bunch of checks there before we directly manipulate health of a character
     public void TakeDamage(float damage)
     {
-        //if the shield is active, the player will not receive damage
-        if (Shield.activeInHierarchy) {
-            Debug.Log("Is pending put shield breacking animation");
-            return;
-        }
 
         health -= damage;
         health = Mathf.Clamp(health, 0, maxHealth);//make sure health is in range
@@ -73,12 +68,5 @@ public class Health : MonoBehaviour
     {
         return health;
     }
-
-    public void RaiseTheShield() {
-        Shield.SetActive(true);
-    }
-
-
-
 
 }

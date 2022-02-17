@@ -515,7 +515,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   healthBar: {fileID: 1765725202993490078}
-  Shield: {fileID: 7007758662021406370}
 --- !u!114 &7075814290364508845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,6 +530,7 @@ MonoBehaviour:
   DefenseValue: 0
   health: {fileID: 7075814290364508844}
   ui: {fileID: 0}
+  Shield: {fileID: 7007758662021406370}
 --- !u!114 &7944241186967115610
 MonoBehaviour:
   m_ObjectHideFlags: 0
