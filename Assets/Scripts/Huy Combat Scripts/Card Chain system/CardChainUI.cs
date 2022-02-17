@@ -30,6 +30,7 @@ public class CardChainUI : MonoBehaviour
 
     //This variable is meant to be a switch. 1 = Scrolling Down, 2 = Scrolling Up
     short sPriorFlip = 0;
+    short sVisibleCardLimit = 46;
 
     short sIncreasePace = 4; // Never should be 0, increasing it higher speeds up various markers such as LERPing and Fade In/Fade Out for Cards.
 
@@ -44,7 +45,7 @@ public class CardChainUI : MonoBehaviour
     //These vars are for the mechanics and logics of adding cards to the list
     [SerializeField] GameObject CardImages; //place holder for card images. Not affect mechanics.
     [SerializeField] List<Image> cardsInChain;//fixed list of 10 images.
-    private const int MaxWithoutLerping = 3;
+    private const int MaxWithoutLerping = 4;
     public int faceUpcardsPlayed = 0; //current number of cards played face up
     public Image uCardTemplate;
     //private const int MAX_CARDS_ALLOWED = 10; //maximum 10 cards in chain.
@@ -182,7 +183,7 @@ public class CardChainUI : MonoBehaviour
     ///             bottom of the chain.                                    ///
     ///                                                                     ///
     ///     Date Created: 2/07/22                                           ///
-    ///     Date Updated: 2/07/22                                           ///
+    ///     Date Updated: 2/17/22                                           ///
     ///                                                                     ///
     ///     Author: Jordan R. Douglas                                       ///
     ///*********************************************************************///
@@ -205,7 +206,7 @@ public class CardChainUI : MonoBehaviour
             if (nNextOldestCard < 0)
             {
                 nNextOldestCard = 0;
-                nRecentCard = 6;
+                nRecentCard = sVisibleCardLimit + 1;
             }
             else if (sPriorFlip == 2)
             {
@@ -228,7 +229,7 @@ public class CardChainUI : MonoBehaviour
     ///             top of the chain.                                       ///
     ///                                                                     ///
     ///     Date Created: 2/07/22                                           ///
-    ///     Date Updated: 2/07/22                                           ///
+    ///     Date Updated: 2/17/22                                           ///
     ///                                                                     ///
     ///     Author: Jordan R. Douglas                                       ///
     ///*********************************************************************///
@@ -239,7 +240,7 @@ public class CardChainUI : MonoBehaviour
         {
             if (nRecentCard > faceUpcardsPlayed)
             {
-                nNextOldestCard = faceUpcardsPlayed - 6;
+                nNextOldestCard = faceUpcardsPlayed - sVisibleCardLimit - 1;
                 nRecentCard = faceUpcardsPlayed;
             }
             else if (sPriorFlip == 1)
@@ -310,7 +311,7 @@ public class CardChainUI : MonoBehaviour
         TestLerp();
         LerpUI(bGoingUp);
         timePassedSinceLerping += Time.deltaTime * sIncreasePace;
-        if (faceUpcardsPlayed > 5)
+        if (faceUpcardsPlayed > sVisibleCardLimit)
         {
             CardScroll();
         }
@@ -358,14 +359,14 @@ public class CardChainUI : MonoBehaviour
                 if (nNextOldestCard < 0)
                 {
                     nNextOldestCard = 0;
-                    nRecentCard = 6;
+                    nRecentCard = sVisibleCardLimit + 1;
                 }
                 ReturnToRecent();
             }
             SetupLerping(true);
         }
 
-        nNextOldestCard = faceUpcardsPlayed - 6;
+        nNextOldestCard = faceUpcardsPlayed - sVisibleCardLimit - 1;
         nRecentCard = faceUpcardsPlayed;
 
         return true;
@@ -391,9 +392,15 @@ public class CardChainUI : MonoBehaviour
             cardsInChain[0].color = new Color(1, 1, 1, 1.0f);
 
         if (bIsPlayerTurn)
+        {
             fSwitchCardPosX = 4.9f;
+            cardsInChain[0].transform.position = new Vector3(cardsInChain[0].transform.position.x - fSwitchCardPosX, cardsInChain[0].transform.position.y, cardsInChain[0].transform.position.z);
+        }
         else
+        {
             fSwitchCardPosX = -4.9f;
+            cardsInChain[0].transform.position = new Vector3(cardsInChain[0].transform.position.x - fSwitchCardPosX, cardsInChain[0].transform.position.y, cardsInChain[0].transform.position.z);
+        }
 
         bChainManualReset = false;
     }
@@ -424,7 +431,7 @@ public class CardChainUI : MonoBehaviour
             cardsInChain[i].color = new Color(1, 1, 1, 1.0f);
         }
         bManualScroll = false;
-        nNextOldestCard = faceUpcardsPlayed - 6;
+        nNextOldestCard = faceUpcardsPlayed - sVisibleCardLimit - 1;
         nRecentCard = faceUpcardsPlayed - 1;
     }
 
@@ -499,7 +506,7 @@ public class CardChainUI : MonoBehaviour
             return;
         }
 
-        if (faceUpcardsPlayed > 5)
+        if (faceUpcardsPlayed > sVisibleCardLimit)
         {
             if (bIsGoingUp)
             {
