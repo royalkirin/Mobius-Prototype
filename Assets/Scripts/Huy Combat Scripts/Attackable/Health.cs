@@ -13,6 +13,9 @@ public class Health : MonoBehaviour
     private float maxHealth = 10f; //max Health
     public Slider healthBar; //display health UI
 
+   
+
+
     private void Start()
     {
         SetupVariables();
@@ -42,6 +45,7 @@ public class Health : MonoBehaviour
     //because there are a bunch of checks there before we directly manipulate health of a character
     public void TakeDamage(float damage)
     {
+
         health -= damage;
         health = Mathf.Clamp(health, 0, maxHealth);//make sure health is in range
         //Debug.Log(name + " took " + damage + " damage");
@@ -64,4 +68,5 @@ public class Health : MonoBehaviour
     {
         return health;
     }
+
 }

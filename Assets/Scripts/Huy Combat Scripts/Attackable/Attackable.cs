@@ -13,6 +13,11 @@ public class Attackable : MonoBehaviour
     public float DefenseValue = 0f;
     [SerializeField]Health health = null;
     [SerializeField] CharacterAttackableUI ui;
+
+    /// Shield stuffs
+    [SerializeField] private GameObject Shield; //if gameobject active, the shielsd will be destroied and the player will not receive damage
+
+
     private void Start()
     {
         if(health is null)
@@ -29,18 +34,42 @@ public class Attackable : MonoBehaviour
     //Call this function to deal damage to an object.
     public void TakeDamage(float damage)
     {
-        damage = TakeDamageWithDefense(damage);
-        if(damage > 0)
+        //shield parts
+        bool isShielded = TakeDamageWithShield();
+        if (!isShielded) 
         {
-            health.TakeDamage(damage);
+            damage = TakeDamageWithDefense(damage);
+            if (damage > 0)
+            {
+                health.TakeDamage(damage);
+            }
         }
+
         ui.UpdateText(DefenseValue, health.GetCurrentHealth()) ;
+    }
+
+
+    //return true if damage is absorb by the shield.
+    private bool TakeDamageWithShield()
+    {
+        //if the shield is active, the player will not receive damage
+        if (Shield.activeInHierarchy)
+        {
+            Debug.Log("Is pending put shield breacking animation");
+            Shield.SetActive(false);
+            return true;
+        }
+        return false;
     }
 
     //first we reduce the defense 
     //return the value of damage left after defense is reduced
     private float TakeDamageWithDefense(float damage)
     {
+
+
+
+
         //if defense is negative, we add to the damage
         if(DefenseValue  <= 0f)
         {
@@ -70,5 +99,11 @@ public class Attackable : MonoBehaviour
         DefenseValue += defenseValue;
         //Debug.Log("Added " + defenseValue + " defense, current Defense is " + DefenseValue);
         ui.UpdateText(DefenseValue, health.GetCurrentHealth());
+    }
+
+
+    public void RaiseTheShield()
+    {
+        Shield.SetActive(true);
     }
 }

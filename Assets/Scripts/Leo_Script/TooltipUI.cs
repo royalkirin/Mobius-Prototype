@@ -67,14 +67,24 @@ public class TooltipUI : MonoBehaviour {
         backgroundRectTransform.sizeDelta = textSize + padding;
     }
 
-    public void Show(string tooltipText = null, Card _card = null, float _tooltipTimer = 0) {
+    public void Show(string tooltipText = null, Card _card = null, float _tooltipTimer = 0, bool showTheFront = true, Image image = null) {
         this.tooltipTimer = _tooltipTimer;
         gameObject.SetActive(true);
 
         if (_card != null) {
             toolTipSprite.gameObject.SetActive(true);
-            toolTipSprite.sprite = _card.GetFrontImage();
+            if (showTheFront) {
+                toolTipSprite.sprite = _card.GetFrontImage();
+            } else {
+                toolTipSprite.sprite = _card.GettrapImage();
+            }
         }
+
+        if (image != null) {
+            toolTipSprite.gameObject.SetActive(true);
+            toolTipSprite.sprite = image.sprite;
+        }
+
 
         if (tooltipText != null) {
             textMeshPro.gameObject.SetActive(true);

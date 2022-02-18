@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 
 //this class managers the turn of the game, player or enemy, start or end of each one.
@@ -91,6 +93,12 @@ public class TurnManager : MonoBehaviour
         {
             Debug.Log("Could not find Pass btn. Check Card Play Canvas.");
         }
+        else
+        {
+            passBtn.GetComponent<Button>().onClick.AddListener(ManageFeaturesChangingTurn);
+            Debug.Log("TurnManager.cs add Btn Clink on Pass Btn");
+        }
+
         CheckPassBtnActivated();
 
         endTurnBtn = GameObject.Find("End Turn btn");
@@ -266,6 +274,8 @@ public class TurnManager : MonoBehaviour
         }
 
         isPlayerReactTurn = isPlayerTurn;
+
+        playerHand.TurnOnOffAnimationCardThatCanBePlayed(false);
     }
 
 
@@ -277,6 +287,9 @@ public class TurnManager : MonoBehaviour
             obj.SetActive(isPlayerReactTurn);
             
         }
+        //set card animation
+        playerHand.TurnOnOffAnimationCardThatCanBePlayed(isPlayerReactTurn);
+
     }
 
     //debug in console.
@@ -375,6 +388,7 @@ public class TurnManager : MonoBehaviour
     //if so, he either discard it and play, or skip his turn.
     private void FirstStageTrapCardCheck()
     {
+        Debug.LogWarning("1st stage, TRAP CARD CHECK started");
         //deactivate features until the check is finished
         foreach (GameObject obj in PlayerActivateList)
         {
@@ -389,13 +403,14 @@ public class TurnManager : MonoBehaviour
         if (isPlayerTurn && trapCardManager.DoesPlayerHaveATrapCard())
         {
             didPlayerChooseATrapOption = false;
-            Debug.LogWarning("Implement trap card check here");
+            //Debug.LogWarning("Implement trap card check here");
             TrapCardOptionsHandler.SetActive(true);
             StartCoroutine(WaitUntilPlayerReactToDiscardTrapCardOptions());
         }
         else
         {
             ManageFeaturesChangingTurn();
+            Debug.LogWarning("1st stage, TRAP CARD CHECK finished");
             firstStageFinished = true;
         }
     }

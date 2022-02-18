@@ -25,7 +25,7 @@ public class CardPlayer : MonoBehaviour
     EnemyHand enemyHand;
 
     CardChain cardChain;
-    Deck playerDeck; //deck of the player (enemy do not have a deck yet)
+    public Deck playerDeck; //deck of the player, or enemy, depends on the friendlyTag
 
     //handle trap card plays
     TrapCardManager trapCardManager;
@@ -75,11 +75,22 @@ public class CardPlayer : MonoBehaviour
             Debug.Log("Cannot find cardChain in " + name);
         }
 
-        playerDeck = GameObject.FindWithTag("PlayerDeck").GetComponent<Deck>();
+
+
+        if(friendlyTag == "PlayerCharacter")
+        {
+            playerDeck = GameObject.FindWithTag("PlayerDeck").GetComponent<Deck>();
+        }else if (friendlyTag == "EnemyCharacter")
+        {
+            playerDeck = GameObject.FindWithTag("EnemyDeck").GetComponent<Deck>();
+        }
+
         if (playerDeck == null)
         {
             Debug.Log("Cannot find Deck for CardPlayer");
         }
+
+
 
         trapCardManager = GameObject.FindWithTag("TrapCardManager").GetComponent<TrapCardManager>();
         if(trapCardManager is null)

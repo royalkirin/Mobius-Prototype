@@ -19,6 +19,7 @@ public class EndTurnButton : MonoBehaviour
 
         btn = GetComponent<Button>();
         btn.onClick.AddListener(OnEndTurnButtonClick);
+        Debug.Log("EndTurnBtn.cs added listenter on End Turn btn");
     }
 
     //when clicked, Player signifies to TurnManager that he wants to change the turn

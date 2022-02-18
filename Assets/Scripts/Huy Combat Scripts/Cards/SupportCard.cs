@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SupportCard : Card
 {
-    int numbCardsToAdd = 4;
+    int numbCardsToAdd = 1;
     // Update is called once per frame
     public override void Play(GameObject playerDeckGameObject)
     {
@@ -15,11 +15,13 @@ public class SupportCard : Card
         //add cards to player hand IF SUPPORT CARD BELONGS TO PLAYER
         if (belongToPlayer)
         {
+            Debug.Log("Implement support card for player");
             SupportCardEffect(playerDeckGameObject);
         }
         else
         {
             Debug.Log("Implement support card for enemy");
+            SupportCardEffect(playerDeckGameObject);
         }
         
     }
@@ -37,7 +39,15 @@ public class SupportCard : Card
 
         for(int i = 0; i < numbCardsToAdd; i++)
         {
-            playerDeck.DealToPlayer(cardLimited: false);//this is special: deal unlimited cards.
+            if (belongToPlayer)
+            {
+                playerDeck.DealToPlayer(cardLimited: false);//this is special: deal unlimited cards.
+            }
+            else
+            {
+                playerDeck.DealToEnemy(cardLimited: false);
+            }
+            
         }
         return true;
     }

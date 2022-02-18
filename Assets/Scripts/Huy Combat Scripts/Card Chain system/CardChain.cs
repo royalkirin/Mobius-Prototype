@@ -43,6 +43,8 @@ public class CardChain : MonoBehaviour
     //between delays, cannot play any cards.
     public bool chainEnding = false;
 
+    //invoke EnemyAI when necessary.
+    EnemyAI enemyAI;
 
 
 
@@ -60,8 +62,14 @@ public class CardChain : MonoBehaviour
     ///////////////////////////
 
 
+    //singleton
+    public static CardChain Instance { get; private set; }
+    private void Awake() {
+        Instance = this;
+    }
 
-    private void Start()
+
+        private void Start()
     {
         FindVariables();
 
@@ -102,6 +110,7 @@ public class CardChain : MonoBehaviour
             //when player click this btn, signify he wants to end the chain.
             //passBtn will be activated/deactivated in TurnManager.cs
             passBtn.GetComponent<Button>().onClick.AddListener(PassBtnClick);
+            Debug.Log("CardChain.cs add Btn Clink on Pass Btn");
         }
 
         battleGround = GameObject.FindWithTag("Battleground").GetComponent<BattleGround>();
@@ -114,6 +123,20 @@ public class CardChain : MonoBehaviour
         if(chainUI is null)
         {
             Debug.Log("Missing Card Chain UI component in " + name);
+        }
+
+        GameObject[] enemyList = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemyList.Length > 1)
+        {
+            Debug.LogError("Why are there more than 1 game object with tag Enemy in the game?");
+        }
+        else
+        {
+            enemyAI = enemyList[0].GetComponent<EnemyAI>();
+            if(enemyAI is null)
+            {
+                Debug.LogError("Cannot find EnemyAI in " + name);
+            }
         }
     }
 
@@ -181,6 +204,7 @@ public class CardChain : MonoBehaviour
         bool isInvincible = CheckInvincibleCard(card, isTrapCard);
 
         card.gameObject.SetActive(false);
+        
 
 
 
@@ -188,7 +212,7 @@ public class CardChain : MonoBehaviour
         if(isTrapCard is false && isInvincible is false)
         {
             //signify to turn manager that player A plays a card, now its turn to counter.
-            StartCoroutine(EndReactionTurnInTime(3f));
+            StartCoroutine(EndReactionTurnInTime(0.5f));
         }
         else if(isTrapCard)//player succesfully plays a trap card. The chain ends right now.
         {
@@ -441,7 +465,9 @@ public class CardChain : MonoBehaviour
         //update this for more advanced AI 
         if (!playerGoesFirst)
         {
-            turnManager.DefaultChangeTurn();
+            //turnManager.DefaultChangeTurn();
+            
+            StartCoroutine(enemyAI.OnEnemyTurn(8f));
         }
 
     }
@@ -485,7 +511,18 @@ public class CardChain : MonoBehaviour
         {
             return;
         }
-        ChainEnd(isPlayer: true);
+        if (lastCardBelongToPlayer)
+        {
+            Debug.LogWarning("cannot pass when last card belong to player");
+            return;
+        }
+        else
+        {
+            ChainEnd(isPlayer: true);
+        }
+        
+        
+
     }
 
     public void GetChainUINewRound(bool bIsPlayerTurn)
