@@ -487,4 +487,9 @@ public class CardChain : MonoBehaviour
         }
         ChainEnd(isPlayer: true);
     }
+
+    public void GetChainUINewRound(bool bIsPlayerTurn)
+    {
+        chainUI.SetChainStartPosition(bIsPlayerTurn);
+    }
 }

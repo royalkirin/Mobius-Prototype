@@ -30,9 +30,11 @@ public class CardChainUI : MonoBehaviour
 
     //This variable is meant to be a switch. 1 = Scrolling Down, 2 = Scrolling Up
     short sPriorFlip = 0;
-    public short sVisibleCardLimit = 6;
+    short sVisibleCardLimit = 6;
 
     short sIncreasePace = 4; // Never should be 0, increasing it higher speeds up various markers such as LERPing and Fade In/Fade Out for Cards.
+
+    [SerializeField] Vector3 uCardInitialPos;
 
     //Tracks the most recently played Card and Oldest Card still visible on screen.
     [SerializeField] int nRecentCard;
@@ -55,6 +57,33 @@ public class CardChainUI : MonoBehaviour
         FindVariables();
         if (bDEBUGENABLE)
             cardsInChain[faceUpcardsPlayed].GetComponent<Image>().color = new Color(1, 1, 1, 1.0f);
+        uCardInitialPos = cardsInChain[0].transform.position;
+    }
+
+    ///*********************************************************************///
+    /// Function: SetChainStartPosition                                     ///
+    ///                                                                     ///
+    /// Description: Determines what side the Card Chain UI will start at.  ///
+    ///             Left side means the Enemy starts the Chain, while Right ///
+    ///             side means the Player starts the Chain.                 ///
+    ///                                                                     ///
+    ///     Date Created: 2/17/22                                           ///
+    ///     Date Updated: 2/18/22                                           ///
+    ///                                                                     ///
+    ///     Author: Jordan R. Douglas                                       ///
+    ///*********************************************************************///
+    public void SetChainStartPosition(bool isPlayerStart)
+    {
+        if (isPlayerStart)
+        {
+            fSwitchCardPosX = 4.9f;
+            cardsInChain[0].transform.position = uCardInitialPos;
+        }
+        else 
+        {
+            fSwitchCardPosX = -4.9f;
+            cardsInChain[0].transform.position = uCardInitialPos - new Vector3(4.9f, 0.0f, 0.0f);
+        }
     }
 
     ///*********************************************************************///
@@ -64,7 +93,7 @@ public class CardChainUI : MonoBehaviour
     ///             as Card Template) and duplicates it whenever we add a   ///
     ///             new card to the ongoing chain.                          ///
     ///                                                                     ///
-    ///     Date Created: 1/3/21                                            ///
+    ///     Date Created: 1/3/22                                            ///
     ///     Date Updated: 2/05/22                                           ///
     ///                                                                     ///
     ///     Author: Jordan R. Douglas                                       ///
@@ -115,7 +144,7 @@ public class CardChainUI : MonoBehaviour
     ///             to manually scroll through the Card Chain.              ///
     ///                                                                     ///
     ///     Date Created: 2/04/22                                           ///
-    ///     Date Updated: 2/06/22                                           ///
+    ///     Date Updated: 2/17/22                                           ///
     ///                                                                     ///
     ///     Author: Jordan R. Douglas                                       ///
     ///*********************************************************************///
@@ -123,7 +152,7 @@ public class CardChainUI : MonoBehaviour
     {
         if (!bDEBUGENABLE)
         {
-           if (cardsInChain[nCard].GetComponent<Image>().sprite == null)
+            if (cardsInChain[nCard].GetComponent<Image>().sprite == null)
             {
                 fAlphaIncrease = 1.0f;
                 return;
@@ -359,7 +388,7 @@ public class CardChainUI : MonoBehaviour
                 if (nNextOldestCard < 0)
                 {
                     nNextOldestCard = 0;
-                    nRecentCard = sVisibleCardLimit + 1;
+                    nRecentCard = sVisibleCardLimit;
                 }
                 ReturnToRecent();
             }
@@ -392,15 +421,9 @@ public class CardChainUI : MonoBehaviour
             cardsInChain[0].color = new Color(1, 1, 1, 1.0f);
 
         if (bIsPlayerTurn)
-        {
             fSwitchCardPosX = 4.9f;
-            cardsInChain[0].transform.position = new Vector3(cardsInChain[0].transform.position.x - fSwitchCardPosX, cardsInChain[0].transform.position.y, cardsInChain[0].transform.position.z);
-        }
         else
-        {
             fSwitchCardPosX = -4.9f;
-            cardsInChain[0].transform.position = new Vector3(cardsInChain[0].transform.position.x - fSwitchCardPosX, cardsInChain[0].transform.position.y, cardsInChain[0].transform.position.z);
-        }
 
         bChainManualReset = false;
     }

@@ -24,7 +24,7 @@ public class EndTurnButton : MonoBehaviour
     //when clicked, Player signifies to TurnManager that he wants to change the turn
     public void OnEndTurnButtonClick()
     {
-        if(turnManager != null)
+        if (turnManager != null)
         {
             turnManager.PlayerChangeTurn();
         }

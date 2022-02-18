@@ -179,6 +179,9 @@ public class TurnManager : MonoBehaviour
         isPlayerReactTurn = isPlayerTurn;
         PrintTurn();
 
+        //Call to swap what side the Chain Starts on (Left Side = Enemy Start, Right Side = Player Start
+        cardChain.GetChainUINewRound(isPlayerTurn);
+
         if (!isPlayerTurn)
         {
             enemyDeck.FullDealToEnemy();
