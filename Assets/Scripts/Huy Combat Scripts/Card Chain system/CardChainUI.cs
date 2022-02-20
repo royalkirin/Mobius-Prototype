@@ -79,7 +79,7 @@ public class CardChainUI : MonoBehaviour
             fSwitchCardPosX = 4.9f;
             cardsInChain[0].transform.position = uCardInitialPos;
         }
-        else 
+        else
         {
             fSwitchCardPosX = -4.9f;
             cardsInChain[0].transform.position = uCardInitialPos - new Vector3(4.9f, 0.0f, 0.0f);
@@ -186,11 +186,14 @@ public class CardChainUI : MonoBehaviour
     ///*********************************************************************///
     private void ReturnToRecent()
     {
-        while (nRecentCard != faceUpcardsPlayed)
+        while (nRecentCard != faceUpcardsPlayed - 1)
         {
             //Determine if we start Lerping or Continue the Current Lerp.
             if (!isLerping)
+            {
+                bManualScroll = false;
                 SetupLerping(true);
+            }
             else
             {
                 timePassedSinceLerping += Time.deltaTime;
@@ -220,7 +223,7 @@ public class CardChainUI : MonoBehaviour
     ///*********************************************************************///
     public void CardScrollUp()
     {
-        if (!isLerping && nRecentCard != faceUpcardsPlayed + 1)
+        if (!isLerping && nRecentCard != faceUpcardsPlayed)
         {
             if (!bManualScroll)
             {
@@ -237,7 +240,7 @@ public class CardChainUI : MonoBehaviour
             if (nNextOldestCard < 0)
             {
                 nNextOldestCard = 0;
-                nRecentCard = sVisibleCardLimit + 1;
+                nRecentCard = sVisibleCardLimit;
             }
             else if (sPriorFlip == 2)
             {
@@ -269,22 +272,31 @@ public class CardChainUI : MonoBehaviour
         //If we are beyond the very bottom of the chain when activating, take a step back in the chain immediately
         if (!isLerping && nNextOldestCard >= 0)
         {
-            if (nRecentCard > faceUpcardsPlayed)
+            if (!bManualScroll)
             {
-                nNextOldestCard = faceUpcardsPlayed - sVisibleCardLimit - 1;
-                nRecentCard = faceUpcardsPlayed;
-            }
-            else if (sPriorFlip == 1)
-            {
-                nNextOldestCard--;
-                nRecentCard--;
+                bManualScroll = true;
+                nRecentCard = faceUpcardsPlayed - 1;
+                nNextOldestCard = nRecentCard - sVisibleCardLimit;
             }
 
+            else if (nRecentCard > faceUpcardsPlayed)
+            {
+                nRecentCard = faceUpcardsPlayed - 1;
+                nNextOldestCard = nRecentCard - sVisibleCardLimit - 1;
+            }
+
+            else if (sPriorFlip == 1)
+            {
+                if (nNextOldestCard > 0)
+                    nNextOldestCard--;
+                else
+                    nNextOldestCard = 0;
+                nRecentCard--;
+            }
             sPriorFlip = 2;
 
             //Cards will Lerp Downwards to show older cards in the Chain.
             SetupLerping(false);
-            bManualScroll = true;
         }
     }
 
@@ -357,11 +369,6 @@ public class CardChainUI : MonoBehaviour
     //return true if can play
     public bool PlayCardUI(Card card, bool isPlayer = true, bool isPlayedFaceUp = true)
     {
-        if (bManualScroll)
-        {
-            bManualScroll = false;
-        }
-
         //checking validity
         if (!isPlayedFaceUp)
         {
@@ -384,7 +391,7 @@ public class CardChainUI : MonoBehaviour
         if (faceUpcardsPlayed > MaxWithoutLerping)
         {
             // If LERPing from here, is the chain currently at the most recent point prior to the newest card?
-            if (nRecentCard != faceUpcardsPlayed - 1)
+            if (nRecentCard != faceUpcardsPlayed - 1 && bManualScroll)
             {
                 //If not, run a loop to reach the most recently played card prior to the newest one.
                 if (nNextOldestCard < 0)
@@ -399,6 +406,11 @@ public class CardChainUI : MonoBehaviour
 
         nNextOldestCard = faceUpcardsPlayed - sVisibleCardLimit - 1;
         nRecentCard = faceUpcardsPlayed;
+
+        if (bManualScroll)
+        {
+            bManualScroll = false;
+        }
 
         return true;
     }
