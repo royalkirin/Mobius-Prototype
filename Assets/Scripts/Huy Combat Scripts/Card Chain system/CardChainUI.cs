@@ -20,7 +20,7 @@ public class CardChainUI : MonoBehaviour
     bool isLerping = false;//when lerping, switch this
 
     //Variables used for calculating functionality to the chain's flexbility.
-    float fSwitchCardPosX = 4.1f;
+    float fSwitchCardPosX = 4.9f;
     float fAlphaReduction = 1.0f;
     float fAlphaIncrease = 0.0f;
 
@@ -435,9 +435,9 @@ public class CardChainUI : MonoBehaviour
             cardsInChain[0].color = new Color(1, 1, 1, 1.0f);
 
         if (bIsPlayerTurn)
-            fSwitchCardPosX = 4.1f;
+            fSwitchCardPosX = 4.9f;
         else
-            fSwitchCardPosX = -4.1f;
+            fSwitchCardPosX = -4.9f;
 
         bChainManualReset = false;
     }
