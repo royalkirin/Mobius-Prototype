@@ -50,13 +50,13 @@ public class CardScrollDownButton : MonoBehaviour
     ///             appropriately.                                          ///
     ///                                                                     ///
     ///     Date Created: 2/07/22                                           ///
-    ///     Date Updated: 2/07/22                                           ///
+    ///     Date Updated: 2/20/22                                           ///
     ///                                                                     ///
     ///     Author: Jordan R. Douglas                                       ///
     ///*********************************************************************///
     void ScrollDownButtonClick()
     {
-        if (cCardChainUI.faceUpcardsPlayed > 5)
+        if (cCardChainUI.faceUpcardsPlayed > 6)
             cCardChainUI.CardScrollUp();
     }
 

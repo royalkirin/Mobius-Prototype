@@ -180,7 +180,7 @@ public class CardChainUI : MonoBehaviour
     ///             on the most recent card.                                ///
     ///                                                                     ///
     ///     Date Created: 2/05/22                                           ///
-    ///     Date Updated: 2/06/22                                           ///
+    ///     Date Updated: 2/20/22                                           ///
     ///                                                                     ///
     ///     Author: Jordan R. Douglas                                       ///
     ///*********************************************************************///
@@ -217,7 +217,7 @@ public class CardChainUI : MonoBehaviour
     ///             bottom of the chain.                                    ///
     ///                                                                     ///
     ///     Date Created: 2/07/22                                           ///
-    ///     Date Updated: 2/17/22                                           ///
+    ///     Date Updated: 220/22                                           ///
     ///                                                                     ///
     ///     Author: Jordan R. Douglas                                       ///
     ///*********************************************************************///
@@ -263,7 +263,7 @@ public class CardChainUI : MonoBehaviour
     ///             top of the chain.                                       ///
     ///                                                                     ///
     ///     Date Created: 2/07/22                                           ///
-    ///     Date Updated: 2/17/22                                           ///
+    ///     Date Updated: 2/20/22                                           ///
     ///                                                                     ///
     ///     Author: Jordan R. Douglas                                       ///
     ///*********************************************************************///

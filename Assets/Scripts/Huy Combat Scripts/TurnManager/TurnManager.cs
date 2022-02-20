@@ -362,7 +362,7 @@ public class TurnManager : MonoBehaviour
 
         if (isPlayerTurn)
         {
-            if (cardChain.GetTotalCard() > 5)
+            if (cardChain.GetTotalCard() > 6)
             {
                 uScrollUpBtn.SetActive(true);
                 uScrollDownBtn.SetActive(true);
