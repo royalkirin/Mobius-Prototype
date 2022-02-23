@@ -12,4 +12,6 @@ public class Ronin_slash: AttackCard
     {
         base.Play(target);
     }
+
+
 }

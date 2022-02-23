@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HealthBarFunctions : MonoBehaviour
 {
-
     [SerializeField] GameObject healthHolder;
     [SerializeField] HealthAndDefense healthCaller;
     [SerializeField] GameObject[] healthSegements = new GameObject[0];
@@ -15,6 +14,9 @@ public class HealthBarFunctions : MonoBehaviour
     void Start()
     {
         healthCaller = healthHolder.GetComponent<HealthAndDefense>();
+        if(healthCaller is null) {
+            Debug.LogWarning("Health caller is null");
+        }
     }
 
     // Update is called once per frame

@@ -26,6 +26,7 @@ public class Ronin_zanshin : DefenseCard {
             Characters = GameObject.FindGameObjectsWithTag("PlayerCharacter");
             foreach (GameObject Character in Characters) {
                 (Character.GetComponent<Attackable>()).RaiseTheShield();
+                Character.GetComponent<CharacterBuffs>().RaiseShield(true);
                 return;
             }
         } else {

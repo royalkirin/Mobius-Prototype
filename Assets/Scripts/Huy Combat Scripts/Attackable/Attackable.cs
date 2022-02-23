@@ -10,9 +10,14 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterAttackableUI))]
 public class Attackable : MonoBehaviour
 {
-    public float DefenseValue = 0f;
-    [SerializeField]Health health = null;
+    float DefenseValue = 0f;
+    [SerializeField] Health health = null;
     [SerializeField] CharacterAttackableUI ui;
+
+    //Sarah's: add UI elements here
+
+    [SerializeField] HealthAndDefense healthAndDefenseUI;
+
 
     /// Shield stuffs
     [SerializeField] private GameObject Shield; //if gameobject active, the shielsd will be destroied and the player will not receive damage
@@ -29,6 +34,17 @@ public class Attackable : MonoBehaviour
             ui = GetComponent<CharacterAttackableUI>();
         }
         ui.UpdateText(DefenseValue, health.GetCurrentHealth());
+
+        //Sarah's: initial update on UI elements?
+        if(healthAndDefenseUI != null) {
+            healthAndDefenseUI.recordedHealth = (int)health.GetCurrentHealth();
+            healthAndDefenseUI.health = (int)health.GetCurrentHealth();
+
+            healthAndDefenseUI.recordedDefense = (int)DefenseValue;
+            healthAndDefenseUI.defense = (int)DefenseValue;
+        }
+        
+
     }
 
     //Call this function to deal damage to an object.
@@ -46,6 +62,14 @@ public class Attackable : MonoBehaviour
         }
 
         ui.UpdateText(DefenseValue, health.GetCurrentHealth()) ;
+
+        //Sarah's: Update ui based on health, defense here
+        if (healthAndDefenseUI != null) {
+            healthAndDefenseUI.health = (int)health.GetCurrentHealth();
+            healthAndDefenseUI.defense = (int)DefenseValue;
+        }
+
+
     }
 
 
@@ -99,11 +123,21 @@ public class Attackable : MonoBehaviour
         DefenseValue += defenseValue;
         //Debug.Log("Added " + defenseValue + " defense, current Defense is " + DefenseValue);
         ui.UpdateText(DefenseValue, health.GetCurrentHealth());
+        //Sarah's: Update ui based on health, defense here
+        if (healthAndDefenseUI != null) {
+            healthAndDefenseUI.health = (int)health.GetCurrentHealth();
+            healthAndDefenseUI.defense = (int)DefenseValue;
+        }
     }
 
 
     public void RaiseTheShield()
     {
         Shield.SetActive(true);
+    }
+
+    //for deactivating end of turn.
+    public void LowerTheShield() {
+        Shield.SetActive(false);
     }
 }

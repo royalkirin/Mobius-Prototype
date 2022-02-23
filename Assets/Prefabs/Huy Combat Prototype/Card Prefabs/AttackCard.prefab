@@ -18,6 +18,7 @@ MonoBehaviour:
   backImage: {fileID: 21300000, guid: 0494c4d967886e24b84b0ff7294882ef, type: 3}
   trapImage: {fileID: 21300000, guid: 71ab3543331c57f4eaea563112c07e5d, type: 3}
   positionInHand: 0
+  cardType: 0
 --- !u!1001 &4124823171043496821
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,13 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 public class HealthAndDefense : MonoBehaviour
 {
-    public int health;
+    [SerializeField] Attackable attackable;
+
+
+    public int health; // chagnge it here
     public int recordedHealth;
     [SerializeField] Text healthText;
     [SerializeField] GameObject heartAnimator;
 
     public int defense;
-    [SerializeField] int recordedDefense;
+    public int recordedDefense;
     [SerializeField] Text defenseText;
     [SerializeField] GameObject shieldAnimator;
 
@@ -19,6 +22,7 @@ public class HealthAndDefense : MonoBehaviour
     {
         recordedHealth = health;
         recordedDefense = defense;
+        Debug.Log(name);
     }
 
     // Update is called once per frame

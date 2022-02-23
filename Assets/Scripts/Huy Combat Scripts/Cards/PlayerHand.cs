@@ -235,6 +235,41 @@ public class PlayerHand : MonoBehaviour
 
     }
 
+    public int GetAttackCount() {
+        int count = 0;
+        foreach (Card card in cardsInHand) {
+            if (card is AttackCard) {
+                count++;
+            }
+        }
+        //Debug.Log("Player attack count = " + count);
+        return count;
+    }
 
+    public int GetDefenseCount() {
+        int count = 0;
+        foreach (Card card in cardsInHand) {
+            if (card is DefenseCard) {
+                count++;
+            }
+        }
+        //Debug.Log("Player defense count = " + count);
+        return count;
+    }
+
+    public int GetSupportCount() {
+        int count = 0;
+        foreach (Card card in cardsInHand) {
+            if (card is SupportCard) {
+                count++;
+            }
+        }
+        //Debug.Log("Player support count = " + count);
+        return count;
+    }
+    public int GetCardCount() {
+        Debug.Log("Player total count = " + cardsInHand.Count);
+        return cardsInHand.Count;
+    }
 
 }

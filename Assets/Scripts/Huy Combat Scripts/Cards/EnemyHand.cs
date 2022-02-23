@@ -39,10 +39,7 @@ public class EnemyHand : MonoBehaviour
         Temp_Enemy_CardCount_text.text = cardCountText + cardsInHand.Count;
     }
 
-    public int GetCardCount()
-    {
-        return cardsInHand.Count;
-    }
+
 
     public bool RemoveCard(int cardIndex)
     {
@@ -66,5 +63,44 @@ public class EnemyHand : MonoBehaviour
             cardsInHand[i].positionInHand = i;
         }
 
+    }
+
+
+    public int GetAttackCount() {
+        int count = 0;
+        foreach(Card card in cardsInHand) {
+            if(card is AttackCard) {
+                count++;
+            }
+        }
+        //Debug.Log("Enemy attack count = " + count);
+        return count;
+    }
+
+    public int GetDefenseCount() {
+        int count = 0;
+        foreach (Card card in cardsInHand) {
+            if (card is DefenseCard) {
+                count++;
+            }
+        }
+        //Debug.Log("Enemy defense count = " + count);
+        return count;
+    }
+
+    public int GetSupportCount() {
+        int count = 0;
+        foreach (Card card in cardsInHand) {
+            if (card is SupportCard) {
+                count++;
+            }
+        }
+       // Debug.Log("Enemy support count = " + count);
+        return count;
+    }
+
+    public int GetCardCount() {
+        Debug.Log("Enemy total count = " + cardsInHand.Count);
+        return cardsInHand.Count;
     }
 }
