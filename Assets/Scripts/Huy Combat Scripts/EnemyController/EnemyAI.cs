@@ -37,6 +37,12 @@ public class EnemyAI : MonoBehaviour
 
     bool testing = false;
 
+    /// <summary>
+    /// Keep the value between 0 and 1
+    /// The lower the value, the less the AI will counter
+    /// </summary>
+    public float Aggression;
+
     
 
     private void Start()
@@ -330,7 +336,7 @@ public class EnemyAI : MonoBehaviour
         {
             Card lastCardInChain = cardChain.GetLastCardPlayed();
             float failProb = 1.0f;
-            float maxFailProb = 0.5f; //the maximum possibility of failure that we are willing to accept
+            float maxFailProb = Aggression; //the maximum possibility of failure that we are willing to accept
             int phs = cardPlayer.getPlayerHandSize();
 
             int[] cards = new int[3];
