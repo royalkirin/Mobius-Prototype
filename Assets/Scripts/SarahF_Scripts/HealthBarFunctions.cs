@@ -33,7 +33,11 @@ public class HealthBarFunctions : MonoBehaviour
                 }
                 else
                 {
-                    healthSegements[healthCaller.health].GetComponent<HealthBarShaker>().startShake = true;
+                    for(int i = healthCaller.health; i < healthCaller.recordedHealth; i++) {
+                        healthSegements[i].GetComponent<HealthBarShaker>().startShake = true;
+                    }
+
+                    //healthSegements[healthCaller.health].GetComponent<HealthBarShaker>().startShake = true;
                 }
             }
             else if (healthCaller.recordedHealth < healthCaller.health)

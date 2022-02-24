@@ -19,6 +19,9 @@ public class CharacterAttackableUI : MonoBehaviour
 
     public void UpdateText(float defenseValue, float health)
     {
+        if(text is null) {
+            return;
+        }
         string display = "Health = " + health + "\n" + "Defense = " + defenseValue;
         text.text = display;
     }

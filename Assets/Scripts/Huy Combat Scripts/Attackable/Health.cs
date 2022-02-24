@@ -31,7 +31,7 @@ public class Health : MonoBehaviour
         }
         if(healthBar is null)
         {
-            Debug.Log("Missing health bar in " + name);
+            Debug.LogWarning("Missing health bar in " + name);
         }
         else
         {

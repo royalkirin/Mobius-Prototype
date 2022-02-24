@@ -33,7 +33,7 @@ public class Attackable : MonoBehaviour
         {
             ui = GetComponent<CharacterAttackableUI>();
         }
-        ui.UpdateText(DefenseValue, health.GetCurrentHealth());
+         ui.UpdateText(DefenseValue, health.GetCurrentHealth());
 
         //Sarah's: initial update on UI elements?
         if(healthAndDefenseUI != null) {
