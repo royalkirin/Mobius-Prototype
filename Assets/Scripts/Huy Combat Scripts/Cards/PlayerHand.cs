@@ -235,6 +235,8 @@ public class PlayerHand : MonoBehaviour
 
     }
 
+    public int GetHandSize() { return cardsInHand.Count; }
+
 
 
 }

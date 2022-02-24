@@ -5,6 +5,15 @@ using UnityEngine;
 [RequireComponent(typeof(CardPlayer))]
 public class EnemyAI : MonoBehaviour
 {
+
+    public enum CardTypes
+    {
+        Attack = 0,
+        Defense,
+        Support
+
+    }
+
     [SerializeField] CardPlayer cardPlayer = null;
 
     /////////////////
@@ -27,7 +36,8 @@ public class EnemyAI : MonoBehaviour
 
 
     bool testing = false;
-   
+
+    
 
     private void Start()
     {
@@ -95,41 +105,42 @@ public class EnemyAI : MonoBehaviour
     private void PlayFirstCardInChain()
     {
         //if enemy hand is empty
-        if(enemyHand.cardsInHand.Count <= 3)
+        if (enemyHand.cardsInHand.Count <= 3)
         {
             Debug.Log("Enemy hand has <= 3 cards. Give up the turn.");
             turnManager.DefaultChangeTurn();
             return;
+
+            
         }
 
+        
 
-        int numbAtt = CountAttackCard() ;
-        int numbDef = CountDefenseCard();
-        int numbSup = CountSupportCard();
-
-        int max = Mathf.Max(Mathf.Max(numbAtt, numbDef), numbSup);
-        Debug.Log(numbAtt + " " + numbDef + " " + numbSup + " " + max);
+        //int max = Mathf.Max(Mathf.Max(numbAtt, numbDef), numbSup);
+        //Debug.Log(numbAtt + " " + numbDef + " " + numbSup + " " + max);
 
 
 
-        if(enemyHand is null)
+        if (enemyHand is null)
         {
             Debug.Log("Enemy Hand is null, we proceed with simple AI");
             //very simple instruction, first crack at Enemy AI, just for testing purposes
             AttackCard newAttackCard = Instantiate(attackCard, new Vector3(0, 0, 0), Quaternion.identity);
             cardPlayer.PlayCard(newAttackCard);
             return;
+
+            
         }
         else
         { //PLAY the card that we have the most in hand first.
           //priority if equal: Attack > Defense > Support
           //cardPlayer.PlayCard(enemyHand.cardsInHand[0]);
-
-            bool isPlayed = false;
-            if(numbAtt == max)
+          //old system
+            /*bool isPlayed = false;
+            if (numbAtt == max)
             {
                 int firstAtt = FindAttackCard();
-                if(firstAtt != -1)
+                if (firstAtt != -1)
                 {
                     Debug.Log("playing attack");
                     isPlayed = cardPlayer.PlayCard(enemyHand.cardsInHand[firstAtt]);
@@ -157,7 +168,124 @@ public class EnemyAI : MonoBehaviour
             {
                 Debug.LogError("This part should not be reached.");
             }
-            Debug.Log("isPlayed: " + isPlayed);
+            Debug.Log("isPlayed: " + isPlayed);*/
+
+            //new system
+
+            //for each type of card
+            //calculate probability of losing a chain
+
+            int[] cards = new int[3];
+            cards[0] = CountAttackCard();
+            cards[1] = CountDefenseCard();
+            cards[2] = CountSupportCard();
+
+            float pA, pD, pS;
+
+            pA = pD = pS = 1.0f;
+
+            int phs = cardPlayer.getPlayerHandSize();
+
+            for (int i = (int)CardTypes.Attack; cards[i] > 0; i = (i + 1) % 3)
+            {
+                //if the player has fewer cards than the amount we can counter, it is an automatic win
+                if (phs <= 0)
+                {
+                    pA = 0.0f;
+                    break;
+                }
+                else
+                {
+                    //each card in the player's has a 1/3 chance of being the correct type to counter with
+                    //by inverting the probability and multiplying the odds of all cards together we can calculate the chance that at least one card will be able to counter
+                    pA *= 1.0f - Mathf.Pow(2.0f / 3.0f, (float)phs);
+
+                    phs--;
+                    cards[i]--;
+                }
+            }
+
+            //repeat for the other 2 card types
+            cards[0] = CountAttackCard();
+            cards[1] = CountDefenseCard();
+            cards[2] = CountSupportCard();
+
+            phs = cardPlayer.getPlayerHandSize();
+
+            for (int i = (int)CardTypes.Defense; cards[i] > 0; i = (i + 1) % 3)
+            {
+                //if the player has fewer cards than the amount we can counter, it is an automatic win
+                if (phs <= 0)
+                {
+                    pD = 0.0f;
+                    break;
+                }
+                else
+                {
+                    pD *= 1.0f - Mathf.Pow(2.0f / 3.0f, (float)phs);
+
+                    phs--;
+                    cards[i]--;
+                }
+            }
+
+            cards[0] = CountAttackCard();
+            cards[1] = CountDefenseCard();
+            cards[2] = CountSupportCard();
+
+            phs = cardPlayer.getPlayerHandSize();
+
+            for (int i = (int)CardTypes.Support; cards[i] > 0; i = (i + 1) % 3)
+            {
+                //if the player has fewer cards than the amount we can counter, it is an automatic win
+                if (phs <= 0)
+                {
+                    pS = 0.0f;
+                    break;
+                }
+                else
+                {
+                    
+                    pS *= 1.0f - Mathf.Pow(2.0f / 3.0f, (float)phs);
+
+                    phs--;
+                    cards[i]--;
+                }
+            }
+
+            
+
+            //play the card with the lowest chance of losing a chain
+
+            if( pS < pA && pS < pD)
+            {
+                int firstSup = FindSupportCard();
+                if (firstSup != -1)
+                {
+                    Debug.Log("playing support");
+                    cardPlayer.PlayCard(enemyHand.cardsInHand[firstSup]);
+                }
+            }
+            else if ( pD < pA)
+            {
+                int firstDef = FindDefenseCard();
+                if (firstDef != -1)
+                {
+                    Debug.Log("playing defense");
+                    cardPlayer.PlayCard(enemyHand.cardsInHand[firstDef]);
+                }
+            }
+            else
+            {
+                int firstAtt = FindAttackCard();
+                if (firstAtt != -1)
+                {
+                    Debug.Log("playing attack");
+                    cardPlayer.PlayCard(enemyHand.cardsInHand[firstAtt]);
+                }
+            }
+            
+
         }
 
     }
@@ -178,7 +306,7 @@ public class EnemyAI : MonoBehaviour
     public void OnEnemyReactTurn()
     {
         Card lastCardPlayed = cardChain.GetLastCardPlayed();
-        if(lastCardPlayed is null)
+        if (lastCardPlayed is null)
         {
             Debug.Log("last card played in chain is null");
         }
@@ -201,23 +329,89 @@ public class EnemyAI : MonoBehaviour
         else
         {
             Card lastCardInChain = cardChain.GetLastCardPlayed();
+            float failProb = 1.0f;
+            float maxFailProb = 0.5f; //the maximum possibility of failure that we are willing to accept
+            int phs = cardPlayer.getPlayerHandSize();
+
+            int[] cards = new int[3];
+            cards[0] = CountAttackCard();
+            cards[1] = CountDefenseCard();
+            cards[2] = CountSupportCard();
 
             /////////
-            ///TRY to counter until we run out of card, or we cannot counter
+            //calculate the probability that we will fail this card chain and save your cards if the risk is too extreme
             int indexToPlay = -1;
             if (lastCardInChain is AttackCard)
             {
                 indexToPlay = FindDefenseCard();
+
+                for (int i = (int)CardTypes.Defense; cards[i] > 0; i = (i + 1) % 3)
+                {
+                    //if the player has fewer cards than the amount we can counter, it is an automatic win
+                    if (failProb <= 0)
+                    {
+                        failProb = 0.0f;
+                        break;
+                    }
+                    else
+                    {
+                        //each card in the player's has a 1/3 chance of being the correct type to counter with
+                        //by inverting the probability and multiplying the odds of all cards together we can calculate the chance that at least one card will be able to counter
+                        failProb *= 1.0f - Mathf.Pow(2.0f / 3.0f, (float)phs);
+
+                        phs--;
+                        cards[i]--;
+                    }
+                }
+
             }
             else if (lastCardInChain is DefenseCard)
             {
                 indexToPlay = FindSupportCard();
+
+                for (int i = (int)CardTypes.Support; cards[i] > 0; i = (i + 1) % 3)
+                {
+                    //if the player has fewer cards than the amount we can counter, it is an automatic win
+                    if (failProb <= 0)
+                    {
+                        failProb = 0.0f;
+                        break;
+                    }
+                    else
+                    {
+                        //each card in the player's has a 1/3 chance of being the correct type to counter with
+                        //by inverting the probability and multiplying the odds of all cards together we can calculate the chance that at least one card will be able to counter
+                        failProb *= 1.0f - Mathf.Pow(2.0f / 3.0f, (float)phs);
+
+                        phs--;
+                        cards[i]--;
+                    }
+                }
             }
             else //last card played =  Support card
             {
                 indexToPlay = FindAttackCard();
+
+                for (int i = (int)CardTypes.Attack; cards[i] > 0; i = (i + 1) % 3)
+                {
+                    //if the player has fewer cards than the amount we can counter, it is an automatic win
+                    if (failProb <= 0)
+                    {
+                        failProb = 0.0f;
+                        break;
+                    }
+                    else
+                    {
+                        //each card in the player's has a 1/3 chance of being the correct type to counter with
+                        //by inverting the probability and multiplying the odds of all cards together we can calculate the chance that at least one card will be able to counter
+                        failProb *= 1.0f - Mathf.Pow(2.0f / 3.0f, (float)phs);
+
+                        phs--;
+                        cards[i]--;
+                    }
+                }
             }
-            if (indexToPlay == -1)//meaning we have 0 cards in hand, or cannot counter the last card
+            if (indexToPlay == -1 || failProb > maxFailProb)//meaning we have 0 cards in hand, or cannot counter the last card or the risk is too high
             {
                 if (!cardChain.chainEnding) //give up the chain
                 {
@@ -233,7 +427,14 @@ public class EnemyAI : MonoBehaviour
                 }
             }
         }
+    }
 
+            
+ 
+        
+
+
+        
 
 
 
@@ -249,7 +450,6 @@ public class EnemyAI : MonoBehaviour
         //}
         //}
 
-    }
 
 
     //functions to Analyze EnemyHand.cardsInHand to deduct a good play

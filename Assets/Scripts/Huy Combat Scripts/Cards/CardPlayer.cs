@@ -213,4 +213,6 @@ public class CardPlayer : MonoBehaviour
             return playedSuccessfully;
         }
     }
+
+    public int getPlayerHandSize() { return playerhand.GetHandSize();}
 }
