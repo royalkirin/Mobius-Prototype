@@ -43,6 +43,11 @@ public class TrapCardManager : MonoBehaviour
         {
             Debug.Log("Cannot find cardChain in " + name);
         }
+        playerTrapCardImage.GetComponent<Image>().enabled = false;
+    }
+    private void Update()
+    {
+        playerTrapCardImage.gameObject.SetActive(true);
     }
 
 
@@ -82,7 +87,7 @@ public class TrapCardManager : MonoBehaviour
         if (card.belongToPlayer)
         {
             playerHasATrapCard = true;
-            playerTrapCardImage.gameObject.SetActive(true);
+            playerTrapCardImage.GetComponent<Image>().enabled = true;
             playerTrapCardImage.gameObject.GetComponent<TrapCardMouseInteraction>().SetCard(card);
             playerTrapCard = trapCard;
             //move UIs
@@ -173,7 +178,7 @@ public class TrapCardManager : MonoBehaviour
         //clear trap card of player
         playerTrapCard = null;
         playerTrapCardImage.gameObject.GetComponent<TrapCardMouseInteraction>().SetCard(null);
-        playerTrapCardImage.gameObject.SetActive(false);
+        playerTrapCardImage.GetComponent<Image>().enabled = false;
         playerHasATrapCard = false;
     }
 
@@ -231,7 +236,7 @@ public class TrapCardManager : MonoBehaviour
         playerHasATrapCard = false;
         Destroy(playerTrapCard.gameObject);
         playerTrapCard = null;
-        playerTrapCardImage.gameObject.SetActive(false);
+        playerTrapCardImage.GetComponent<Image>().enabled = false;
     }
 
 

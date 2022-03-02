@@ -20,6 +20,7 @@ public class Card : MonoBehaviour {
 
     public int positionInHand = 0;//represent the position in the hand of the player
     CardChain cardChain;
+    //[SerializeField] GameObject trapcardplace;
 
     private void Start() {
         FindVariables();
@@ -100,7 +101,7 @@ public class Card : MonoBehaviour {
         return false;
     }
 
-
+    //Tried a simple jury rig to back pack off of standard card checks.
     public void CardOnHandPulseIfCanBeUsed(bool isPlayerTurn) {
 
         //if 
@@ -115,9 +116,13 @@ public class Card : MonoBehaviour {
 
                 this.gameObject.transform.DOScale(1.1f, 0.9f).SetLoops(-1, LoopType.Yoyo);
             
+            //trapcardplace.gameObject.transform.DOScale(1.1f, 0.9f).SetLoops(-1, LoopType.Yoyo);
+
         } else {
             transform.DORewind();
+            //trapcardplace.transform.DORewind();
             DOTween.Kill(transform);
+            //DOTween.Kill(trapcardplace.transform);
         }
 
     }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 //handle the logics for the card chain
 
 [RequireComponent(typeof(CardChainUI))]
-public class CardChain : MonoBehaviour
+public class TutorialCardChain : MonoBehaviour
 {
     Card lastCardPlayed;
     int totalCardInChain = 0;
@@ -63,7 +63,7 @@ public class CardChain : MonoBehaviour
 
 
     //singleton
-    public static CardChain Instance { get; private set; }
+    public static TutorialCardChain Instance { get; private set; }
     private void Awake() {
         Instance = this;
     }

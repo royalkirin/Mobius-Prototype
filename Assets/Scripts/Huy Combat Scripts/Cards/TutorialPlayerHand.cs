@@ -5,7 +5,7 @@ using UnityEngine;
 
 //represents the current cards in player hand
 //there is only 1 game obj with this component: PlayerHand prefab (with tag "PlayerHand")
-public class PlayerHand : MonoBehaviour
+public class TutorialPlayerHand : MonoBehaviour
 {
     public List<Card> cardsInHand;
     public const int MAX_CARD_COUNT = 5;
