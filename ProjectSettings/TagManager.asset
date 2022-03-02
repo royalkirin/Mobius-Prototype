@@ -17,6 +17,7 @@ TagManager:
   - TrapCardOptionsHandler
   - EnemyHand
   - EnemyDeck
+  - PlayerTrapCard
   layers:
   - Default
   - TransparentFX

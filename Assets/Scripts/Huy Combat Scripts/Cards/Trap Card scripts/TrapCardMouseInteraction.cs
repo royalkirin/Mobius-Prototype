@@ -22,6 +22,7 @@ public class TrapCardMouseInteraction : MonoBehaviour {
             Debug.LogWarning("Cannot find TrapCard Manager in " + name);
         }
     }
+   
 
     private void OnMouseOver() {
         //TODO: Show the card front on the side of the screen
@@ -53,6 +54,23 @@ public class TrapCardMouseInteraction : MonoBehaviour {
     public void SetCard(Card card) {
         this.card = card;
         Debug.Log("Card is set in Trap Card Image");
+        //if(card != null)
+        //{ 
+        //if (card.GetComponent<TrapCard>().counterAttackCard)
+        //{
+        //    Debug.Log("Counters Attack");
+        //}
+        //if (card.GetComponent<TrapCard>().counterDefenseCard)
+        //{
+        //    Debug.Log("Counters Defense");
+        //}
+        //if (card.GetComponent<TrapCard>().counterSupportCard)
+        //{
+        //    Debug.Log("Counters Support");
+        //}
+
+       // }
+       
     }
 
 
