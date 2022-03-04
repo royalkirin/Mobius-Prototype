@@ -3,7 +3,11 @@ guid: 29c292fc296c43d42ad132dd94fcab39
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - frontImage: {instanceID: 0}
+  - backImage: {instanceID: 0}
+  - trapImage: {instanceID: 0}
+  - trapcardplace: {fileID: 6625792098365092923, guid: e93b2e6d1410b944587682360639bdaa, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

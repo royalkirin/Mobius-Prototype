@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: a73b5960a6e26734ebd0a501c59324dc
+guid: d41d77fdd7fa30a458ad512c580d88de
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - trapslot: {fileID: 6625792098365092923, guid: e93b2e6d1410b944587682360639bdaa, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
