@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 //handle cards that can be dragged and dropped
@@ -25,15 +26,22 @@ public class DragableDropable : MonoBehaviour, IDragHandler, IEndDragHandler, IB
     //only Cards that belong to players can be dragged and dropped.
     //we only use this reference during drag/drop events.
     CardPlayer playerCardPlayer;
-
+    TutorialCardPlayer playerCardPlayer1;
 
     //these variables are for playing face down or face up.
     //dragging with left mouse is face up, right mouse is face down
     bool isFaceUp = true;
-
+    bool tutorial;
 
     private void Start()
     {
+        Scene currscene = SceneManager.GetActiveScene();
+        //string activescene = currscene.name;
+        if(currscene.name == "Tutorial")
+        {
+            tutorial = true;
+           
+        }
         if (rectTransform is null) //getting rectTransform
         {
             rectTransform = GetComponent<RectTransform>();
@@ -41,9 +49,15 @@ public class DragableDropable : MonoBehaviour, IDragHandler, IEndDragHandler, IB
         originalPosition = transform.position;
 
         playerCardPlayer = GameObject.FindWithTag("Player").GetComponent<CardPlayer>();
+        
         if(playerCardPlayer is null)
         {
             Debug.Log("Smt is wrong in " + name + " dragabledropale");
+        }
+        if (tutorial)
+        {
+            playerCardPlayer1 = GameObject.FindWithTag("Player").GetComponent<TutorialCardPlayer>();
+            Debug.Log("in Tutorial");
         }
     }
 
@@ -63,7 +77,9 @@ public class DragableDropable : MonoBehaviour, IDragHandler, IEndDragHandler, IB
         {
             //if the game accepts the card, we play it
             //pass the info of trying to play it face down or up.
-            bool isPlayedSucessfully = playerCardPlayer.PlayCard(GetComponent<Card>(), isFaceUp);
+            if (!tutorial)
+            {
+bool isPlayedSucessfully = playerCardPlayer.PlayCard(GetComponent<Card>(), isFaceUp);
             if (isPlayedSucessfully)
             {
                 return;
@@ -72,6 +88,21 @@ public class DragableDropable : MonoBehaviour, IDragHandler, IEndDragHandler, IB
             {
                 isDropped = false;
                 transform.position = originalPosition;
+            }
+            }
+            
+            if (tutorial)
+            {
+                bool isPlayedSucessfull = playerCardPlayer1.PlayCard(GetComponent<Card>(), isFaceUp);
+                if (isPlayedSucessfull)
+                {
+                    return;
+                }
+                else //if not, we move it back
+                {
+                    isDropped = false;
+                    transform.position = originalPosition;
+                }
             }
         }
         else
