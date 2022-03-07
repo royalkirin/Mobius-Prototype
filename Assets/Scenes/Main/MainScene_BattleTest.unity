@@ -29149,18 +29149,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1841720516028735561, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1841720516028735561, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1841720516028735561, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7203777289642188848, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
       propertyPath: text
       value: 
@@ -48989,10 +48977,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2661256643606578753, guid: 167023d7663d6994299f341b6e596e74, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6076487226856099621, guid: 167023d7663d6994299f341b6e596e74, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -49041,10 +49025,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8274266040852837666, guid: 167023d7663d6994299f341b6e596e74, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: e9efc16e611afa2439886884a314779a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 167023d7663d6994299f341b6e596e74, type: 3}
 --- !u!1 &6081313777339384083
@@ -61809,18 +61789,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1461544586746058531, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1461544586746058531, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1461544586746058531, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7075814291398091243, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
       propertyPath: m_Name
       value: Friendly Char

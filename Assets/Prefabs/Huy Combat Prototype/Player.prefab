@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6076487226856099620}
   - component: {fileID: 6076487226856099623}
   - component: {fileID: 2661256643606578753}
-  - component: {fileID: 8274266040852837666}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -48,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   friendlyTag: PlayerCharacter
   enemyTag: EnemyCharacter
+  playerDeck: {fileID: 0}
 --- !u!114 &6076487226856099623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,7 +75,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 53824dd7a848c504fa19d7e15eeccdb1, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -160,22 +160,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!95 &8274266040852837666
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6076487226856099626}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
