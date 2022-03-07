@@ -17,7 +17,7 @@ public class TrapCardMouseInteraction : MonoBehaviour {
     TrapCardManager trapCardManager;
 
     //Gets the image of the players trap card holder. 
-    Image _trapcardimage;
+    [SerializeField]  Image _trapcardimage;
 
     Card card; //card component of the trap card, should be assigned by TrapCardmanager when trapcard is played
 
@@ -28,7 +28,7 @@ public class TrapCardMouseInteraction : MonoBehaviour {
         }
 
         //Looks for the player trap card holder, if it doesn't find the trap card holder it will return the debug.log. 
-        _trapcardimage = GameObject.FindWithTag("PlayerTrapCard").GetComponent<Image>();
+        //the script TrapCardManager.cs turn off the image making this like break. _trapcardimage = GameObject.FindWithTag("PlayerTrapCard").GetComponent<Image>();
         if (_trapcardimage is null)
         {
             Debug.Log("Player trap card holder not found");
