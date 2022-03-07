@@ -89,6 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2dd6fbdc77b29645a3bf1391ac6b6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isShowingTrapInfo: 0
+  _trapcardimage: {fileID: 189523878459012987}
 --- !u!65 &702135443899173594
 BoxCollider:
   m_ObjectHideFlags: 0
