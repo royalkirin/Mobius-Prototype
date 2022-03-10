@@ -8,5 +8,6 @@ public enum Character
 {
     TestCharacter,
     Ronin,
+    DaemonFace
 };
 

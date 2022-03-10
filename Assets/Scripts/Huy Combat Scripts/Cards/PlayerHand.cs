@@ -101,8 +101,7 @@ public class PlayerHand : MonoBehaviour
         else
         {
             cardsInHand.RemoveAt(index);
-            Debug.Log("Sucessfully remove card from hand.");
-            Debug.Log("New count: " + cardsInHand.Count);
+            Debug.Log("Sucessfully remove card from hand." + "New count: " + cardsInHand.Count);
         }
         //update card UI position here
         UpdateCardPosition();

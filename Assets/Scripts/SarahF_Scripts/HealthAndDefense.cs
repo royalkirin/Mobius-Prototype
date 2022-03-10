@@ -22,7 +22,7 @@ public class HealthAndDefense : MonoBehaviour
     {
         recordedHealth = health;
         recordedDefense = defense;
-        Debug.Log(name);
+        //Debug.Log(name);
     }
 
     // Update is called once per frame

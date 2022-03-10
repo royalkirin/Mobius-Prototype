@@ -94,7 +94,8 @@ public class Deck : MonoBehaviour
         for (int i = 0; i < cardGenerateList.Count; i++) {
             howManyEach.Add(eachCardAmount);
         }
-        Debug.Log(string.Join(", ", howManyEach));
+        string msg = "Card count in Deck Att/Def/Sup: " + string.Join(", ", howManyEach);
+        Debug.Log(msg);
     }
 
     //load the initial card list to generate randomly
