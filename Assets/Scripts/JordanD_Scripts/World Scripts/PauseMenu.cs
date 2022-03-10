@@ -165,12 +165,14 @@ public class PauseMenu : MonoBehaviour
 
     void ChangeMusicVolume(float fVolumeLevel)
     {
-
+        //No Audio Mixer Implemented yet, go to ChangeMasterVolume
+        ChangeMasterVolume(fVolumeLevel);
     }
 
     void ChangeSoundFXVolume(float fVolumeLevel)
     {
-
+        //No Audio Mixer Implemented yet, go to ChangeMasterVolume
+        ChangeMasterVolume(fVolumeLevel);
     }
     #endregion
 
