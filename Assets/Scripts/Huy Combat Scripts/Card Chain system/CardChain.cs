@@ -177,13 +177,14 @@ public class CardChain : MonoBehaviour
         }
         totalCardInChain++;
 
-        
+
 
         //add card to player list
         if (card.belongToPlayer)
         {
             playerCards.Add(card);
             lastCardBelongToPlayer = true;
+
         }
         else
         {
@@ -191,6 +192,11 @@ public class CardChain : MonoBehaviour
             lastCardBelongToPlayer = false;
         }
         lastCardPlayed = card;
+        HandleInstantEffect(card, isTrapCard);
+
+
+
+
 
         if (isTrapCard)
         {
@@ -227,6 +233,39 @@ public class CardChain : MonoBehaviour
 
         return true;
     }
+
+    //trigger instant effect of the card.
+    private void HandleInstantEffect(Card card, bool isTrapCard) {
+        if (isTrapCard) {
+            return;
+        }
+
+        //do not trigger instant effect of the first card in chain
+        if(totalCardInChain == 1) {
+            return;
+        }
+
+        //trigger PREVIOUS card
+        if(totalCardInChain == 2) {
+            if (card.belongToPlayer) {
+                //trigger first card of enemy 
+                enemyCardPlayer.ActivateInstantEffect(enemyCards[enemyCards.Count - 1]);
+            } else {
+                //trigger first card of player 
+                playerCardPlayer.ActivateInstantEffect(playerCards[playerCards.Count - 1]);
+            }
+        }
+
+        //Trigger current card\
+        if (card.belongToPlayer) {
+            playerCardPlayer.ActivateInstantEffect(card);
+        } else {
+            enemyCardPlayer.ActivateInstantEffect(card);
+        }
+    }
+
+
+
 
     //after player successfully play a card
     //if that card is an invincible card, end the chain.

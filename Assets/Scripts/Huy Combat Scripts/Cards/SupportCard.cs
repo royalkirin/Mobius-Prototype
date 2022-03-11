@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SupportCard : Card
 {
-    int numbCardsToAdd = 1;
+    public int numbCardsToAdd = 1;
     // Update is called once per frame
     public override void Play(GameObject playerDeckGameObject)
     {

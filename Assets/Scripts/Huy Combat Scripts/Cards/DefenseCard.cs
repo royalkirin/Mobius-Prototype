@@ -6,7 +6,7 @@ using UnityEngine;
 //Defense card is a Card, with a Target that it will try to Defend when activated.
 public class DefenseCard : Card
 {
-    float defenseValue = 1f;
+    public float defenseValue = 1f;
 
     public override void Play(GameObject target)
     {

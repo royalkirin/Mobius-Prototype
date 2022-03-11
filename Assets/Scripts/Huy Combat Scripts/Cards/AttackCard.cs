@@ -6,7 +6,7 @@ using UnityEngine;
 //Attack card is a Card, with a Target that it will try to attack when activated.
 public class AttackCard : Card
 {
-    float damage = 1f;
+    public float damage = 1f;
 
     public override void Play(GameObject target)
     {
@@ -21,7 +21,7 @@ public class AttackCard : Card
         if(target.TryGetComponent<Attackable>(out Attackable targetAttackable))
         {
             targetAttackable.TakeDamage(damage);
-            Debug.Log(targetAttackable.gameObject.name + " take 1 DAMAGE");
+            Debug.Log(targetAttackable.gameObject.name + " take " + damage +  " DAMAGE");
             return true;
         }
         else //if not, we cannot attack
