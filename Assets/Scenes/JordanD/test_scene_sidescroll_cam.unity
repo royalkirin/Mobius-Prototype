@@ -392,7 +392,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 78004746}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4, y: -0.5, z: -10.400002}
+  m_LocalPosition: {x: -4, y: -0.5, z: -10.400004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -427,9 +427,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uPlayerTransform: {fileID: 1039887760}
+  uCameraFollowPoint: {fileID: 0}
   PlayerRotate: {x: 0, y: 0, z: 0, w: 0}
-  PlayerPos: {x: 0, y: 0, z: 0}
-  uDebug: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &89117801 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3455292422214010178, guid: 7ade26ad17f7a784dbe432f2515826d7, type: 3}
@@ -1935,6 +1934,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4679375049331036927, guid: d3132d81137067040b6ea082efd94753, type: 3}
+      propertyPath: lure
+      value: 
+      objectReference: {fileID: 6945886582677376721, guid: 8540881baba017049a5fea2d5fb76d97, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3132d81137067040b6ea082efd94753, type: 3}
 --- !u!1 &785482838 stripped

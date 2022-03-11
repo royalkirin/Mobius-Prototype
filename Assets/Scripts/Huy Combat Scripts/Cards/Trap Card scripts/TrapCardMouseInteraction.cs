@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
 
@@ -10,9 +11,13 @@ using UnityEngine.EventSystems;
 //allow the player to "try" to play the trap card when right click (IPointerClickHandler)
 public class TrapCardMouseInteraction : MonoBehaviour {
 
+    [SerializeField]
     bool isShowingTrapInfo = false; //switch to turn On/Off showing trap card info on the side 
 
     TrapCardManager trapCardManager;
+
+    //Gets the image of the players trap card holder. 
+    [SerializeField]  Image _trapcardimage;
 
     Card card; //card component of the trap card, should be assigned by TrapCardmanager when trapcard is played
 
@@ -20,6 +25,13 @@ public class TrapCardMouseInteraction : MonoBehaviour {
         trapCardManager = GameObject.FindWithTag("TrapCardManager").GetComponent<TrapCardManager>();
         if (trapCardManager is null) {
             Debug.LogWarning("Cannot find TrapCard Manager in " + name);
+        }
+
+        //Looks for the player trap card holder, if it doesn't find the trap card holder it will return the debug.log. 
+        //the script TrapCardManager.cs turn off the image making this like break. _trapcardimage = GameObject.FindWithTag("PlayerTrapCard").GetComponent<Image>();
+        if (_trapcardimage is null)
+        {
+            Debug.Log("Player trap card holder not found");
         }
     }
    
@@ -53,6 +65,8 @@ public class TrapCardMouseInteraction : MonoBehaviour {
 
     public void SetCard(Card card) {
         this.card = card;
+
+        _trapcardimage.sprite = card.GettrapImage();
         Debug.Log("Card is set in Trap Card Image");
         //if(card != null)
         //{ 

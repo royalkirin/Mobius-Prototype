@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af42ec8d7f655924d87988513a502fcb, type: 3}
+  m_Name: DaemonFace_CardCollection
+  m_EditorClassIdentifier: 
+  character: 2
+  cardPrefabs:
+  - {fileID: 3577325278834367207, guid: b757076993275e34894302afbe183ebc, type: 3}
+  - {fileID: 3703769407460999372, guid: 23f6cca424579f84fb47a279b2472af7, type: 3}
+  - {fileID: 3226097852420487236, guid: 1c724ab061dc5d547b48f3258cc34a8d, type: 3}

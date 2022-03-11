@@ -25,7 +25,9 @@ public class Attackable : MonoBehaviour
 
     private void Start()
     {
-        if(health is null)
+        Shield.SetActive(false);
+
+        if (health is null)
         {
             Debug.Log("Missing Health in " + name);
         }

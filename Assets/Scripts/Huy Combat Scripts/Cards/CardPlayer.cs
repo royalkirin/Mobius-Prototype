@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Instant_Effect;
 
 //belongs to any entities that can play cards
 //ex: enemy can have a CardPlayer component to play cards
@@ -215,4 +216,24 @@ public class CardPlayer : MonoBehaviour
     }
 
     public int getPlayerHandSize() { return playerhand.GetCardCount();}
+
+
+    //activate instant effect of a card if applicable
+    //return true if there is an instant effect, false otherwise.
+    public bool ActivateInstantEffect(Card card) {
+
+        InstantEffect instantEffect = card.gameObject.GetComponent<InstantEffect>();
+        if(instantEffect is null) {
+            Debug.Log("NO instant effect.");
+            return false;
+        }
+
+
+        //activate here
+
+        instantEffect.ActivateInstantEffect();
+
+
+        return true;
+    }
 }
