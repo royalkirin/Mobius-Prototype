@@ -2958,6 +2958,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 863939355}
   m_Mesh: {fileID: -6859858418456897516, guid: ac41480a091ee2446a41d386b366ae44, type: 3}
+--- !u!1 &934712274 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1630554385469386804, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
+  m_PrefabInstance: {fileID: 2293459003714170756}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &934712276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934712274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f9c3d5be421ec448955fa09cb0ba40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _TU: {fileID: 0}
 --- !u!1 &936728177
 GameObject:
   m_ObjectHideFlags: 0
@@ -3075,7 +3093,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 943.82214, y: 620}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &944817032
 MonoBehaviour:
@@ -3296,7 +3314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6df60a0153fc984697d68c6d84ab752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eachCardAmount: -1
+  eachCardAmount: 0
   cardsInDeck: []
   howManyEach: 
   belongToPlayer: 0
@@ -3501,10 +3519,10 @@ RectTransform:
   m_Father: {fileID: 2293459003714170757}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1039678298
 MonoBehaviour:
@@ -3523,6 +3541,9 @@ MonoBehaviour:
   _textbackground: {fileID: 1890386849}
   _largebackground: {fileID: 944817029}
   _TTC: {fileID: 0}
+  _TCDH: {fileID: 0}
+  _TextHolder: {fileID: 1890386847}
+  _numberUp: 0
   _checkClicks: 0
 --- !u!1 &1051391391
 GameObject:
@@ -6358,8 +6379,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 700, y: 400}
+  m_AnchoredPosition: {x: 0, y: 10}
+  m_SizeDelta: {x: 700, y: 390}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1890386849
 MonoBehaviour:
@@ -27271,6 +27292,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2028062037411509287, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2123070440514054351, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -30.000061
@@ -27385,6 +27410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5128115102128434308, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
+    - {fileID: 1157193101174092306, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
 --- !u!224 &2293459003714170757 stripped
 RectTransform:

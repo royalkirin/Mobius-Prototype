@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 //The scripting in charge of making sure the text is updated correctly. 
 public class TextUpdates : MonoBehaviour
@@ -19,8 +20,10 @@ public class TextUpdates : MonoBehaviour
 
     [Header("References")]
     [SerializeField] TooltipCaller _TTC;
+    [SerializeField] TutorialCardDropHandler _TCDH;
+    [SerializeField] GameObject _TextHolder;
 
-    //[SerializeField]
+    [SerializeField]
     int _numberUp = 0;
     //[SerializeField]
     bool _startclicks = false;
@@ -31,6 +34,7 @@ public class TextUpdates : MonoBehaviour
     void Start()
     {
         _TTC = GameObject.FindObjectOfType<TooltipCaller>();
+        _TCDH = GameObject.FindObjectOfType<TutorialCardDropHandler>();
         //Checks to see if the text objects are assigned.
         if (_maintext || _instructionstext is null)
         {
@@ -40,7 +44,7 @@ public class TextUpdates : MonoBehaviour
         {
             Debug.Log("Missing: Text/Large background (Check TextUpdates Script: Lines 15 || 18.)");
         }
-        else if (_TTC is null)
+        else if (_TTC || _TCDH is null)
         {
             Debug.Log("Missing: ToolTipCaller (Check TextUpdates Script: Line 21.)");
         }
@@ -48,8 +52,7 @@ public class TextUpdates : MonoBehaviour
         StartCoroutine(TurnOffCards());
         //Shows the first text.
         Text("Welcome to the World of Mobius!", "Left click to continue!");
-        //Hide the ToolTipCaller trhough the showUI Bool
-        //Disable drop card (needs added)
+        i = false;
     }
 
     void Update()
@@ -78,38 +81,47 @@ public class TextUpdates : MonoBehaviour
         }
         else if (_numberUp == 2)
         {
-            Text("Blue icons represent the character's Shield. ", "Left click to continue!");
+            Text("Blue icons represent the character's defense. ", "Left click to continue!");
         }
         else if (_numberUp == 3)
         {
-            Text("Your goal is to reduce the enemy's health to 0. ", "Left click to continue!");
+            Text("Your goal is to reduce the enemy's health to 0! ", "Left click to continue!");
         }
         else if (_numberUp == 4)
         {
-            //Highlight cards in hand with floating effect
-            Text("Bottom Column displays all the cards in your hand! ", "Hover your mouse over the card to see more detail!");
+            //
+            _TTC.ResumeShowingUI();
+            Text("The bottom row displays all the cards in your hand!" + " " + "Hover your mouse over the card to see more detail!", "Left click when you are ready to continue!");
         }
         else if (_numberUp == 5)
         {
-            Text("At the beginning of your turn, draw from the deck until you have 5 cards in your hand. ", "Left click to continue!");
+            _TTC.StopShowingUI();
+            Text("At the beginning of your turn, draw from the deck until you have 5 cards in your hand.", "Left click to continue!");
         }
         else if (_numberUp == 6)
         {
-            Text("At the end of your turn, discard your hand to 5. ", "Left click to continue!");
+            Text("At the end of your turn, discard your hand to 5.", "Left click to continue!");
         }
         else if(_numberUp == 7)
         {
-            Text("Now Let's Play Some Cards! ", "Left click and drag a card onto the battlefield!");
+            _TTC.ResumeShowingUI();
+            _TCDH.DDOn();
+
             _checkClicks = false;
+
             HideBackground();
-            StartCoroutine(HideAllChildren());
-            //See Courutine HideAllChildren for more info
-            //See function CardPlayed for more info.
+            StartCore();
+
+            Text("Now Let's Play Some Cards!", "Left click and drag a card onto the battlefield!");
         }
         else if(_numberUp == 8)
         {
+            _TTC.StopShowingUI();
+            _TCDH.DDOff();
+
             ShowChildTwo();
-            Text("Your Opponent reacts to your card! Whenever a player actively plays a card, the other side can counter that card by player a effective card type. When a counter happens, a chain starts. ", "Left click to continue! ");
+
+            Text("Your Opponent reacts to your card! Whenever a player actively plays a card, the other side can counter with the played cards natural counter. When a counter happens, a chain starts.", "Left click to continue! ");
         }
         else if (_numberUp == 9)
         {
@@ -119,17 +131,20 @@ public class TextUpdates : MonoBehaviour
         else if (_numberUp == 10)
         {
             HideBackground();
-            Text("The first player that choose to skip the chain will lose in the Chain, and only the winner's cards in the chain will take effect.", "Left click to continue! ");
+            Text("The first player that chooses to skip the chain will lose in that chain, and only the winner's cards in the chain will take effect.", "Left click to continue! ");
         }
         else if (_numberUp == 11)
         {
-            Text("Now you've acquired all the knowledge for this game! Try to beat you opponent!", "Left click to continue!");
+            Text("Now you've acquired all the knowledge for this game! Have Fun Playing!", "Left click to continue!");
         }
         else if (_numberUp >= 12) 
-        { 
-            //unlock drop card function
+        {
+            _TTC.ResumeShowingUI();
+            _TCDH.DDOn();
             this.gameObject.SetActive(false);
             _startclicks = false;
+            Debug.LogWarning("Load next scene");
+            //SceneManager.LoadScene("");
         }
     }
     
@@ -137,7 +152,8 @@ public class TextUpdates : MonoBehaviour
     IEnumerator TurnOffCards()
     {
         yield return new WaitForSeconds(0.5f);
-        //turn off stuff
+        _TTC.StopShowingUI();
+        _TCDH.DDOff();
         _startclicks = true;
         _checkClicks = true;
     }
@@ -148,6 +164,7 @@ public class TextUpdates : MonoBehaviour
         this.gameObject.GetComponent<Transform>().GetChild(0).gameObject.SetActive(false);
         this.gameObject.GetComponent<Transform>().GetChild(1).gameObject.SetActive(false);
         this.gameObject.GetComponent<Transform>().GetChild(2).gameObject.SetActive(false);
+        StopCoroutine(HideAllChildren());
     }
 
     //Main function used to update the text boxes on the screen.
@@ -182,22 +199,39 @@ public class TextUpdates : MonoBehaviour
         _largebackground.SetActive(false);
 
         var tempAlpha = _textbackground.color;
-        tempAlpha.a = 0.5f;
+        tempAlpha.a = 0.6f;
         _textbackground.color = tempAlpha;
     }
 
-    //Shows the gray background againand makes the white background less transparent.
+    //Shows the gray background again and makes the white background less transparent.
     void ShowBackGround()
     {
         _largebackground.SetActive(true);
 
         var tempAlpha = _textbackground.color;
-        tempAlpha.a = 0.6f;
+        tempAlpha.a = 0.7f;
         _textbackground.color = tempAlpha;
     }
 
+    //This shows the child two of tutorial text and make sure it is only used once by making a bool out of i.
+    bool i = false;
     void ShowChildTwo()
     {
-        this.gameObject.GetComponent<Transform>().GetChild(2).gameObject.SetActive(true);
+        if(i == false) 
+        {
+            _TextHolder.SetActive(true);
+            i = true;
+        }
+    }
+
+    //Keeps the coroutine from overloading due to the call from the update text function which updates 60 frames a second. 
+    bool x = false;
+    void StartCore()
+    {
+        if(x == false)
+        {
+            StartCoroutine(HideAllChildren());
+            x = true;
+        }
     }
 }

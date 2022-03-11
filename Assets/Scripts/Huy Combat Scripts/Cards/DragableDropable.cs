@@ -79,7 +79,7 @@ public class DragableDropable : MonoBehaviour, IDragHandler, IEndDragHandler, IB
             //pass the info of trying to play it face down or up.
             if (!tutorial)
             {
-bool isPlayedSucessfully = playerCardPlayer.PlayCard(GetComponent<Card>(), isFaceUp);
+                bool isPlayedSucessfully = playerCardPlayer.PlayCard(GetComponent<Card>(), isFaceUp);
             if (isPlayedSucessfully)
             {
                 return;
