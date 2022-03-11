@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 //The scripting in charge of making sure the text is updated correctly. 
 public class TextUpdates : MonoBehaviour
 {
+    #region Variables
     [Header("Text")]
     [SerializeField] TMP_Text _maintext;
     [SerializeField] TMP_Text _instructionstext;
@@ -15,12 +16,10 @@ public class TextUpdates : MonoBehaviour
     [Header("Images")]
     [SerializeField] Image _textbackground;
 
-    //This is for the large scale background that is sceen behind the white text box. 
-    [SerializeField] GameObject _largebackground;
-
     [Header("References")]
     [SerializeField] TooltipCaller _TTC;
     [SerializeField] TutorialCardDropHandler _TCDH;
+    [SerializeField] TutorialBackgroundManager _TBM;
     [SerializeField] GameObject _TextHolder;
 
     [SerializeField]
@@ -30,35 +29,41 @@ public class TextUpdates : MonoBehaviour
 
     // _checkClicks is the bool that should be called by other scripts. 
     [HideInInspector] public bool _checkClicks = false;
+    #endregion
 
     void Start()
     {
         _TTC = GameObject.FindObjectOfType<TooltipCaller>();
         _TCDH = GameObject.FindObjectOfType<TutorialCardDropHandler>();
+        _TBM = this.GetComponent<TutorialBackgroundManager>();
+
+        #region Checks
         //Checks to see if the text objects are assigned.
         if (_maintext || _instructionstext is null)
         {
-            Debug.Log("Missing: Main/Instruction Text (Check TextUpdates Script: Lines 11 || 12.)");
+            Debug.Log("Missing: Main/Instruction Text (Check TextUpdates Script: Lines 12 || 13.)");
         }
-        else if (_textbackground || _largebackground is null)
+        else if (_textbackground is null)
         {
-            Debug.Log("Missing: Text/Large background (Check TextUpdates Script: Lines 15 || 18.)");
+            Debug.Log("Missing: Text (Check TextUpdates Script: Lines 16.)");
         }
         else if (_TTC || _TCDH is null)
         {
-            Debug.Log("Missing: ToolTipCaller (Check TextUpdates Script: Line 21.)");
+            Debug.Log("Missing: ToolTipCaller/TutorialCardDropHandler (Check TextUpdates Script: Line 22 || 23.)");
         }
+        else if (_TBM is null)
+        {
+            Debug.Log("Missing: Tutorial  (Check TextUpdates Script: Line 24.)");
+        }
+        #endregion
 
         StartCoroutine(TurnOffCards());
         //Shows the first text.
         Text("Welcome to the World of Mobius!", "Left click to continue!");
-        i = false;
     }
 
     void Update()
     {
-        CallCardPlayed(); //This function is used as a debug tool remove later after card activates the next numberup.
-        //This bool is to keep the player from skipping forward in the text before the drag&drop function is disabled.
         if (_startclicks == true)
         {
             Clicks();
@@ -77,24 +82,33 @@ public class TextUpdates : MonoBehaviour
     {
         if (_numberUp == 1)
         {
+            _TBM.HideTutorialTextBackground();
+            _TBM.ShowHealthBackground();
             Text("Lets Get Started!" + " " + "Green icons represent the character's Health. ", "Left click to continue!");
         }
         else if (_numberUp == 2)
         {
+            _TBM.HideHealthBackground();
+            _TBM.ShowShieldBackground();
             Text("Blue icons represent the character's defense. ", "Left click to continue!");
         }
         else if (_numberUp == 3)
         {
+            _TBM.HideShieldBackground();
+            _TBM.ShowTutorialTextBackground();
             Text("Your goal is to reduce the enemy's health to 0! ", "Left click to continue!");
         }
         else if (_numberUp == 4)
         {
-            //
+            _TBM.HideTutorialTextBackground();
+            _TBM.ShowCardBackground();
             _TTC.ResumeShowingUI();
             Text("The bottom row displays all the cards in your hand!" + " " + "Hover your mouse over the card to see more detail!", "Left click when you are ready to continue!");
         }
         else if (_numberUp == 5)
         {
+            _TBM.HideCardBackground();
+            _TBM.ShowTutorialTextBackground();
             _TTC.StopShowingUI();
             Text("At the beginning of your turn, draw from the deck until you have 5 cards in your hand.", "Left click to continue!");
         }
@@ -109,8 +123,8 @@ public class TextUpdates : MonoBehaviour
 
             _checkClicks = false;
 
-            HideBackground();
-            StartCore();
+            _TBM.HideTutorialTextBackground();
+            StartCore(); //Hides all children
 
             Text("Now Let's Play Some Cards!", "Left click and drag a card onto the battlefield!");
         }
@@ -119,18 +133,18 @@ public class TextUpdates : MonoBehaviour
             _TTC.StopShowingUI();
             _TCDH.DDOff();
 
-            ShowChildTwo();
+            ShowTutorialText();
 
             Text("Your Opponent reacts to your card! Whenever a player actively plays a card, the other side can counter with the played cards natural counter. When a counter happens, a chain starts.", "Left click to continue! ");
         }
         else if (_numberUp == 9)
         {
-            ShowBackGround();
+            _TBM.ShowTutorialTextBackground();
             Text("There are mainly three types of cards in Mobius: Attack, Defense, and Support. They counter each other following this order.", "Left click to continue! ");
         }
         else if (_numberUp == 10)
         {
-            HideBackground();
+            _TBM.HideTutorialTextBackground();
             Text("The first player that chooses to skip the chain will lose in that chain, and only the winner's cards in the chain will take effect.", "Left click to continue! ");
         }
         else if (_numberUp == 11)
@@ -143,11 +157,11 @@ public class TextUpdates : MonoBehaviour
             _TCDH.DDOn();
             this.gameObject.SetActive(false);
             _startclicks = false;
-            Debug.LogWarning("Load next scene");
-            //SceneManager.LoadScene("");
         }
     }
-    
+
+    //This houses all the code for background and hiding things. 
+    #region BackEnd
     //This corutine makes sure all the things we need to turn off do. 
     IEnumerator TurnOffCards()
     {
@@ -161,9 +175,10 @@ public class TextUpdates : MonoBehaviour
     IEnumerator HideAllChildren()
     {
         yield return new WaitForSeconds(2f);
-        this.gameObject.GetComponent<Transform>().GetChild(0).gameObject.SetActive(false);
-        this.gameObject.GetComponent<Transform>().GetChild(1).gameObject.SetActive(false);
-        this.gameObject.GetComponent<Transform>().GetChild(2).gameObject.SetActive(false);
+        for (int i = 0; i < this.transform.childCount; i++)
+        {
+            this.transform.GetChild(i).gameObject.SetActive(false);
+        }
         StopCoroutine(HideAllChildren());
     }
 
@@ -181,41 +196,9 @@ public class TextUpdates : MonoBehaviour
         _numberUp++;
     }
 
-    //Used for debug purposes to test the cardplayed function. 
-    private void CallCardPlayed()
-    {
-        bool pressed = false;
-        if(Input.GetKeyDown(KeyCode.Delete) && pressed == false)
-        {
-            pressed = true;
-            CardPlayed();
-            Debug.LogWarning("Delete Pressed");
-        }
-    }
-
-    //Makes the gray background disappear and makes the white background transparent. 
-    void HideBackground()
-    {
-        _largebackground.SetActive(false);
-
-        var tempAlpha = _textbackground.color;
-        tempAlpha.a = 0.6f;
-        _textbackground.color = tempAlpha;
-    }
-
-    //Shows the gray background again and makes the white background less transparent.
-    void ShowBackGround()
-    {
-        _largebackground.SetActive(true);
-
-        var tempAlpha = _textbackground.color;
-        tempAlpha.a = 0.7f;
-        _textbackground.color = tempAlpha;
-    }
-
-    //This shows the child two of tutorial text and make sure it is only used once by making a bool out of i.
+    //This shows the tutorial text and make sure it is only used once by making a bool out of i.
     bool i = false;
-    void ShowChildTwo()
+    void ShowTutorialText()
     {
         if(i == false) 
         {
@@ -234,4 +217,6 @@ public class TextUpdates : MonoBehaviour
             x = true;
         }
     }
+
+    #endregion  //This houses all the code for background and hiding things. 
 }
