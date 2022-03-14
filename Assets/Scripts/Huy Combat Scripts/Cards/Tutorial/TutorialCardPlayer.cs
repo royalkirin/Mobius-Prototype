@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Instant_Effect;
 
 //belongs to any entities that can play cards
 //ex: enemy can have a CardPlayer component to play cards
@@ -19,7 +20,7 @@ public class TutorialCardPlayer : MonoBehaviour
 
     //for the player only. Enemy AI will not use this.
     //Playerhand prefab in canvas.
-    PlayerHand playerhand;
+    TutorialPlayerHand playerhand;
 
     //for the enemy AI
     EnemyHand enemyHand;
@@ -57,7 +58,7 @@ public class TutorialCardPlayer : MonoBehaviour
         }
         turnManager = FindObjectOfType<TurnManager>();
 
-        playerhand = GameObject.FindWithTag("PlayerHand").GetComponent<PlayerHand>();
+        playerhand = GameObject.FindWithTag("PlayerHand").GetComponent<TutorialPlayerHand>();
         if (playerhand is null)
         {
             Debug.LogError("Cannot find Player Hand in " + name);
@@ -215,4 +216,24 @@ public class TutorialCardPlayer : MonoBehaviour
     }
 
     public int getPlayerHandSize() { return playerhand.GetCardCount();}
+    //activate instant effect of a card if applicable
+    //return true if there is an instant effect, false otherwise.
+    public bool ActivateInstantEffect(Card card)
+    {
+
+        InstantEffect instantEffect = card.gameObject.GetComponent<InstantEffect>();
+        if (instantEffect is null)
+        {
+            Debug.Log("NO instant effect.");
+            return false;
+        }
+
+
+        //activate here
+
+        instantEffect.ActivateInstantEffect();
+
+
+        return true;
+    }
 }

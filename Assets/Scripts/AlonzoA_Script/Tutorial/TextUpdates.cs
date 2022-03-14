@@ -18,7 +18,7 @@ public class TextUpdates : MonoBehaviour
 
     [Header("References")]
     [SerializeField] TooltipCaller _TTC;
-    [SerializeField] TutorialCardDropHandler _TCDH;
+    [SerializeField] CardDropHandler _TCDH;
     [SerializeField] TutorialBackgroundManager _TBM;
     [SerializeField] GameObject _TextHolder;
 
@@ -34,7 +34,7 @@ public class TextUpdates : MonoBehaviour
     void Start()
     {
         _TTC = GameObject.FindObjectOfType<TooltipCaller>();
-        _TCDH = GameObject.FindObjectOfType<TutorialCardDropHandler>();
+        _TCDH = GameObject.FindObjectOfType<CardDropHandler>();
         _TBM = this.GetComponent<TutorialBackgroundManager>();
 
         #region Checks

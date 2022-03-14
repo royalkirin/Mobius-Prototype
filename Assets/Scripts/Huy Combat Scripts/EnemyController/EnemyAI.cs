@@ -33,7 +33,8 @@ public class EnemyAI : MonoBehaviour
     bool alwaysCounter = false;
 
     EnemyHand enemyHand;
-
+    //for tutorial only
+    [SerializeField] bool tutorial;
 
     bool testing = false;
 
@@ -80,6 +81,10 @@ public class EnemyAI : MonoBehaviour
         {
             alwaysCounter = !alwaysCounter;
             Debug.Log("Enemy AI always counter = " + alwaysCounter);
+        }
+        if (tutorial && !alwaysCounter)
+        {
+            alwaysCounter = true;
         }
         if (Input.GetKeyDown(KeyCode.A))
         {

@@ -30,7 +30,7 @@ public class CardChain : MonoBehaviour
 
     CardPlayer playerCardPlayer; //card player component of player
     CardPlayer enemyCardPlayer; //card player component of enemy
-
+    TutorialCardPlayer playercp;
     GameObject passBtn; //pass btn for Player to surrender the chain
 
 
@@ -46,6 +46,7 @@ public class CardChain : MonoBehaviour
     //invoke EnemyAI when necessary.
     EnemyAI enemyAI;
 
+    TutorialEnemyAI tenemyAI;
 
 
     ///////////////////////////
@@ -92,6 +93,7 @@ public class CardChain : MonoBehaviour
         if(playerCardPlayer is null)
         {
             Debug.Log("Cannot find player's card player in " + name);
+            playercp = GameObject.FindWithTag("Player").GetComponent<TutorialCardPlayer>();
         }
 
         enemyCardPlayer = GameObject.FindWithTag("Enemy").GetComponent<CardPlayer>();
@@ -135,7 +137,8 @@ public class CardChain : MonoBehaviour
             enemyAI = enemyList[0].GetComponent<EnemyAI>();
             if(enemyAI is null)
             {
-                Debug.LogError("Cannot find EnemyAI in " + name);
+                Debug.Log("Cannot find EnemyAI in " + name);
+                tenemyAI = enemyList[0].GetComponent<TutorialEnemyAI>();
             }
         }
     }
@@ -252,14 +255,31 @@ public class CardChain : MonoBehaviour
                 enemyCardPlayer.ActivateInstantEffect(enemyCards[enemyCards.Count - 1]);
             } else {
                 //trigger first card of player 
-                playerCardPlayer.ActivateInstantEffect(playerCards[playerCards.Count - 1]);
+                if(playerCardPlayer != null)
+                {
+                   playerCardPlayer.ActivateInstantEffect(playerCards[playerCards.Count - 1]);
+                }
+                else
+                {
+                    playercp.ActivateInstantEffect(playerCards[playerCards.Count - 1]);
+                }
+                
             }
         }
 
         //Trigger current card\
         if (card.belongToPlayer) {
-            playerCardPlayer.ActivateInstantEffect(card);
-        } else {
+            if (playerCardPlayer != null)
+            {
+                playerCardPlayer.ActivateInstantEffect(card);
+            }
+            else
+            {
+                playercp.ActivateInstantEffect(card);
+            }
+        } 
+        else 
+        {
             enemyCardPlayer.ActivateInstantEffect(card);
         }
     }
@@ -439,8 +459,15 @@ public class CardChain : MonoBehaviour
         if (lastCardBelongToPlayer)
         {
             foreach(Card card in playerCards)
-            {
-                playerCardPlayer.CardTakesEffect(card);
+            { if(playerCardPlayer != null)
+                {
+                 playerCardPlayer.CardTakesEffect(card);
+                }
+                else
+                {
+                    playercp.CardTakesEffect(card);
+                }
+               
             }
         }
         else
@@ -506,8 +533,15 @@ public class CardChain : MonoBehaviour
         if (!playerGoesFirst)
         {
             //turnManager.DefaultChangeTurn();
+            if(enemyAI != null)
+            {
+              StartCoroutine(enemyAI.OnEnemyTurn(8f));
+            }
+            else
+            {
+                StartCoroutine(tenemyAI.OnEnemyTurn(8f));
+            }
             
-            StartCoroutine(enemyAI.OnEnemyTurn(8f));
         }
 
     }

@@ -7,9 +7,9 @@ using UnityEngine;
 //this class will load cards into deck depends on the character.
 public class Deck : MonoBehaviour
 {
-    public const int CARD_COUNT = 30;
-    public int eachCardAmount = -1; 
-
+    public int CARD_COUNT = 30;
+    public int eachCardAmount = -1;
+    public bool tutorial;
 
     
     public List<Card> cardsInDeck;//the actual deck in the game -> no order
@@ -49,7 +49,10 @@ public class Deck : MonoBehaviour
         } else if (friendlyTag == "EnemyCharacter") {
             belongToPlayer = false;
         }
-
+        if (tutorial)
+        {
+            CARD_COUNT = 6;
+        }
         FindVariables();
         LoadCardListBasedOnCharacter();
         InitiateVariables();

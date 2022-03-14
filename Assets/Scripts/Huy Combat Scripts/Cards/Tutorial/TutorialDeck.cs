@@ -6,8 +6,8 @@ using UnityEngine;
 //this class represents a Deck. A Deck is a list of cards.
 //this class will load cards into deck depends on the character.
 public class TutorialDeck : MonoBehaviour
-{
-    public const int CARD_COUNT = 30;
+{                               //change this to change card amount.
+    public const int CARD_COUNT = 6;
     public int eachCardAmount = -1; 
 
 

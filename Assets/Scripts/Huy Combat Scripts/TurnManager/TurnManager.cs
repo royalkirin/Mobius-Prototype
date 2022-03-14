@@ -19,7 +19,7 @@ public class TurnManager : MonoBehaviour
     public GameObject[] PlayerActivateList;//all the things we activate when it's player turn, deactivate on Enemy Turn
     public GameObject[] PlayerReactionActivateList; //all the things we activate when it's player turn/reaction turn, deactivate on Enemy reaction turn
     EnemyAI enemyAI;//enemy in the scene
-
+    TutorialEnemyAI tenemyAI;
     
 
     Deck playerDeck;
@@ -81,6 +81,7 @@ public class TurnManager : MonoBehaviour
         PlayerActivateList = GameObject.FindGameObjectsWithTag("PlayerTurn");
         PlayerReactionActivateList = PlayerActivateList;
         enemyAI = GameObject.FindWithTag("Enemy").GetComponent<EnemyAI>();
+        tenemyAI = GameObject.FindWithTag("Enemy").GetComponent<TutorialEnemyAI>();
         playerDeck = GameObject.FindWithTag("PlayerDeck").GetComponent<Deck>();
         cardChain = GameObject.FindWithTag("CardChain").GetComponent<CardChain>();
         if (cardChain is null)
@@ -237,7 +238,15 @@ public class TurnManager : MonoBehaviour
         CheckScrollBtnsActivated();
         if (!isPlayerTurn)//if it's enemy turn, we signify the enemy AI to play cards.
         {
-            StartCoroutine(enemyAI.OnEnemyTurn(8f));
+            if(enemyAI != null)
+            {
+                StartCoroutine(enemyAI.OnEnemyTurn(8f));
+            }
+            else
+            {
+                StartCoroutine(tenemyAI.OnEnemyTurn(8f));
+            }
+           
         }
         CancelInvoke(nameof(PrintWaitingMessage));
         SetDiscardMode(false);
@@ -312,7 +321,15 @@ public class TurnManager : MonoBehaviour
         if(isPlayerEndTurn) //when player ends his reaction turn
         {
             //Debug.Log("Enemy now reacting");
-            enemyAI.OnEnemyReactTurn();
+            if(enemyAI != null)
+            {
+              enemyAI.OnEnemyReactTurn();
+            }
+            else
+            {
+             tenemyAI.OnEnemyReactTurn();
+            }
+            
             
             isPlayerReactTurn = false;
             ManageFeaturesReactionTurn();
@@ -560,7 +577,15 @@ public class TurnManager : MonoBehaviour
         CheckEndTurnBtnActivated();
         if (!isPlayerTurn)//if it's enemy turn, we signify the enemy AI to play cards.
         {
-            StartCoroutine(enemyAI.OnEnemyTurn(8f));
+
+            if (enemyAI != null)
+            {
+                StartCoroutine(enemyAI.OnEnemyTurn(8f));
+            }
+            else
+            {
+                StartCoroutine(tenemyAI.OnEnemyTurn(8f));
+            }
         }
         CancelInvoke(nameof(PrintWaitingMessage));
         SetDiscardMode(false);
