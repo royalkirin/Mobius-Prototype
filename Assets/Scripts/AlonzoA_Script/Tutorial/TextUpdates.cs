@@ -58,6 +58,11 @@ public class TextUpdates : MonoBehaviour
         #endregion
 
         StartCoroutine(TurnOffCards());
+
+        //Makes sure the background HUD and text objects are on even if they are deactivated. 
+        _TBM.ShowTutorialTextBackground();
+        this.transform.GetChild(6).gameObject.SetActive(true);
+
         //Shows the first text.
         Text("Welcome to the World of Mobius!", "Left click to continue!");
     }
@@ -95,12 +100,12 @@ public class TextUpdates : MonoBehaviour
         else if (_numberUp == 3)
         {
             _TBM.HideShieldBackground();
-            _TBM.ShowTutorialTextBackground();
+            _TBM.ShowEnemyHealthBar();
             Text("Your goal is to reduce the enemy's health to 0! ", "Left click to continue!");
         }
         else if (_numberUp == 4)
         {
-            _TBM.HideTutorialTextBackground();
+            _TBM.HideEnemyHealthBar();
             _TBM.ShowCardBackground();
             _TTC.ResumeShowingUI();
             Text("The bottom row displays all the cards in your hand!" + " " + "Hover your mouse over the card to see more detail!", "Left click when you are ready to continue!");

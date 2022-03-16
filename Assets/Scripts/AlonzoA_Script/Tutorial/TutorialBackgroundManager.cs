@@ -9,6 +9,7 @@ public class TutorialBackgroundManager : MonoBehaviour
     [SerializeField] GameObject _ShieldHighlight = null;
     [SerializeField] GameObject _HealthHighlight = null;
     [SerializeField] GameObject _CardHighlight = null;
+    [SerializeField] GameObject _EnemyHealthHighlight = null;
     [SerializeField] GameObject _TutorialTextBackground = null;
 
     private void Start()
@@ -20,6 +21,8 @@ public class TutorialBackgroundManager : MonoBehaviour
             Debug.LogWarning("_HealthHighlight is null");
         else if (_CardHighlight is null)
             Debug.LogWarning("_CardHighlight is null");
+        else if (_EnemyHealthHighlight is null)
+            Debug.LogWarning("_EnemyHealthHighlight is null");
         else if (_TutorialTextBackground is null)
             Debug.LogWarning("_TutorialTextBackground is null");
     }
@@ -85,9 +88,17 @@ public class TutorialBackgroundManager : MonoBehaviour
 
     #endregion
 
-    ///Need to add functions for the enemies health bar. Will do Saturday!
+    ///Need to add functions for the enemies health bar. 
     ///
     #region EnemyHealthBarBackground
+    public void ShowEnemyHealthBar()
+    {
+        _EnemyHealthHighlight.SetActive(true);
+    }
 
+    public void HideEnemyHealthBar()
+    {
+        _EnemyHealthHighlight.SetActive(false);
+    }
     #endregion
 }
