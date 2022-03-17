@@ -5678,14 +5678,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473d590f22f4e0344a3dbf64a1e171a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maintext: {fileID: 1333655308}
-  _instructionstext: {fileID: 1920112894}
-  _textbackground: {fileID: 1448285523}
+  _MainText: {fileID: 1333655308}
+  _InstructionsText: {fileID: 1920112894}
+  _TextBackground: {fileID: 1274346456}
   _TTC: {fileID: 0}
   _TCDH: {fileID: 0}
   _TBM: {fileID: 0}
   _TextHolder: {fileID: 1448285521}
-  _numberUp: 0
   _checkClicks: 0
 --- !u!1 &1603108805
 GameObject:
