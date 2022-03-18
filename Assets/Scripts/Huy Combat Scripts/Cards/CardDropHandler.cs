@@ -8,12 +8,12 @@ using UnityEngine.EventSystems;
 //(the colored panel in the middle of screen)
 public class CardDropHandler : MonoBehaviour, IDropHandler
 {
-    [SerializeField] TextUpdates _TU;
+    [SerializeField] TextUpdates _TextUpdates;
     bool _ddOff = false;
 
     private void Start()
     {
-        _TU = FindObjectOfType<TextUpdates>();
+        _TextUpdates = FindObjectOfType<TextUpdates>();
     }
     //this gets called whenever player drop smt to the area (releases mouse button)
     public void OnDrop(PointerEventData eventData)
@@ -31,7 +31,7 @@ public class CardDropHandler : MonoBehaviour, IDropHandler
         if (draggedObject.TryGetComponent<DragableDropable>(out DragableDropable dragDrop))
         {
             dragDrop.isDropped = true;
-            _TU.CardPlayed();
+            _TextUpdates.CardPlayed();
         }
 
         

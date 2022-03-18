@@ -6,6 +6,7 @@ using UnityEngine;
 public class TutorialBackgroundManager : MonoBehaviour
 {
     [Header("References")]
+    public GameObject _battleCycle;
     [SerializeField] GameObject _ShieldHighlight = null;
     [SerializeField] GameObject _HealthHighlight = null;
     [SerializeField] GameObject _CardHighlight = null;
@@ -15,8 +16,11 @@ public class TutorialBackgroundManager : MonoBehaviour
     private void Start()
     {
         //Tests if the references are set, if not returns a warning. 
+        #region Checks
         if (_ShieldHighlight is null)
             Debug.LogWarning("_ShieldHighlight is null");
+        else if (_battleCycle is null)
+            Debug.LogWarning("_battleCycle is null");
         else if (_HealthHighlight is null)
             Debug.LogWarning("_HealthHighlight is null");
         else if (_CardHighlight is null)
@@ -25,6 +29,7 @@ public class TutorialBackgroundManager : MonoBehaviour
             Debug.LogWarning("_EnemyHealthHighlight is null");
         else if (_TutorialTextBackground is null)
             Debug.LogWarning("_TutorialTextBackground is null");
+        #endregion
     }
 
     //Hide & Show functions for the Shield Background.

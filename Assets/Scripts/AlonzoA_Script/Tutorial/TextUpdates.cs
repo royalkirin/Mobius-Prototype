@@ -61,7 +61,7 @@ public class TextUpdates : MonoBehaviour
 
         //Makes sure the background HUD and text objects are on even if they are deactivated. 
         _TBM.ShowTutorialTextBackground();
-        this.transform.GetChild(6).gameObject.SetActive(true);
+        this.transform.GetChild(5).gameObject.SetActive(true);
 
         //Shows the first text.
         Text("Welcome to the World of Mobius!", "Left click to continue!");
@@ -145,6 +145,7 @@ public class TextUpdates : MonoBehaviour
         else if (_numberUp == 9)
         {
             _TBM.ShowTutorialTextBackground();
+            _TBM._battleCycle.SetActive(true);
             Text("There are mainly three types of cards in Mobius: Attack, Defense, and Support. They counter each other following this order.", "Left click to continue! ");
         }
         else if (_numberUp == 10)
