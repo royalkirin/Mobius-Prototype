@@ -10,11 +10,11 @@ public class TextUpdates : MonoBehaviour
 {
     #region Variables
     [Header("Text")]
-    [SerializeField] TMP_Text _maintext;
-    [SerializeField] TMP_Text _instructionstext;
+    [SerializeField] TMP_Text _MainText;
+    [SerializeField] TMP_Text _InstructionsText;
 
     [Header("Images")]
-    [SerializeField] Image _textbackground;
+    [SerializeField] Image _TextBackground;
 
     [Header("References")]
     [SerializeField] TooltipCaller _TTC;
@@ -22,7 +22,7 @@ public class TextUpdates : MonoBehaviour
     [SerializeField] TutorialBackgroundManager _TBM;
     [SerializeField] GameObject _TextHolder;
 
-    [SerializeField]
+    //[SerializeField]
     int _numberUp = 0;
     //[SerializeField]
     bool _startclicks = false;
@@ -39,11 +39,11 @@ public class TextUpdates : MonoBehaviour
 
         #region Checks
         //Checks to see if the text objects are assigned.
-        if (_maintext || _instructionstext is null)
+        if (_MainText || _InstructionsText is null)
         {
             Debug.Log("Missing: Main/Instruction Text (Check TextUpdates Script: Lines 12 || 13.)");
         }
-        else if (_textbackground is null)
+        else if (_TextBackground is null)
         {
             Debug.Log("Missing: Text (Check TextUpdates Script: Lines 16.)");
         }
@@ -58,8 +58,14 @@ public class TextUpdates : MonoBehaviour
         #endregion
 
         StartCoroutine(TurnOffCards());
+
+        //Makes sure the background HUD and text objects are on even if they are deactivated. 
+        _TBM.ShowTutorialTextBackground();
+        this.transform.GetChild(5).gameObject.SetActive(true);
+
         //Shows the first text.
         Text("Welcome to the World of Mobius!", "Left click to continue!");
+        UpdateText();
     }
 
     void Update()
@@ -67,14 +73,13 @@ public class TextUpdates : MonoBehaviour
         if (_startclicks == true)
         {
             Clicks();
-            UpdateText();
         }
     }
 
     //This function tracks the amount of clicks the player has made.
     private void Clicks()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0) && _checkClicks == true) { _numberUp++; }
+        if(Input.GetKeyDown(KeyCode.Mouse0) && _checkClicks == true) { _numberUp++; UpdateText(); }
     }
 
     //This function is what updates the text each time the mouse button is clicked.
@@ -95,12 +100,12 @@ public class TextUpdates : MonoBehaviour
         else if (_numberUp == 3)
         {
             _TBM.HideShieldBackground();
-            _TBM.ShowTutorialTextBackground();
+            _TBM.ShowEnemyHealthBar();
             Text("Your goal is to reduce the enemy's health to 0! ", "Left click to continue!");
         }
         else if (_numberUp == 4)
         {
-            _TBM.HideTutorialTextBackground();
+            _TBM.HideEnemyHealthBar();
             _TBM.ShowCardBackground();
             _TTC.ResumeShowingUI();
             Text("The bottom row displays all the cards in your hand!" + " " + "Hover your mouse over the card to see more detail!", "Left click when you are ready to continue!");
@@ -124,15 +129,15 @@ public class TextUpdates : MonoBehaviour
             _checkClicks = false;
 
             _TBM.HideTutorialTextBackground();
-            StartCore(); //Hides all children
+            StartCoroutine(HideAllChildren()); //Hides all children
 
             Text("Now Let's Play Some Cards!", "Left click and drag a card onto the battlefield!");
         }
         else if(_numberUp == 8)
         {
-            _TTC.StopShowingUI();
+            StartCoroutine(HideUI());
             _TCDH.DDOff();
-
+            
             ShowTutorialText();
 
             Text("Your Opponent reacts to your card! Whenever a player actively plays a card, the other side can counter with the played cards natural counter. When a counter happens, a chain starts.", "Left click to continue! ");
@@ -140,6 +145,7 @@ public class TextUpdates : MonoBehaviour
         else if (_numberUp == 9)
         {
             _TBM.ShowTutorialTextBackground();
+            _TBM._battleCycle.SetActive(true);
             Text("There are mainly three types of cards in Mobius: Attack, Defense, and Support. They counter each other following this order.", "Left click to continue! ");
         }
         else if (_numberUp == 10)
@@ -162,7 +168,7 @@ public class TextUpdates : MonoBehaviour
 
     //This houses all the code for background and hiding things. 
     #region BackEnd
-    //This corutine makes sure all the things we need to turn off do. 
+    //This corutine is to make sure everything shuts off after the scene loads, so no problems arise of something still running. 
     IEnumerator TurnOffCards()
     {
         yield return new WaitForSeconds(0.5f);
@@ -172,6 +178,7 @@ public class TextUpdates : MonoBehaviour
         _checkClicks = true;
     }
 
+    //This coroutine is for hiding all the children of the object this script is attached too, so we can play the game without the tutorial getting in the way. 
     IEnumerator HideAllChildren()
     {
         yield return new WaitForSeconds(2f);
@@ -182,11 +189,20 @@ public class TextUpdates : MonoBehaviour
         StopCoroutine(HideAllChildren());
     }
 
+    //Used to combat an issue with playing the card in the tutorial then resuming the text. My guess is ShowUI is called after a card is played which overrided my previous method of use. This wait should be enough to turn it back off again. 
+    IEnumerator HideUI()
+    {
+        yield return new WaitForSeconds(1f);
+        _TTC.StopShowingUI();
+        StopCoroutine(HideUI());
+    }
+
+
     //Main function used to update the text boxes on the screen.
     private void Text(string main, string instructions)
     {
-        _maintext.text = main.ToString();
-        _instructionstext.text = instructions.ToString();
+        _MainText.text = main.ToString();
+        _InstructionsText.text = instructions.ToString();
     }
 
     //Call this function after a card is played, so the text can continue. 
@@ -194,6 +210,7 @@ public class TextUpdates : MonoBehaviour
     {
         _checkClicks = true;
         _numberUp++;
+        UpdateText();
     }
 
     //This shows the tutorial text and make sure it is only used once by making a bool out of i.
@@ -206,17 +223,5 @@ public class TextUpdates : MonoBehaviour
             i = true;
         }
     }
-
-    //Keeps the coroutine from overloading due to the call from the update text function which updates 60 frames a second. 
-    bool x = false;
-    void StartCore()
-    {
-        if(x == false)
-        {
-            StartCoroutine(HideAllChildren());
-            x = true;
-        }
-    }
-
     #endregion  //This houses all the code for background and hiding things. 
 }
