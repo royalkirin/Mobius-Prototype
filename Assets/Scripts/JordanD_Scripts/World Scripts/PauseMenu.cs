@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 ///*****************************************************************************************///
 /// Class: PauseMenu                                                                        ///
 ///                                                                                         ///
-/// Description: Sets the Scroll Up button for the Card Chain.                              ///
+/// Description: Controls the Pause Menu functionality.                                     ///
 ///                                                                                         ///
 ///     Date Created: 3/03/22                                                               ///
-///     Date Updated: 3/10/22                                                               ///
+///     Date Updated: 3/19/22                                                               ///
 ///                                                                                         ///
 ///     Author: Jordan R. Douglas                                                           ///
 ///*****************************************************************************************///
@@ -91,6 +92,8 @@ public class PauseMenu : MonoBehaviour
         uMasterSlider = GameObject.Find("Master Volume");
         if (uMasterSlider)
             uMasterSlider.GetComponent<Slider>().onValueChanged.AddListener(ChangeMasterVolume);
+
+        uMasterSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("Master Volume");
 
         uMusicSlider = GameObject.Find("Music Volume");
         uSoundFXSlider = GameObject.Find("Sound Effect Volume");
@@ -190,11 +193,8 @@ public class PauseMenu : MonoBehaviour
 
     public void ExitGame()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        //Scene 0 should always be the Main Menu
+        SceneManager.LoadScene(0);
     }
     #endregion
 }

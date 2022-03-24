@@ -6,15 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/JordanD/Main Menu.unity
+    guid: f20310099fc20b34aa016d48f3b2d888
+  - enabled: 1
     path: Assets/Scenes/Main/MainScene_BattleTest.unity
-    guid: 7d5ba650b43fd044bac0a7166465408b
+    guid: 1e933ef0be051234684b71739e65b699
   - enabled: 1
-    path: Assets/Scenes/JordanD/test_scene_01.unity
-    guid: e5c0b72aac894434a94567abfaef490d
-  - enabled: 1
-    path: Assets/Scenes/JordanD/test_scene_02.unity
-    guid: b8917371ca812734f9274030ce9cccbe
-  - enabled: 1
-    path: Assets/Scenes/JordanD/Jordan_BattleTest_Clone.unity
-    guid: 1018e82f375906640b9eaa413a656b59
+    path: Assets/Scenes/Huy/Huy_Daemon_Face.unity
+    guid: aaefc3c81e129b0458fb958c95ffe907
   m_configObjects: {}
