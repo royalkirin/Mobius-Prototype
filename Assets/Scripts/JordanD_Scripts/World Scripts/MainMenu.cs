@@ -101,14 +101,14 @@ public class MainMenu : MonoBehaviour
 
     void InitializeLevelSelectButtons()
     {
-        //uTutorial = GameObject.Find("TUTORIAL").GetComponent<Button>();
-        //uTutorial.onClick.AddListener(() => SelectButtonFunction(1));
-        //
+        uTutorial = GameObject.Find("TUTORIAL").GetComponent<Button>();
+        uTutorial.onClick.AddListener(() => SelectButtonFunction(1));
+        
         uLevelOne = GameObject.Find("LEVEL 1").GetComponent<Button>();
-        uLevelOne.onClick.AddListener(() => SelectButtonFunction(1));
+        uLevelOne.onClick.AddListener(() => SelectButtonFunction(2));
 
         uLevelTwo = GameObject.Find("LEVEL 2").GetComponent<Button>();
-        uLevelTwo.onClick.AddListener(() => SelectButtonFunction(2));
+        uLevelTwo.onClick.AddListener(() => SelectButtonFunction(3));
     }
 
     #region ActiveToggleFunctions

@@ -93,8 +93,6 @@ public class PauseMenu : MonoBehaviour
         if (uMasterSlider)
             uMasterSlider.GetComponent<Slider>().onValueChanged.AddListener(ChangeMasterVolume);
 
-        uMasterSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("Master Volume");
-
         uMusicSlider = GameObject.Find("Music Volume");
         uSoundFXSlider = GameObject.Find("Sound Effect Volume");
 
