@@ -31,7 +31,10 @@ public class CardDropHandler : MonoBehaviour, IDropHandler
         if (draggedObject.TryGetComponent<DragableDropable>(out DragableDropable dragDrop))
         {
             dragDrop.isDropped = true;
-            _TextUpdates.CardPlayed();
+            if(_TextUpdates != null) {
+                _TextUpdates.CardPlayed();
+            }
+            
         }
 
         

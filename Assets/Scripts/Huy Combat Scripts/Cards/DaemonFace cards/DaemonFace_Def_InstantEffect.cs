@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Instant_Effect;
+using System;
 
 public class DaemonFace_Def_InstantEffect : MonoBehaviour, InstantEffect {
-    [SerializeField] float defenseValue = 1f;
+    [SerializeField] float InflictionValue = 1f;
 
     public void ActivateInstantEffect() {
         //Find FriendlyCharacter
@@ -26,8 +27,7 @@ public class DaemonFace_Def_InstantEffect : MonoBehaviour, InstantEffect {
         //add 1 defense to FriendlyCharacter
         //if the target is Attackable -> we increase its defense
         if (FriendlyCharacter.TryGetComponent<Attackable>(out Attackable targetAttackable)) {
-            targetAttackable.AddDefense(defenseValue);
-            Debug.Log("Instant effect: " + targetAttackable.gameObject.name + " get " + defenseValue + " defense");
+            Infliction(targetAttackable, InflictionValue);
             return;
         } else //if not, we cannot attack -> we cannot add defense
           {
@@ -35,4 +35,15 @@ public class DaemonFace_Def_InstantEffect : MonoBehaviour, InstantEffect {
             return;
         }
     }
+
+    private void Infliction(Attackable targetAttackable, float inflictionValue) {
+        if (GetComponent<Card>().belongToPlayer) {
+            GameObject playerCharacter = GameObject.FindGameObjectWithTag("PlayerCharacter");
+            playerCharacter.GetComponent<CharacterBuffs>().ApplyInfliction(true, inflictionValue);
+        } else {
+            Debug.LogWarning("Enemy cannot use Daemon Face cards.");
+        }
+
+    }
+
 }

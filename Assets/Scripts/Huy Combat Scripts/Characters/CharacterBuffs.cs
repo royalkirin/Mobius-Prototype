@@ -77,20 +77,64 @@ public class CharacterBuffs : MonoBehaviour
 
     #endregion
 
+
+    #region Infliction
+    //remember to reset all the buffs to false after its implemented.
+    private bool NextShieldInfliction = false;
+    private float inflictionValue = 0f;
+
+
+    //this buff can only be possessed by player.
+    //Leo implemented the RaiseShield. Check  out Ronin_zanshin.cs
+    public void ApplyInfliction(bool newBool, float inflictionValue) {
+        NextShieldInfliction = newBool;
+        if (NextShieldInfliction) {
+            this.inflictionValue = inflictionValue;
+        }
+        if (newBool) {
+            Attackable attackable = gameObject.GetComponent<Attackable>();
+            if (attackable is null) {
+                Debug.LogError("Need Attackable component");
+
+            } else{
+                attackable.ActivateInfliction(inflictionValue);
+            }
+        }
+
+    }
+    public bool GetNextShieldInfliction() {
+        return NextShieldInfliction;
+    }
+
+    public void DeactivateInfliction() {
+        GetComponent<Attackable>().DeactivateInfliction();
+    }
+
+
+    #endregion
+
+
+
+
+
     //another buff here?
 
 
     //removes all the buffs that expires after 1 turn.
     public void RemoveBuffsEndOfTurn()
     {
+        Debug.Log("Removing buffs end of turn");
         if (NextAttackCardCannotBeCountered){
             SetNextAttackCardCannotBeCountered(false);
         }
         if (NextAttackNullified) {
             RaiseShield(false);
         }
-        
+        //if (NextShieldInfliction) {
+        //    DeactivateInfliction();
+        //}
+
         ///Sarah's: update character buff elements here
-        
+
     }
 }

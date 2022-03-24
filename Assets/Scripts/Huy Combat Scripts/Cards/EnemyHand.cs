@@ -103,4 +103,14 @@ public class EnemyHand : MonoBehaviour
         Debug.Log("Enemy total count = " + cardsInHand.Count);
         return cardsInHand.Count;
     }
+
+    public void RemoveRandomCard() {
+        int randomIndex = UnityEngine.Random.Range(0, (cardsInHand.Count - 1));
+        bool removed =  RemoveCard(randomIndex);
+        if (removed) {
+            Debug.LogWarning("Remove random card successfully");
+        } else {
+            Debug.LogWarning("Remove random card unsuccessfully");
+        }
+    }
 }

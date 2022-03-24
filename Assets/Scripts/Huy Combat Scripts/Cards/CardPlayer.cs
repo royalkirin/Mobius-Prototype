@@ -221,10 +221,12 @@ public class CardPlayer : MonoBehaviour
     //activate instant effect of a card if applicable
     //return true if there is an instant effect, false otherwise.
     public bool ActivateInstantEffect(Card card) {
-
+        if(card is null) {
+            Debug.Log("card is null");
+        }
         InstantEffect instantEffect = card.gameObject.GetComponent<InstantEffect>();
         if(instantEffect is null) {
-            Debug.Log("NO instant effect.");
+            Debug.Log("NO instant effect." + card.name);
             return false;
         }
 

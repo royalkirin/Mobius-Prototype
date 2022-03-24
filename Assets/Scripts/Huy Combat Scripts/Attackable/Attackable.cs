@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 //Belongs to any character that can be attacked
@@ -11,8 +12,10 @@ using UnityEngine;
 public class Attackable : MonoBehaviour
 {
     float DefenseValue = 0f;
+    float InflictionValue = 0f;
     [SerializeField] Health health = null;
     [SerializeField] CharacterAttackableUI ui;
+
 
     //Sarah's: add UI elements here
 
@@ -57,10 +60,9 @@ public class Attackable : MonoBehaviour
         if (!isShielded) 
         {
             damage = TakeDamageWithDefense(damage);
-            if (damage > 0)
-            {
-                health.TakeDamage(damage);
-            }
+
+            health.TakeDamage(damage);
+
         }
 
         ui.UpdateText(DefenseValue, health.GetCurrentHealth()) ;
@@ -92,9 +94,7 @@ public class Attackable : MonoBehaviour
     //return the value of damage left after defense is reduced
     private float TakeDamageWithDefense(float damage)
     {
-
-
-
+        float damageNegatedWithDefense = 0f;
 
         //if defense is negative, we add to the damage
         if(DefenseValue  <= 0f)
@@ -107,6 +107,8 @@ public class Attackable : MonoBehaviour
             if(DefenseValue > damage)//and greater than damage
             {
                 DefenseValue -= damage;
+                damageNegatedWithDefense = damage;
+                HandleInfliction(damageNegatedWithDefense);
                 //Debug.Log(name + " now has " + DefenseValue + " defense");
                 return 0; //damage is fully negated
             }
@@ -114,21 +116,62 @@ public class Attackable : MonoBehaviour
             {
                 damage -= DefenseValue;
                 DefenseValue = 0;
+                damageNegatedWithDefense = 0;
+                HandleInfliction(damageNegatedWithDefense);
                 return damage;
             }
         }
     }
 
+    private void HandleInfliction(float damageNegatedWithDefense) {
+        if(InflictionValue <= 0f) {
+            return;
+        }
+
+        //need enemy attackable so we can deal damage
+        Attackable enemyAttackable = FindEnemyAttackable();
+        if (enemyAttackable is null) {
+            Debug.LogError("Cannot find enemy attackable");
+            return;
+        }
+
+        
+        //let's say we have 3 inflictions, damageNegatedWithDefense = 5
+        //the enemy will take 3 damage
+        if (InflictionValue  <= damageNegatedWithDefense) {
+            enemyAttackable.TakeDamage(InflictionValue);
+            DeactivateInfliction();
+            return;
+        } else {        //let's say we have 5 inflictions, damageNegatedWithDefense = 3
+                        //the enemy will take 3 damage
+                        //and we do not deactive infliction
+            enemyAttackable.TakeDamage(damageNegatedWithDefense);
+
+        }
+    }
+
+    private Attackable FindEnemyAttackable() {
+        if (gameObject.tag == "PlayerCharacter") {
+            return GameObject.FindWithTag("EnemyCharacter").GetComponent<Attackable>();
+        } else {
+            return GameObject.FindWithTag("PlayerCharacter").GetComponent<Attackable>();
+        }
+    }
 
     public void AddDefense(float defenseValue)
     {
+        Debug.LogWarning("Defense val = " + DefenseValue);
+        Debug.LogWarning("adding: " + defenseValue);
         DefenseValue += defenseValue;
+        Debug.LogWarning("Defense val = " + DefenseValue);
         //Debug.Log("Added " + defenseValue + " defense, current Defense is " + DefenseValue);
         ui.UpdateText(DefenseValue, health.GetCurrentHealth());
         //Sarah's: Update ui based on health, defense here
         if (healthAndDefenseUI != null) {
-            healthAndDefenseUI.health = (int)health.GetCurrentHealth();
-            healthAndDefenseUI.defense = (int)DefenseValue;
+            healthAndDefenseUI.health = (int)(health.GetCurrentHealth());
+
+            healthAndDefenseUI.defense = (int)(DefenseValue);
+            Debug.LogWarning(healthAndDefenseUI.defense);
         }
     }
 
@@ -141,5 +184,29 @@ public class Attackable : MonoBehaviour
     //for deactivating end of turn.
     public void LowerTheShield() {
         Shield.SetActive(false);
+    }
+
+
+    public void ActivateInfliction(float inflictionValue) {
+        this.InflictionValue += inflictionValue;
+        Debug.Log("New infliction value = " + inflictionValue);
+        UpdateInflictionText();
+
+
+    }
+
+    public void DeactivateInfliction() {
+        InflictionValue = 0;
+        Debug.LogWarning("Infliction deactivated.");
+        UpdateInflictionText();
+
+
+    }
+
+    private void UpdateInflictionText() {
+        Text inflictionText = GameObject.Find("InflictionText").GetComponent<Text>();
+        if(inflictionText != null) {
+            inflictionText.text = "Infliction: " + InflictionValue;
+        }
     }
 }
