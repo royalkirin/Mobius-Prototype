@@ -21,6 +21,9 @@ public class TextUpdates : MonoBehaviour
     [SerializeField] CardDropHandler _TCDH;
     [SerializeField] TutorialBackgroundManager _TBM;
     [SerializeField] GameObject _TextHolder;
+    [SerializeField] PageCount _pageCountScript;
+    [SerializeField] TextObjectAlignmentTutorial _textObjectAlignmentTutorial;
+    [SerializeField] TextBoxAlignmentTutorial _textBoxAlignmentTutorial;
 
     //[SerializeField]
     int _numberUp = 0;
@@ -36,6 +39,9 @@ public class TextUpdates : MonoBehaviour
         _TTC = GameObject.FindObjectOfType<TooltipCaller>();
         _TCDH = GameObject.FindObjectOfType<CardDropHandler>();
         _TBM = this.GetComponent<TutorialBackgroundManager>();
+        _pageCountScript = this.GetComponent<PageCount>();
+        _textObjectAlignmentTutorial = GameObject.FindObjectOfType<TextObjectAlignmentTutorial>();
+        _textBoxAlignmentTutorial = GameObject.FindObjectOfType<TextBoxAlignmentTutorial>();
 
         #region Checks
         //Checks to see if the text objects are assigned.
@@ -59,11 +65,12 @@ public class TextUpdates : MonoBehaviour
 
         StartCoroutine(TurnOffCards());
 
-        //Makes sure the background HUD and text objects are on even if they are deactivated. 
+        //Makes sure the background HUD and text objects are shown even if they are deactivated. 
         _TBM.ShowTutorialTextBackground();
         this.transform.GetChild(5).gameObject.SetActive(true);
+        _textBoxAlignmentTutorial.NewPosition();
 
-        //Shows the first text.
+        //Sets the first text that appears in the text boxes.
         Text("Welcome to the World of Mobius!", "Left click to continue!");
         UpdateText();
     }
@@ -87,42 +94,55 @@ public class TextUpdates : MonoBehaviour
     {
         if (_numberUp == 1)
         {
+            _pageCountScript.IncreasePageNumb();
             _TBM.HideTutorialTextBackground();
             _TBM.ShowHealthBackground();
-            Text("Lets Get Started!" + " " + "Green icons represent the character's Health. ", "Left click to continue!");
+            Text("Lets Get Started!" + " " + "Green icons represent the character's Health. ", "When you are done reading, Left-Click to continue through the rest of the tutorial!");
         }
         else if (_numberUp == 2)
         {
+            _textObjectAlignmentTutorial.NewPosition();
+            _pageCountScript.IncreasePageNumb();
             _TBM.HideHealthBackground();
             _TBM.ShowShieldBackground();
-            Text("Blue icons represent the character's defense. ", "Left click to continue!");
+            Text("Blue icons represent the character's defense. ", "");
         }
         else if (_numberUp == 3)
         {
+            _pageCountScript.IncreasePageNumb();
             _TBM.HideShieldBackground();
             _TBM.ShowEnemyHealthBar();
-            Text("Your goal is to reduce the enemy's health to 0! ", "Left click to continue!");
+            Text("Your goal is to reduce the enemy's health to 0! ", "");
         }
         else if (_numberUp == 4)
         {
+            _textBoxAlignmentTutorial.OriginalPos();
+            _textObjectAlignmentTutorial.OriginalPos();
+            _pageCountScript.IncreasePageNumb();
             _TBM.HideEnemyHealthBar();
             _TBM.ShowCardBackground();
             _TTC.ResumeShowingUI();
-            Text("The bottom row displays all the cards in your hand!" + " " + "Hover your mouse over the card to see more detail!", "Left click when you are ready to continue!");
+            Text("The bottom row displays all the cards in your hand!" + " " + "Hover your mouse over the card to see more detail!", "When done, left-click to continue!");
         }
         else if (_numberUp == 5)
         {
+            _textBoxAlignmentTutorial.NewPosition();
+            _textObjectAlignmentTutorial.NewPosition();
+            _pageCountScript.IncreasePageNumb();
             _TBM.HideCardBackground();
             _TBM.ShowTutorialTextBackground();
             _TTC.StopShowingUI();
-            Text("At the beginning of your turn, draw from the deck until you have 5 cards in your hand.", "Left click to continue!");
+            Text("At the beginning of your turn, draw from the deck until you have 5 cards in your hand. (Done Automatically)", "");
         }
         else if (_numberUp == 6)
         {
-            Text("At the end of your turn, discard your hand to 5.", "Left click to continue!");
+            _pageCountScript.IncreasePageNumb();
+            Text("At the end of your turn, discard your hand to 5. (Done Automatically)", "");
         }
         else if(_numberUp == 7)
         {
+            _textObjectAlignmentTutorial.OriginalPos();
+            _pageCountScript.IncreasePageNumb();
             _TTC.ResumeShowingUI();
             _TCDH.DDOn();
 
@@ -135,27 +155,33 @@ public class TextUpdates : MonoBehaviour
         }
         else if(_numberUp == 8)
         {
+            _textObjectAlignmentTutorial.NewPosition();
+            _pageCountScript.IncreasePageNumb();
             StartCoroutine(HideUI());
             _TCDH.DDOff();
             
             ShowTutorialText();
 
-            Text("Your Opponent reacts to your card! Whenever a player actively plays a card, the other side can counter with the played cards natural counter. When a counter happens, a chain starts.", "Left click to continue! ");
+            Text("Your Opponent reacts to your card! Whenever a player actively plays a card, the other side can counter with the played cards natural counter. When a counter happens, a chain starts.", "");
         }
         else if (_numberUp == 9)
         {
+            _pageCountScript.IncreasePageNumb();
             _TBM.ShowTutorialTextBackground();
             _TBM._battleCycle.SetActive(true);
-            Text("There are mainly three types of cards in Mobius: Attack, Defense, and Support. They counter each other following this order.", "Left click to continue! ");
+            Text("There are mainly three types of cards in Mobius: Attack, Defense, and Support. They counter each other following this order.", "");
         }
         else if (_numberUp == 10)
         {
+            _pageCountScript.IncreasePageNumb();
             _TBM.HideTutorialTextBackground();
-            Text("The first player that chooses to skip the chain will lose in that chain, and only the winner's cards in the chain will take effect.", "Left click to continue! ");
+            Text("The first player that chooses to skip the chain will lose in that chain, and only the winner's cards in the chain will take effect.", "");
         }
         else if (_numberUp == 11)
         {
-            Text("Now you've acquired all the knowledge for this game! Have Fun Playing!", "Left click to continue!");
+            _textObjectAlignmentTutorial.OriginalPos();
+            _pageCountScript.IncreasePageNumb();
+            Text("Now you've acquired all the knowledge for this game! Have Fun Playing!", "The tutorial is now over, left-click to play the game!");
         }
         else if (_numberUp >= 12) 
         {
