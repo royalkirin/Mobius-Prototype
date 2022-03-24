@@ -7,29 +7,14 @@ public class DaemonFace_Sup_InstantEffect : MonoBehaviour, InstantEffect {
 
     public void ActivateInstantEffect() {
         //Find player Deck or enemy Deck
-        Deck friendlyDeck = null;
-        Card card = gameObject.GetComponent<Card>();
-        if (card != null) {
-            if (card.belongToPlayer) {
-                friendlyDeck = GameObject.FindWithTag("PlayerDeck").GetComponent<Deck>();
-            } else {
-                friendlyDeck = GameObject.FindWithTag("EnemyDeck").GetComponent<Deck>();
-            }
-        }
-        if (friendlyDeck is null || card is null) {
-            Debug.LogError("Something is null here");
+        EnemyHand enemyHand = null;
+        enemyHand = GameObject.FindWithTag("EnemyHand").GetComponent<EnemyHand>();
+        if (enemyHand is null) {
+            Debug.LogError("Cannot find Enemey Hand");
+        } else {
+            enemyHand.RemoveRandomCard();
         }
 
-
-        //deal to friendly character.
-        for (int i = 0; i < numbCardsToAdd; i++) {
-            if (card.belongToPlayer) {
-                friendlyDeck.DealToPlayer(cardLimited: false);
-            } else {
-                friendlyDeck.DealToEnemy(cardLimited: false);
-            }
-
-        }
 
     }
 }

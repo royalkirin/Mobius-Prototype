@@ -5,7 +5,7 @@ using UnityEngine;
 public class DaemonFace_Sup_Main : SupportCard
 {
     public override void Play(GameObject target) {
-        base.numbCardsToAdd = 2;
+        base.numbCardsToAdd = 1;
         base.Play(target);
     }
 }
