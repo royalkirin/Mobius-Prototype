@@ -177,10 +177,20 @@ public class Deck : MonoBehaviour
 
     private void UpdateFriendlyCards() {
         if (belongToPlayer) {
+            if (tutorial)
+            {
+                howManyEach[0] = 2 - playerHand.GetAttackCount();
+                howManyEach[1] = 2 - playerHand.GetDefenseCount();
+                howManyEach[2] = 1 - playerHand.GetSupportCount();
+            }
+            else
+            {
             howManyEach[0] = eachCardAmount - playerHand.GetAttackCount();
             howManyEach[1] = eachCardAmount - playerHand.GetDefenseCount();
             howManyEach[2] = eachCardAmount - playerHand.GetSupportCount();
             Debug.Log( "Player: " + string.Join(", ", howManyEach));
+            }
+           
         } else {
             howManyEach[0] = eachCardAmount - enemyHand.GetAttackCount();
             howManyEach[1] = eachCardAmount - enemyHand.GetDefenseCount();

@@ -20,7 +20,7 @@ public class CardChainUI : MonoBehaviour
     bool isLerping = false;//when lerping, switch this
 
     //Variables used for calculating functionality to the chain's flexbility.
-    float fSwitchCardPosX = 4.9f;
+    float fSwitchCardPosX = 4.1f;
     float fAlphaReduction = 1.0f;
     float fAlphaIncrease = 0.0f;
 
@@ -76,13 +76,13 @@ public class CardChainUI : MonoBehaviour
     {
         if (isPlayerStart)
         {
-            fSwitchCardPosX = 4.9f;
+            fSwitchCardPosX = 4.1f;
             cardsInChain[0].transform.position = uCardInitialPos;
         }
         else
         {
-            fSwitchCardPosX = -4.9f;
-            cardsInChain[0].transform.position = uCardInitialPos - new Vector3(4.9f, 0.0f, 0.0f);
+            fSwitchCardPosX = -4.1f;
+            cardsInChain[0].transform.position = uCardInitialPos - new Vector3(4.1f, 0.0f, 0.0f);
         }
     }
 
@@ -435,9 +435,9 @@ public class CardChainUI : MonoBehaviour
             cardsInChain[0].color = new Color(1, 1, 1, 1.0f);
 
         if (bIsPlayerTurn)
-            fSwitchCardPosX = 4.9f;
+            fSwitchCardPosX = 4.1f;
         else
-            fSwitchCardPosX = -4.9f;
+            fSwitchCardPosX = -4.1f;
 
         bChainManualReset = false;
     }
