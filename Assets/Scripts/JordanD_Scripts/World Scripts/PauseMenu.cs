@@ -192,6 +192,7 @@ public class PauseMenu : MonoBehaviour
     public void ExitGame()
     {
         //Scene 0 should always be the Main Menu
+        Time.timeScale = fCurrentTime;
         SceneManager.LoadScene(0);
     }
     #endregion
