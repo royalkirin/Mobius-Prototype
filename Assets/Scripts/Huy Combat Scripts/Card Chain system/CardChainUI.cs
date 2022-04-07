@@ -360,8 +360,6 @@ public class CardChainUI : MonoBehaviour
         }
     }
 
-
-
     #region MECHANICS
 
     //return false if cannot play the card.

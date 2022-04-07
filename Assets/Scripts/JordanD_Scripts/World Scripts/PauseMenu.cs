@@ -16,6 +16,8 @@ using UnityEngine.UI;
 ///*****************************************************************************************///
 public class PauseMenu : MonoBehaviour
 {
+    #region VARIABLES
+    //Holds the TimeScale value prior to pausing
     float fCurrentTime;
 
     //The Pause Button
@@ -38,7 +40,7 @@ public class PauseMenu : MonoBehaviour
     GameObject uQuitBackground;
     GameObject uExitConfirmButton;
     GameObject uDoNotExitButton;
-
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
@@ -194,6 +196,24 @@ public class PauseMenu : MonoBehaviour
         //Scene 0 should always be the Main Menu
         Time.timeScale = fCurrentTime;
         SceneManager.LoadScene(0);
+    }
+    #endregion
+
+    #region ExtraFunctions
+    public void PauseMenuDisable(bool bDisablePausing)
+    {
+        if (!uPauseButton)
+            uPauseButton = GameObject.Find("Pause Button");
+
+        if (bDisablePausing)
+        {
+            uPauseButton.SetActive(false);
+        }
+
+        else
+        {
+            uPauseButton.SetActive(true);
+        }
     }
     #endregion
 }

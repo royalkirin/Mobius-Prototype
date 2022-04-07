@@ -29,6 +29,7 @@ public class TextUpdates : MonoBehaviour
     int _numberUp = 0;
     //[SerializeField]
     bool _startclicks = false;
+    bool _PauseDisabled = false;
 
     // _checkClicks is the bool that should be called by other scripts. 
     [HideInInspector] public bool _checkClicks = false;
@@ -77,6 +78,13 @@ public class TextUpdates : MonoBehaviour
 
     void Update()
     {
+        //Disable Pausing - Jordan Douglas
+        if (!_PauseDisabled)
+        {
+            GameObject.FindObjectOfType<PauseMenu>().PauseMenuDisable(true);
+            _PauseDisabled = true;
+        }
+
         if (_startclicks == true)
         {
             Clicks();
@@ -86,7 +94,7 @@ public class TextUpdates : MonoBehaviour
     //This function tracks the amount of clicks the player has made.
     private void Clicks()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0) && _checkClicks == true) { _numberUp++; UpdateText(); }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && _checkClicks == true) { _numberUp++; UpdateText(); }
     }
 
     //This function is what updates the text each time the mouse button is clicked.
@@ -139,7 +147,7 @@ public class TextUpdates : MonoBehaviour
             _pageCountScript.IncreasePageNumb();
             Text("At the end of your turn, discard your hand to 5. (Done Automatically)", "");
         }
-        else if(_numberUp == 7)
+        else if (_numberUp == 7)
         {
             _textObjectAlignmentTutorial.OriginalPos();
             _pageCountScript.IncreasePageNumb();
@@ -153,13 +161,13 @@ public class TextUpdates : MonoBehaviour
 
             Text("Now Let's Play Some Cards!", "Left click and drag a card onto the battlefield!");
         }
-        else if(_numberUp == 8)
+        else if (_numberUp == 8)
         {
             _textObjectAlignmentTutorial.NewPosition();
             _pageCountScript.IncreasePageNumb();
             StartCoroutine(HideUI());
             _TCDH.DDOff();
-            
+
             ShowTutorialText();
 
             Text("Your Opponent reacts to your card! Whenever a player actively plays a card, the other side can counter with the played cards natural counter. When a counter happens, a chain starts.", "");
@@ -183,12 +191,17 @@ public class TextUpdates : MonoBehaviour
             _pageCountScript.IncreasePageNumb();
             Text("Now you've acquired all the knowledge for this game! Have Fun Playing!", "The tutorial is now over, left-click to play the game!");
         }
-        else if (_numberUp >= 12) 
+        else if (_numberUp >= 12)
         {
             _TTC.ResumeShowingUI();
             _TCDH.DDOn();
             this.gameObject.SetActive(false);
             _startclicks = false;
+
+            //Enable Pausing - Jordan Douglas
+            GameObject.FindObjectOfType<PauseMenu>().PauseMenuDisable(false);
+            _PauseDisabled = false;
+
         }
     }
 
@@ -243,7 +256,7 @@ public class TextUpdates : MonoBehaviour
     bool i = false;
     void ShowTutorialText()
     {
-        if(i == false) 
+        if (i == false)
         {
             _TextHolder.SetActive(true);
             i = true;
