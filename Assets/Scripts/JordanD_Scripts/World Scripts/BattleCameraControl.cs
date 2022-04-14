@@ -26,7 +26,8 @@ public class BattleCameraControl : MonoBehaviour
     [SerializeField] Transform uPlayer;
     [SerializeField] Transform uEnemy;
 
-    [SerializeField] List<Transform> uTarget = new List<Transform>();
+    //[SerializeField] List<Transform> uTarget = new List<Transform>();
+    Transform uTarget;
     int test;
 
     [SerializeField] Quaternion uBattleCamOriginTransform;
@@ -50,8 +51,8 @@ public class BattleCameraControl : MonoBehaviour
 
         if (bIsLerping || bIsResetting)
         {
-            //LERPCameraRotation();
-            StartCoroutine(LERPCameraRot());
+            LERPCameraRotation();
+            //StartCoroutine(LERPCameraRot());
         }
     }
 
@@ -60,8 +61,9 @@ public class BattleCameraControl : MonoBehaviour
     public void MoveCameratoEnemy()
     {
         //this.transform.LookAt(uEnemy.transform);
-        uTarget.Add(uEnemy.transform);
-        uTarget[test] = uPlayer.transform;
+        //uTarget.Add(uEnemy.transform);
+        //uTarget[test] = uPlayer.transform;
+        uTarget = uEnemy.transform;
         test++;
         bIsLerping = true;
     }
@@ -69,8 +71,9 @@ public class BattleCameraControl : MonoBehaviour
     //Use when moving the camera to look at the Player
     public void MoveCameratoPlayer()
     {
-        uTarget.Add(uPlayer.transform);
-        uTarget[test] = uPlayer.transform;
+        //uTarget.Add(uPlayer.transform);
+        //uTarget[test] = uPlayer.transform;
+        uTarget = uPlayer.transform;
         test++;
         bIsLerping = true;
     }
@@ -86,16 +89,17 @@ public class BattleCameraControl : MonoBehaviour
     {
         if (bIsLerping)
         {
-            Quaternion uLookAt = Quaternion.LookRotation(uTarget[0].position - this.transform.position);
+            //Quaternion uLookAt = Quaternion.LookRotation(uTarget[0].position - this.transform.position);
+            Quaternion uLookAt = Quaternion.LookRotation(uTarget.position - this.transform.position);
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, uLookAt, Time.deltaTime * fCameraMovSpeed);
             if (this.transform.rotation == uLookAt)
             {
-                
-            }
-            if (uTarget.Count == 1)
-            {
                 bIsLerping = false;
             }
+            //if (uTarget.Count == 1)
+            //{
+            //    bIsLerping = false;
+            //}
         }
         else
         {
@@ -107,20 +111,20 @@ public class BattleCameraControl : MonoBehaviour
         }
     }
 
-    IEnumerator LERPCameraRot()
+    /*IEnumerator LERPCameraRot()
     {
         if (bIsLerping)
         {
             Quaternion uLookAt = Quaternion.LookRotation(uTarget[0].position - this.transform.position);
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, uLookAt, Time.deltaTime * fCameraMovSpeed);
-            if (this.transform.rotation == uLookAt)
-            {
-                uTarget.Remove(uTarget[0]);
-            }
-            if (uTarget.Count == 1)
-            {
-                bIsLerping = false;
-            }
+           //if (this.transform.rotation == uLookAt)
+           //{
+           //    uTarget.Remove(uTarget[0]);
+           //}
+           //if (uTarget.Count == 1)
+           //{
+           //    bIsLerping = false;
+           //}
             yield return new WaitForSeconds(1.0f);
         }
         else
@@ -133,6 +137,6 @@ public class BattleCameraControl : MonoBehaviour
             }
             yield return new WaitForSeconds(1.0f);
         }
-    }
+    }*/
     #endregion
 }

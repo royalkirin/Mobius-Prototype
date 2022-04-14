@@ -14,6 +14,7 @@ public class TurnManager : MonoBehaviour
     public bool isPlayerTurn = true;
     //when someone attacks another, the other can have a reaction turn to choose to counter the card
     public bool isPlayerReactTurn = false;
+    public bool bPlayerStartedRound = true;
 
 
     public GameObject[] PlayerActivateList;//all the things we activate when it's player turn, deactivate on Enemy Turn
@@ -258,6 +259,8 @@ public class TurnManager : MonoBehaviour
     //the trapcardManager call this to end player turn after he plays a trap card.
     public void PlayerChangeTurn()
     {
+        //Bool showcases if it is currently the Player who starts the round or Enemy.
+        bPlayerStartedRound = !bPlayerStartedRound;
         if (!isPlayerTurn)//if player clicks EndTurn during Enemy Turn, we do nothing.
         {
             Debug.Log("Player cannot change turn during Enemy Turn.");
