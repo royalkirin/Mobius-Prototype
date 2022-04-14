@@ -12,6 +12,11 @@ public class AnimTrigger02 : MonoBehaviour
     public bool supStart;
     public bool painStart;
 
+    public bool attSet;
+    public bool defSet;
+    public bool supSet;
+    public bool painSet;
+
     public int animNum;
 
     // Start is called before the first frame update
