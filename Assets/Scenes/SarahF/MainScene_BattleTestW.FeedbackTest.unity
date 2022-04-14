@@ -3401,6 +3401,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051391391}
   m_Mesh: {fileID: 4890176300591525589, guid: d818648c1b009ab48a03dbcc4ae09583, type: 3}
+--- !u!1 &1051894254 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8724500309012776188, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
+  m_PrefabInstance: {fileID: 7075814290364508754}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1051894257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051894254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07d25436dc045d3469194a2612f4eeb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attStart: 0
+  defStart: 0
+  supStart: 0
+  painStart: 0
+  animNum: 0
 --- !u!1 &1083113454
 GameObject:
   m_ObjectHideFlags: 0
@@ -30100,6 +30122,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1148154894491305238, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1520523896582272237, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1841720516028735561, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1

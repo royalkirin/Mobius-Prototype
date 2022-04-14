@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4728213092490467221}
   - component: {fileID: 4728213092490467220}
+  - component: {fileID: 849465361}
   m_Layer: 0
   m_Name: Turn Manager
   m_TagString: Untagged
@@ -44,6 +45,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayerTurn: 1
+  isPlayerReactTurn: 0
   PlayerActivateList: []
   PlayerReactionActivateList: []
-  isPlayerReactTurn: 0
+  playerNumberOfCardsValid: 0
+  didPlayerChooseATrapOption: 0
+  playerChooseToSkipTurn: 0
+  firstStageCheckTrapCard: 1
+  firstStageFinished: 0
+  secondStageCheckCardLimit: 1
+  secondStageFinished: 0
+--- !u!114 &849465361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4728213092490467223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2dd17257af57954b82d1cacd39ee1ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLight: {fileID: 0}
+  enemyLight: {fileID: 0}

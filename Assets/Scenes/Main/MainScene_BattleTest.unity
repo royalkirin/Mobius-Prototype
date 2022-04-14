@@ -287,6 +287,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 30954565}
   m_Mesh: {fileID: 5902438668197411763, guid: 4e40842238bcca046a7c50ffff32b019, type: 3}
+--- !u!1 &93718677 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4873334420389213164, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
+  m_PrefabInstance: {fileID: 7075814290364508754}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &187384437
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,6 +766,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pause Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6344814598474928799, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6344814598640455098, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1193,6 +1202,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 345367028}
   m_Mesh: {fileID: -7387926931826281997, guid: b50dd34feb8fa1b4fa5aa0a7d2271066, type: 3}
+--- !u!1 &438728472 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 488613589199412850, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
+  m_PrefabInstance: {fileID: 4146983974072608323}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &442238000
 GameObject:
   m_ObjectHideFlags: 0
@@ -2060,7 +2074,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &680176531
 GameObject:
@@ -31162,9 +31176,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 849465361, guid: f336fcf856e63e34db837290b4742534, type: 3}
+      propertyPath: enemyLight
+      value: 
+      objectReference: {fileID: 438728472}
+    - target: {fileID: 849465361, guid: f336fcf856e63e34db837290b4742534, type: 3}
+      propertyPath: playerLight
+      value: 
+      objectReference: {fileID: 93718677}
     - target: {fileID: 4728213092490467221, guid: f336fcf856e63e34db837290b4742534, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4728213092490467221, guid: f336fcf856e63e34db837290b4742534, type: 3}
       propertyPath: m_LocalPosition.x
@@ -31209,10 +31231,6 @@ PrefabInstance:
     - target: {fileID: 4728213092490467223, guid: f336fcf856e63e34db837290b4742534, type: 3}
       propertyPath: m_Name
       value: Turn Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 4728213092490467223, guid: f336fcf856e63e34db837290b4742534, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f336fcf856e63e34db837290b4742534, type: 3}
@@ -59143,7 +59161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4375779225806854950, guid: c049b8555da581746b01fc54c7ed89a6, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4375779225806854950, guid: c049b8555da581746b01fc54c7ed89a6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -62163,6 +62181,10 @@ PrefabInstance:
     - target: {fileID: 7075814291398091243, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
       propertyPath: m_Name
       value: Friendly Char
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075814291398091243, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
+      propertyPath: m_TagString
+      value: PlayerCharacter
       objectReference: {fileID: 0}
     - target: {fileID: 7075814291398091247, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
       propertyPath: m_RootOrder
