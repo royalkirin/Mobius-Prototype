@@ -467,7 +467,6 @@ public class CardChain : MonoBehaviour
                 {
                     playercp.CardTakesEffect(card);
                 }
-               
             }
         }
         else
@@ -487,6 +486,8 @@ public class CardChain : MonoBehaviour
         {
             Destroy(card.gameObject);
         }
+
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BattleCameraControl>().MoveCameraBacktoNeutral();
 
         RemoveBuffInvincibleCard(isPlayer);
 

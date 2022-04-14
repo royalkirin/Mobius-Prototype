@@ -31,6 +31,8 @@ public class CardPlayer : MonoBehaviour
     //handle trap card plays
     TrapCardManager trapCardManager;
 
+    //Battle Camera
+    BattleCameraControl uBattleCam;
 
     private void Start()
     {
@@ -99,6 +101,7 @@ public class CardPlayer : MonoBehaviour
             Debug.Log("Cannot find Trap Card Manager in " + name);
         }
 
+        uBattleCam = GameObject.FindWithTag("MainCamera").GetComponent<BattleCameraControl>();
     }
 
 
@@ -112,6 +115,10 @@ public class CardPlayer : MonoBehaviour
             if (enemyCharacter != null)
             {
                 attackCard.Play(enemyCharacter);
+                if (attackCard.belongToPlayer)
+                    uBattleCam.MoveCameratoEnemy();
+                else
+                    uBattleCam.MoveCameratoPlayer();
             }
             else
             {
@@ -126,6 +133,10 @@ public class CardPlayer : MonoBehaviour
             if (friendlyCharacter != null)
             {
                 defenseCard.Play(friendlyCharacter);
+                if (defenseCard.belongToPlayer)
+                    uBattleCam.MoveCameratoPlayer();
+                else
+                    uBattleCam.MoveCameratoEnemy();
             }
             else
             {
@@ -139,7 +150,10 @@ public class CardPlayer : MonoBehaviour
         {
             SupportCard supportCard = (SupportCard)card;
             supportCard.Play(playerDeck.gameObject);
-
+            if (supportCard.belongToPlayer)
+                uBattleCam.MoveCameratoPlayer();
+            else
+                uBattleCam.MoveCameratoEnemy();
         }
     }
 
