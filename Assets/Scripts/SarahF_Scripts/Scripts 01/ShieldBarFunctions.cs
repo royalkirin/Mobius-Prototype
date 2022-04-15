@@ -24,17 +24,17 @@ public class ShieldBarFunctions : MonoBehaviour
     void Update()
     {
 
-        if (healthCaller.health <= 10)
+        if (healthCaller.defense >= 0)
         {
-            if (healthCaller.recordedHealth > healthCaller.health)
+            if (healthCaller.recordedDefense > healthCaller.defense)
             {
-                if (healthCaller.health == 10)
+                if (healthCaller.defense == 10)
                 {
 
                 }
                 else
                 {
-                    for (int i = healthCaller.health; i < healthCaller.recordedHealth; i++)
+                    for (int i = healthCaller.defense; i < healthCaller.recordedDefense; i++)
                     {
                         defenseSegements[i].GetComponent<DefenseBarShaker>().startShake = true;
                     }
@@ -42,9 +42,9 @@ public class ShieldBarFunctions : MonoBehaviour
                     //healthSegements[healthCaller.health].GetComponent<HealthBarShaker>().startShake = true;
                 }
             }
-            else if (healthCaller.recordedHealth < healthCaller.health)
+            else if (healthCaller.recordedDefense < healthCaller.defense)
             {
-                defenseSegements[healthCaller.health - 1].GetComponent<DefenseBarShaker>().startBeat = true;
+                defenseSegements[healthCaller.defense - 1].GetComponent<DefenseBarShaker>().startBeat = true;
             }
         }
     }

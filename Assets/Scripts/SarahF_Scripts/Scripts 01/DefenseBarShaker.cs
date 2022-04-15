@@ -32,7 +32,7 @@ public class DefenseBarShaker : MonoBehaviour
             if (timer >= 5 && timer <= 9)
             {
                 gameObject.GetComponent<Transform>().transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                gameObject.GetComponent<Image>().color = new Color(0.2660199f, 0.3161518f, 0.04873455f, 0.9245283f);
+                gameObject.GetComponent<Image>().color = new Color(0.1660199f, 0.3161518f, 0.84873455f, 0.9245283f);
             }
             else if (timer >= 10 && timer <= 14)
             {
@@ -62,7 +62,7 @@ public class DefenseBarShaker : MonoBehaviour
             if (timer >= 5 && timer <= 9)
             {
                 gameObject.GetComponent<Transform>().transform.localPosition = new Vector3(xPosition, .0f, 0.0f);
-                gameObject.GetComponent<Image>().color = new Color(0.6694998f, 0.6797441f, 0.8018868f, 1f);
+                gameObject.GetComponent<Image>().color = new Color(0.1694998f, 0.1797441f, 0.4018868f, 1f);
             }
             else if (timer >= 10 && timer <= 14)
             {

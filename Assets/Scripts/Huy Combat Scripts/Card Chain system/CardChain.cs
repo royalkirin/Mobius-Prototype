@@ -603,9 +603,6 @@ public class CardChain : MonoBehaviour
         {
             ChainEnd(isPlayer: true);
         }
-        
-        
-
     }
 
     public void GetChainUINewRound(bool bIsPlayerTurn)
@@ -666,8 +663,8 @@ public class CardChain : MonoBehaviour
 
         if (card is DefenseCard)
         {
-            if (uPlayerAnimationTrigger.animNum == 0)
-                uPlayerAnimationTrigger.animNum = 3;
+            if (uEnemyAnimationTrigger.animNum == 0)
+                uEnemyAnimationTrigger.animNum = 3;
 
             uEnemyAnimationTrigger.defStart = true;
         }

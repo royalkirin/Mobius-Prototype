@@ -62198,10 +62198,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Friendly Char
       objectReference: {fileID: 0}
-    - target: {fileID: 7075814291398091243, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
-      propertyPath: m_TagString
-      value: PlayerCharacter
-      objectReference: {fileID: 0}
     - target: {fileID: 7075814291398091247, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
       propertyPath: m_RootOrder
       value: 1
