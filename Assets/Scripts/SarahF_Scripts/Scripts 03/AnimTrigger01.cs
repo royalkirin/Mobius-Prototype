@@ -35,139 +35,85 @@ public class AnimTrigger01 : MonoBehaviour
 
         if (animNum == 1)
         {
-            if (attStart == true)
-            {
-                characterAnim.SetBool("AttackBool", true);
-
-                if (characterAnim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") == true)
-                {
-                    attStart = false;
-                    characterAnim.SetBool("AttackBool", false);
-                }
-            }
-            else if (supStart == true)
-            {
-                characterAnim.SetBool("SupportBool", true);
-
-                if (characterAnim.GetCurrentAnimatorStateInfo(0).IsTag("Support") == true)
-                {
-                    supStart = false;
-                    characterAnim.SetBool("SupportBool", false);
-                }
-            }
-            else if (defStart == true)
-            {
-                characterAnim.SetBool("DefenseBool", true);
-
-                if (characterAnim.GetCurrentAnimatorStateInfo(0).IsTag("Defense") == true)
-                {
-                    defStart = false;
-                    characterAnim.SetBool("DefenseBool", false);
-                }
-            }
-            else
-            {
-                animNum = 0;
-            }
+            AnimationSwitch_ATTACK("AttackBool", "Attack");
+            AnimationSwitch_SUPPORT("SupportBool", "Support");
+            AnimationSwitch_DEFENSE("DefenseBool", "Defense");
         }
         else if (animNum == 2)
         {
-            if (supStart == true)
-            {
-                characterAnim.SetBool("SupportBool", true);
-
-                if (characterAnim.GetCurrentAnimatorStateInfo(0).IsTag("Support") == true)
-                {
-                    supStart = false;
-                    characterAnim.SetBool("SupportBool", false);
-                }
-            }
-            else if (defStart == true)
-            {
-                characterAnim.SetBool("DefenseBool", true);
-
-                if (characterAnim.GetCurrentAnimatorStateInfo(0).IsTag("Defense") == true)
-                {
-                    defStart = false;
-                    characterAnim.SetBool("DefenseBool", false);
-                }
-            }
-            else if (attStart == true)
-            {
-                characterAnim.SetBool("AttackBool", true);
-
-                if (characterAnim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") == true)
-                {
-                    attStart = false;
-                    characterAnim.SetBool("AttackBool", false);
-                }
-            }
-            else
-            {
-                animNum = 0;
-            }
+            AnimationSwitch_SUPPORT("SupportBool", "Support");
+            AnimationSwitch_DEFENSE("DefenseBool", "Defense");
+            AnimationSwitch_ATTACK("AttackBool", "Attack");
         }
         else if (animNum == 3)
         {
-            if (defStart == true)
-            {
-                characterAnim.SetBool("DefenseBool", true);
-
-                if (characterAnim.GetCurrentAnimatorStateInfo(0).IsTag("Defense") == true)
-                {
-                    defStart = false;
-                    characterAnim.SetBool("DefenseBool", false);
-                }
-            }
-            else if (attStart == true)
-            {
-                characterAnim.SetBool("AttackBool", true);
-
-                if (characterAnim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") == true)
-                {
-                    attStart = false;
-                    characterAnim.SetBool("AttackBool", false);
-                }
-            }
-            else if (supStart == true)
-            {
-                characterAnim.SetBool("SupportBool", true);
-
-                if (characterAnim.GetCurrentAnimatorStateInfo(0).IsTag("Support") == true)
-                {
-                    supStart = false;
-                    characterAnim.SetBool("SupportBool", false);
-                }
-            }
-            else
-            {
-                animNum = 0;
-            }
+            AnimationSwitch_DEFENSE("DefenseBool", "Defense");
+            AnimationSwitch_ATTACK("AttackBool", "Attack");
+            AnimationSwitch_SUPPORT("SupportBool", "Support");
         }
         else if (animNum == 4)
         {
-            if (painStart == true)
-            {
-                characterAnim.SetBool("DamagedBool", true);
-
-                if (characterAnim.GetCurrentAnimatorStateInfo(0).IsTag("Damaged") == true)
-                {
-                    characterAnim.SetBool("DamagedBool", false);
-                    painStart = false;
-                }
-            }
-            else
-            {
-                animNum = 0;
-            }
+            AnimationSwitch_PAIN("DamagedBool", "Damaged");
         }
-        else if (animNum == 0)
+        else if (!attStart && !defStart && !supStart && !painStart)
         {
-            characterAnim.SetBool("AttackBool", false);
-            characterAnim.SetBool("SupportBool", false);
-            characterAnim.SetBool("DefenseBool", false);
+            animNum = 0;
         }
+    }
 
-        
+    void AnimationSwitch_ATTACK(string c_BoolName, string c_TagName)
+    {
+        if (attStart == true)
+        {
+            characterAnim.SetBool(c_BoolName, true);
+
+            if (characterAnim.GetCurrentAnimatorStateInfo(0).IsTag(c_TagName) == true)
+            {
+                attStart = false;
+                characterAnim.SetBool(c_BoolName, false);
+            }
+        }
+    }
+
+    void AnimationSwitch_DEFENSE(string c_BoolName, string c_TagName)
+    {
+        if (defStart == true)
+        {
+            characterAnim.SetBool(c_BoolName, true);
+
+            if (characterAnim.GetCurrentAnimatorStateInfo(0).IsTag(c_TagName) == true)
+            {
+                defStart = false;
+                characterAnim.SetBool(c_BoolName, false);
+            }
+        }
+    }
+
+    void AnimationSwitch_SUPPORT(string c_BoolName, string c_TagName)
+    {
+        if (supStart == true)
+        {
+            characterAnim.SetBool(c_BoolName, true);
+
+            if (characterAnim.GetCurrentAnimatorStateInfo(0).IsTag(c_TagName) == true)
+            {
+                supStart = false;
+                characterAnim.SetBool(c_BoolName, false);
+            }
+        }
+    }
+
+    void AnimationSwitch_PAIN(string c_BoolName, string c_TagName)
+    {
+        if (painStart == true)
+        {
+            characterAnim.SetBool(c_BoolName, true);
+
+            if (characterAnim.GetCurrentAnimatorStateInfo(0).IsTag(c_TagName) == true)
+            {
+                painStart = false;
+                characterAnim.SetBool(c_BoolName, false);
+            }
+        }
     }
 }

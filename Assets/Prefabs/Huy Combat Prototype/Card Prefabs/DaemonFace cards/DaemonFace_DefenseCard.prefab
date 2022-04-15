@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e2cf6bcc2e1cea4bb3fa918717fdb2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defenseValue: 1
+  InflictionValue: 1
 --- !u!114 &137505962620685221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39,6 +39,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 536761205760636611, guid: f852dfa633da18740af818e4932ccfc1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dc11d2c17c25caf4da37f6fc6e0ec6e4, type: 3}
     - target: {fileID: 2088354531023964828, guid: f852dfa633da18740af818e4932ccfc1, type: 3}
       propertyPath: m_Name
       value: DaemonFace_DefenseCard

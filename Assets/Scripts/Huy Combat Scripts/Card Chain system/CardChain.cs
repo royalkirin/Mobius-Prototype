@@ -48,6 +48,10 @@ public class CardChain : MonoBehaviour
 
     TutorialEnemyAI tenemyAI;
 
+    //ANIMATION HANDLERS
+    [SerializeField] AnimTrigger01 uPlayerAnimationTrigger;
+    [SerializeField] AnimTrigger02 uEnemyAnimationTrigger;
+
 
     ///////////////////////////
     //if invincible, automatically wins the chain when its played
@@ -141,6 +145,9 @@ public class CardChain : MonoBehaviour
                 tenemyAI = enemyList[0].GetComponent<TutorialEnemyAI>();
             }
         }
+
+        uPlayerAnimationTrigger = GameObject.FindGameObjectWithTag("PlayerCharacter").GetComponentInChildren<AnimTrigger01>();
+        uEnemyAnimationTrigger = GameObject.FindGameObjectWithTag("EnemyCharacter").GetComponentInChildren<AnimTrigger02>();
     }
 
     //create new chain when chain ends
@@ -442,8 +449,6 @@ public class CardChain : MonoBehaviour
         //or invincibleCardBypass is true -> we end the chain
         //or, all conditions are passed.
 
-
-
         //activate trap card effect, remove it from the list
         if (lastCardIsTrapCard)
         {
@@ -459,7 +464,9 @@ public class CardChain : MonoBehaviour
         if (lastCardBelongToPlayer)
         {
             foreach(Card card in playerCards)
-            { if(playerCardPlayer != null)
+            {
+                SetPlayerAnimationState(card);
+                if(playerCardPlayer != null)
                 {
                  playerCardPlayer.CardTakesEffect(card);
                 }
@@ -473,7 +480,8 @@ public class CardChain : MonoBehaviour
         {
             foreach (Card card in enemyCards)
             {
-                Debug.Log("1");
+                SetEnemyAnimationState(card)
+;                Debug.Log("1");
                 enemyCardPlayer.CardTakesEffect(card);
             }
         }
@@ -603,5 +611,65 @@ public class CardChain : MonoBehaviour
     public void GetChainUINewRound(bool bIsPlayerTurn)
     {
         chainUI.SetChainStartPosition(bIsPlayerTurn);
+    }
+
+    void SetPlayerAnimationState(Card card)
+    {
+        if (card is AttackCard)
+        {
+            if (uPlayerAnimationTrigger.animNum == 0)
+                uPlayerAnimationTrigger.animNum = 1;
+
+            uEnemyAnimationTrigger.animNum = 4;
+
+            uPlayerAnimationTrigger.attStart = true;
+            uEnemyAnimationTrigger.painStart = true;
+        }
+
+        if (card is SupportCard)
+        {
+            if (uPlayerAnimationTrigger.animNum == 0)
+                uPlayerAnimationTrigger.animNum = 2;
+
+            uPlayerAnimationTrigger.supStart = true;
+        }
+
+        if (card is DefenseCard)
+        {
+            if (uPlayerAnimationTrigger.animNum == 0)
+                uPlayerAnimationTrigger.animNum = 3;
+
+            uPlayerAnimationTrigger.defStart = true;
+        }
+    }
+
+    void SetEnemyAnimationState(Card card)
+    {
+        if (card is AttackCard)
+        {
+            if (uEnemyAnimationTrigger.animNum == 0)
+                uEnemyAnimationTrigger.animNum = 1;
+
+            uPlayerAnimationTrigger.animNum = 4;
+
+            uEnemyAnimationTrigger.attStart = true;
+            uPlayerAnimationTrigger.painStart = true;
+        }
+
+        if (card is SupportCard)
+        {
+            if (uEnemyAnimationTrigger.animNum == 0)
+                uEnemyAnimationTrigger.animNum = 2;
+
+            uEnemyAnimationTrigger.supStart = true;
+        }
+
+        if (card is DefenseCard)
+        {
+            if (uPlayerAnimationTrigger.animNum == 0)
+                uPlayerAnimationTrigger.animNum = 3;
+
+            uEnemyAnimationTrigger.defStart = true;
+        }
     }
 }

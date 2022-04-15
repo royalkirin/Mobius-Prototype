@@ -566,4 +566,16 @@ public class CardChainUI : MonoBehaviour
     }
 
     #endregion
+
+    #region HELPER_FUNCTIONS
+    public bool WasPlayerFirstCardInChain()
+    {
+        if (cardsInChain[0].transform.position.x > 0.0f)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+    #endregion
 }
