@@ -3950,14 +3950,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473d590f22f4e0344a3dbf64a1e171a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maintext: {fileID: 1536000526}
-  _instructionstext: {fileID: 717396206}
-  _textbackground: {fileID: 1890386849}
+  _MainText: {fileID: 0}
+  _InstructionsText: {fileID: 0}
+  _TextBackground: {fileID: 0}
   _TTC: {fileID: 0}
   _TCDH: {fileID: 0}
   _TBM: {fileID: 0}
   _TextHolder: {fileID: 1890386847}
-  _numberUp: 0
+  _pageCountScript: {fileID: 0}
+  _textObjectAlignmentTutorial: {fileID: 0}
+  _textBoxAlignmentTutorial: {fileID: 0}
+  ToggleTutorialDelay: {fileID: 0}
+  _turnOffDelay: 0
   _checkClicks: 0
 --- !u!114 &1039678299
 MonoBehaviour:
@@ -3971,9 +3975,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9524841ad42d1b84b9990927085cf25c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _battleCycle: {fileID: 0}
   _ShieldHighlight: {fileID: 557579705}
   _HealthHighlight: {fileID: 1795096400}
   _CardHighlight: {fileID: 1612991243}
+  _EnemyHealthHighlight: {fileID: 0}
   _TutorialTextBackground: {fileID: 944817029}
 --- !u!1 &1051391391
 GameObject:
@@ -28270,6 +28276,10 @@ PrefabInstance:
       value: Card Play Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 2755046010357432618, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 135
+      objectReference: {fileID: 0}
+    - target: {fileID: 2755046010357432618, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -30.000122
       objectReference: {fileID: 0}
@@ -28282,8 +28292,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5822628570643980009, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5822628570643980009, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6154713609027432786, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -270
       objectReference: {fileID: 0}
     - target: {fileID: 6154713609027432786, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
       propertyPath: m_AnchoredPosition.y
