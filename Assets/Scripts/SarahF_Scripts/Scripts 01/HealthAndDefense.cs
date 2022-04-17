@@ -26,7 +26,7 @@ public class HealthAndDefense : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         healthText.text = "" + health;
         defenseText.text = "" + defense;
