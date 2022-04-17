@@ -224,7 +224,6 @@ public class TextUpdates : MonoBehaviour
             //Enable Pausing - Jordan Douglas
             GameObject.FindObjectOfType<PauseMenu>().PauseMenuDisable(false);
             _PauseDisabled = false;
-
         }
     }
 

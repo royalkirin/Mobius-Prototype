@@ -93,8 +93,7 @@ public class TutorialBackgroundManager : MonoBehaviour
 
     #endregion
 
-    ///Need to add functions for the enemies health bar. 
-    ///
+    //Hide & Show functions for the enemies health bar. 
     #region EnemyHealthBarBackground
     public void ShowEnemyHealthBar()
     {

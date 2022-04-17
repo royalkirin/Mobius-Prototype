@@ -29,8 +29,8 @@ public class ResetScene : MonoBehaviour
     {
         if (healthRef.health <= 0)
         {
-            Debug.Log("You Win!");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //Debug.Log("You Lose!");
+            SceneManager.LoadScene(4);
         }
     }
 
@@ -40,7 +40,7 @@ public class ResetScene : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P) && enableKill == true)
         {
             healthRef.health = 0;
-            Debug.LogWarning("Player Died: Scene reload!");
+            Debug.LogWarning("Player Died: You Lose Scene loaded!");
         }
     }
 
@@ -50,7 +50,7 @@ public class ResetScene : MonoBehaviour
 
         if (enableKill == true && i == false)
         {
-            Debug.LogWarning("Press 'p' to test next SceneLoad.");
+            Debug.LogWarning("Press 'p' to kill player.");
             i = true;
         }
     }

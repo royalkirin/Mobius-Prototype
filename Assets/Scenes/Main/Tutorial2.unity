@@ -1224,6 +1224,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
+--- !u!1 &278732847 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6344814598474928799, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
+  m_PrefabInstance: {fileID: 278732846}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &296113459
 GameObject:
   m_ObjectHideFlags: 0
@@ -5999,6 +6004,7 @@ MonoBehaviour:
   _CardHighlight: {fileID: 1142169115}
   _EnemyHealthHighlight: {fileID: 949534189}
   _TutorialTextBackground: {fileID: 1274346454}
+  _PauseMenu: {fileID: 278732847}
 --- !u!114 &1601987891
 MonoBehaviour:
   m_ObjectHideFlags: 0
