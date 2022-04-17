@@ -544,11 +544,11 @@ public class CardChain : MonoBehaviour
             //turnManager.DefaultChangeTurn();
             if(enemyAI != null)
             {
-              StartCoroutine(enemyAI.OnEnemyTurn(8f));
+              StartCoroutine(enemyAI.OnEnemyTurn(4f));
             }
             else
             {
-                StartCoroutine(tenemyAI.OnEnemyTurn(8f));
+                StartCoroutine(tenemyAI.OnEnemyTurn(4f));
             }
             
         }

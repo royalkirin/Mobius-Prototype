@@ -468,7 +468,7 @@ public class TutorialCardChain : MonoBehaviour
         {
             //turnManager.DefaultChangeTurn();
             
-            StartCoroutine(enemyAI.OnEnemyTurn(8f));
+            StartCoroutine(enemyAI.OnEnemyTurn(4f));
         }
 
     }

@@ -102,7 +102,7 @@ public class TutorialEnemyAI : MonoBehaviour
     }
 
     //when it's enemy turn, play.
-    public IEnumerator OnEnemyTurn(float sec = 8f)
+    public IEnumerator OnEnemyTurn(float sec)
     {
         yield return new WaitForSeconds(sec);
         PlayFirstCardInChain();
