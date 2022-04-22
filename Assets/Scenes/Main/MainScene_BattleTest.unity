@@ -25935,6 +25935,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 135
       objectReference: {fileID: 0}
+    - target: {fileID: 5128115102128434308, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
+      propertyPath: CARD_COUNT
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5822628570643980009, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0

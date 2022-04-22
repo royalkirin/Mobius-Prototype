@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="656acd74-dacc-464a-a925-688fcd737d42" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main/MainScene_BattleTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main/MainScene_BattleTest.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Cards/Deck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Cards/Deck.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Characters/CharacterCardCollection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Characters/CharacterCardCollection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/StephenP_Scripts/Deck_SP.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/StephenP_Scripts/Managers/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/StephenP_Scripts/Managers/TurnManager_SP.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.2.1/Unity.Mathematics/quaternion.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="27qeOjBjKQD9UHb9OJypkP3uKhn" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.37272727&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;rider.run.widget.enabled.cache&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="UnitTests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="C:\Program Files\Unity 2021.1.0a8\Editor\Unity.exe" />
+      <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath &quot;D:\Game Dev Projects\Unity Projects\Mobius-Prototype&quot; -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="D:\Game Dev Projects\Unity Projects\Mobius-Prototype" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="3796">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" value="3796" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="656acd74-dacc-464a-a925-688fcd737d42" name="Changes" comment="" />
+      <created>1650052016202</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1650052016202</updated>
+      <workItem from="1650052025424" duration="1669000" />
+      <workItem from="1650119159880" duration="987000" />
+      <workItem from="1650150326959" duration="821000" />
+      <workItem from="1650385965826" duration="700000" />
+      <workItem from="1650387416857" duration="11871000" />
+      <workItem from="1650464245616" duration="1150000" />
+      <workItem from="1650663205751" duration="2715000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/StephenP_Scripts/Deck_SP.cs</url>
+          <line>27</line>
+          <properties documentPath="D:\Game Dev Projects\Unity Projects\Mobius-Prototype\Assets\Scripts\StephenP_Scripts\Deck_SP.cs" initialLine="27" containingFunctionPresentation="method 'DealCards'">
+            <startOffsets>
+              <option value="834" />
+            </startOffsets>
+            <endOffsets>
+              <option value="879" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/StephenP_Scripts/Hand_SP.cs</url>
+          <line>32</line>
+          <properties documentPath="D:\Game Dev Projects\Unity Projects\Mobius-Prototype\Assets\Scripts\StephenP_Scripts\Hand_SP.cs" initialLine="32" containingFunctionPresentation="method 'DrawCards'">
+            <startOffsets>
+              <option value="672" />
+            </startOffsets>
+            <endOffsets>
+              <option value="760" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/StephenP_Scripts/Managers/TurnManager_SP.cs</url>
+          <line>37</line>
+          <properties documentPath="D:\Game Dev Projects\Unity Projects\Mobius-Prototype\Assets\Scripts\StephenP_Scripts\Managers\TurnManager_SP.cs" initialLine="37" containingFunctionPresentation="method 'Update'">
+            <startOffsets>
+              <option value="801" />
+            </startOffsets>
+            <endOffsets>
+              <option value="827" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/StephenP_Scripts/Managers/TurnManager_SP.cs</url>
+          <line>40</line>
+          <properties documentPath="D:\Game Dev Projects\Unity Projects\Mobius-Prototype\Assets\Scripts\StephenP_Scripts\Managers\TurnManager_SP.cs" initialLine="40" containingFunctionPresentation="method 'Update'">
+            <startOffsets>
+              <option value="937" />
+            </startOffsets>
+            <endOffsets>
+              <option value="959" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/StephenP_Scripts/Managers/TurnManager_SP.cs</url>
+          <line>41</line>
+          <properties documentPath="D:\Game Dev Projects\Unity Projects\Mobius-Prototype\Assets\Scripts\StephenP_Scripts\Managers\TurnManager_SP.cs" initialLine="41" containingFunctionPresentation="method 'Update'">
+            <startOffsets>
+              <option value="976" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1003" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Cards/Deck.cs</url>
+          <line>187</line>
+          <properties documentPath="D:\Game Dev Projects\Unity Projects\Mobius-Prototype\Assets\Scripts\Huy Combat Scripts\Cards\Deck.cs" initialLine="173" containingFunctionPresentation="method 'ShuffleDeck'">
+            <startOffsets>
+              <option value="5568" />
+            </startOffsets>
+            <endOffsets>
+              <option value="5569" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
