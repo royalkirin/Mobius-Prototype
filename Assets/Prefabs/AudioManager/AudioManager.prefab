@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7654902885946044277}
   - component: {fileID: 7654902885946044276}
+  - component: {fileID: 4687540392614089314}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -44,9 +45,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: PlayerAttack
-    clip: {fileID: 8300000, guid: 53824dd7a848c504fa19d7e15eeccdb1, type: 3}
-    volume: 0
-    pitch: 0.1
+  - name: MainMenuMusic
+    clip: {fileID: 8300000, guid: dcfec9237422e444c8526e98410867f2, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: TutorialMusic
+    clip: {fileID: 8300000, guid: 027049ccfcef1334ab3490dde79b910f, type: 3}
+    volume: 0.078
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: ButtonClick
+    clip: {fileID: 8300000, guid: c9797af3a09fa5c4da0cb8b71665da63, type: 3}
+    volume: 0.5
+    pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: SliderSound
+    clip: {fileID: 8300000, guid: 679561a1247169d469a4834a417ab458, type: 3}
+    volume: 0.5
+    pitch: 1.75
+    loop: 0
+    source: {fileID: 0}
+--- !u!114 &4687540392614089314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7654902885946044274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 956e25b5ef95bab419d23d6e7edbfeff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
