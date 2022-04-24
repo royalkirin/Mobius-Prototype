@@ -8,9 +8,11 @@ using UnityEngine.UI;
 public class EndTurnButton : MonoBehaviour
 {
     TurnManager turnManager = null;
+    AudioManager audioManger;
     Button btn;
     private void Start()
     {
+        audioManger = FindObjectOfType<AudioManager>();
         turnManager = FindObjectOfType<TurnManager>();
         if(turnManager is null)
         {
@@ -28,6 +30,7 @@ public class EndTurnButton : MonoBehaviour
         if (turnManager != null)
         {
             turnManager.PlayerChangeTurn();
+            audioManger.Play("ButtonClick");
         }
     }
 }
