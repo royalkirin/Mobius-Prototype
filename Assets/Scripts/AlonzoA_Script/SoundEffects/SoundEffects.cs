@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class SoundEffects : MonoBehaviour
 {
-    AudioManager audiomanager;
-
-    void Awake()
-    {
-        audiomanager = FindObjectOfType<AudioManager>();
-    }
     public void ButtonClick()
     {
-        audiomanager.Play("ButtonClick");
+        AudioManager.instance.Play("ButtonClick");
     }
     public void SliderSound()
     {
-        audiomanager.Play("SliderSound");
+        AudioManager.instance.Play("SliderSound");
     }
 }

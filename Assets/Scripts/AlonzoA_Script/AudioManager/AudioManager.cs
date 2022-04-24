@@ -1,4 +1,4 @@
-using UnityEngine.Audio;
+using System.Collections.Generic;
 using System;
 using UnityEngine;
 
@@ -14,30 +14,35 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
     public Sounds[] sounds;
+    private Dictionary<string, Sounds> soundDictionary = new Dictionary<string, Sounds>();
 
     void Awake()
     {
         CreateInstance();
         foreach( Sounds s in sounds)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            s.source = source;
             s.source.clip = s.clip;
 
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
+
+            soundDictionary.Add(s.name, s);
         }
     }
 
     public void Play(string name)
     {
-        Sounds s = Array.Find(sounds, Sounds => Sounds.name == name);
+        soundDictionary[name].source.Play();
+        /* Sounds s = Array.Find(sounds, Sounds => Sounds.name == name);
         if(s == null)
         {
             Debug.LogWarning("Sounds: " + name + " not found!");
             return;
         }
-        s.source.Play();
+        s.source.Play(); */
     }
 
     private void CreateInstance()

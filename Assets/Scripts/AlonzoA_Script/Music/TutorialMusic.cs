@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class TutorialMusic : MonoBehaviour
 {
-    AudioManager audiomanager;
-    void Awake()
-    {
-        audiomanager = FindObjectOfType<AudioManager>();
-    }
     private void Start()
     {
-        audiomanager.Play("TutorialMusic");
+        AudioManager.instance.Play("TutorialMusic");
     }
 }
