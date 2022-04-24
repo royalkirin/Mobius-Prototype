@@ -167,7 +167,8 @@ public class Attackable : MonoBehaviour
         //Debug.Log("Added " + defenseValue + " defense, current Defense is " + DefenseValue);
         ui.UpdateText(DefenseValue, health.GetCurrentHealth());
         //Sarah's: Update ui based on health, defense here
-        if (healthAndDefenseUI != null) {
+        if (healthAndDefenseUI != null) 
+        {
             healthAndDefenseUI.health = (int)(health.GetCurrentHealth());
 
             healthAndDefenseUI.defense = (int)(DefenseValue);

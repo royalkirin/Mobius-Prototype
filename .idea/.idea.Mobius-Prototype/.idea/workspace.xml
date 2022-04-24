@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="656acd74-dacc-464a-a925-688fcd737d42" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Mobius-Prototype/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Mobius-Prototype/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Huy Combat Prototype/UI prefabs/Card Play Canvas .prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Huy Combat Prototype/UI prefabs/Card Play Canvas .prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main/MainScene_BattleTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main/MainScene_BattleTest.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Cards/Deck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Cards/Deck.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Characters/CharacterCardCollection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Characters/CharacterCardCollection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Attackable/Attackable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Attackable/Attackable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Card Chain system/CardChain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Card Chain system/CardChain.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Cards/AttackCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Cards/AttackCard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Cards/DefenseCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Cards/DefenseCard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Cards/EnemyHand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Cards/EnemyHand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Cards/PlayerHand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Cards/PlayerHand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/TurnManager/TurnManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/TurnManager/TurnManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +22,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/StephenP_Scripts/BattleTextHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/StephenP_Scripts/Deck_SP.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/StephenP_Scripts/Managers/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/StephenP_Scripts/Managers/TurnManager_SP.cs" root0="FORCE_HIGHLIGHTING" />
@@ -62,10 +68,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="3796">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="7500">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="3796" />
+      <option name="pid" value="7500" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -87,7 +93,8 @@
       <workItem from="1650385965826" duration="700000" />
       <workItem from="1650387416857" duration="11871000" />
       <workItem from="1650464245616" duration="1150000" />
-      <workItem from="1650663205751" duration="2715000" />
+      <workItem from="1650663205751" duration="3206000" />
+      <workItem from="1650684847706" duration="3450000" />
     </task>
     <servers />
   </component>
@@ -178,19 +185,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Huy Combat Scripts/Cards/Deck.cs</url>
-          <line>187</line>
-          <properties documentPath="D:\Game Dev Projects\Unity Projects\Mobius-Prototype\Assets\Scripts\Huy Combat Scripts\Cards\Deck.cs" initialLine="173" containingFunctionPresentation="method 'ShuffleDeck'">
-            <startOffsets>
-              <option value="5568" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5569" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
