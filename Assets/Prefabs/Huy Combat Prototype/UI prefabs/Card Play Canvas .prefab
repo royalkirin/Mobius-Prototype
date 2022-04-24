@@ -337,6 +337,7 @@ GameObject:
   - component: {fileID: 1654478444567370856}
   - component: {fileID: 4278135605584150274}
   - component: {fileID: 1629229331512944662}
+  - component: {fileID: 1230098141302512789}
   m_Layer: 5
   m_Name: Pass btn
   m_TagString: Untagged
@@ -445,7 +446,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4278135605584150274}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1230098141302512789}
+        m_TargetAssemblyTypeName: SoundEffects, Assembly-CSharp
+        m_MethodName: ButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1230098141302512789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2519180767479043227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 956e25b5ef95bab419d23d6e7edbfeff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2740136215763481523
 GameObject:
   m_ObjectHideFlags: 0

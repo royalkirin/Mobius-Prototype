@@ -68,3 +68,15 @@ MonoBehaviour:
     pitch: 1.75
     loop: 0
     source: {fileID: 0}
+  - name: ShieldBreak
+    clip: {fileID: 8300000, guid: 085257517b8247a40a9104143dbf57a6, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: HealthHit
+    clip: {fileID: 8300000, guid: 24275dc82a4a61a4ca4746746462481a, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
