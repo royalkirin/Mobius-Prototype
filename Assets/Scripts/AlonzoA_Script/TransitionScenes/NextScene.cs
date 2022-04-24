@@ -28,7 +28,8 @@ public class NextScene : MonoBehaviour
     void LoadNextScene()
     {
         if(healthRef.health <= 0)
-        { 
+        {
+            Debug.Log("You Win!");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }

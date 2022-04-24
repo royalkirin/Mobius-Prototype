@@ -28,6 +28,7 @@ public class EndTurnButton : MonoBehaviour
         if (turnManager != null)
         {
             turnManager.PlayerChangeTurn();
+            AudioManager.instance.Play("ButtonClick");
         }
     }
 }

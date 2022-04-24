@@ -54,7 +54,8 @@ public class Health : MonoBehaviour
         if(health <= 0)
         {
             Debug.Log(name + " health is " + health + ", destroyed");
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            //Next scene or game over should appear.
         }
     }
 

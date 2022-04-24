@@ -18,7 +18,7 @@ public class Pause_Tutorial_Interaction : MonoBehaviour
 
     public void StartTutorialAgain()
     {
-        StartCoroutine(ResumeClick());
+        //StartCoroutine(ResumeClick());
     }
 
     IEnumerator ResumeClick()

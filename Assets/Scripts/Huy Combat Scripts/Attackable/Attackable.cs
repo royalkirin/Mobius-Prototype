@@ -62,6 +62,7 @@ public class Attackable : MonoBehaviour
             damage = TakeDamageWithDefense(damage);
 
             health.TakeDamage(damage);
+            AudioManager.instance.Play("HealthHit");
 
         }
 
