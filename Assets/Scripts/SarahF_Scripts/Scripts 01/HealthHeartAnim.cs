@@ -14,11 +14,7 @@ public class HealthHeartAnim : MonoBehaviour
     [SerializeField] int timerBeat;
     [SerializeField] int timerShake;
 
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
 
     // Update is called once per frame
     void FixedUpdate()

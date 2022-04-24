@@ -113,6 +113,7 @@ public class Deck : MonoBehaviour
         cardCollection = characterSelection.characterCards;
         if(cardCollection is null)
         {
+            Debug.Log("uh oh");
             return false;
         }
 

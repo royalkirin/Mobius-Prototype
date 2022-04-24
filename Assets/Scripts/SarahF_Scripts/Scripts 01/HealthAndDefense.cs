@@ -6,6 +6,8 @@ public class HealthAndDefense : MonoBehaviour
 {
     [SerializeField] Attackable attackable;
 
+    bool DEBUG;
+
 
     public int health; // chagnge it here
     public int recordedHealth;
@@ -26,31 +28,49 @@ public class HealthAndDefense : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         healthText.text = "" + health;
         defenseText.text = "" + defense;
 
+        if (Input.GetKeyUp(KeyCode.O))
+        {
+            health = 5;
+            DEBUG = true;
+        }
+
         if (recordedHealth > health)
         {
-            heartAnimator.GetComponent<HealthHeartAnim>().startShake = true;
-            recordedHealth = health;
+            if (!heartAnimator.GetComponent<HealthHeartAnim>().startShake)
+            {
+                heartAnimator.GetComponent<HealthHeartAnim>().startShake = true;
+                recordedHealth = health;
+            }
         }
         else if (recordedHealth < health)
         {
-            heartAnimator.GetComponent<HealthHeartAnim>().startBeat = true;
-            recordedHealth = health;
+            if (!heartAnimator.GetComponent<HealthHeartAnim>().startBeat)
+            {
+                heartAnimator.GetComponent<HealthHeartAnim>().startBeat = true;
+                recordedHealth = health;
+            }
         }
 
         if (recordedDefense > defense)
         {
-            shieldAnimator.GetComponent<DefShieldBeat>().startShake = true;
-            recordedDefense = defense;
+            if (!shieldAnimator.GetComponent<DefShieldBeat>().startShake)
+            {
+                shieldAnimator.GetComponent<DefShieldBeat>().startShake = true;
+                recordedDefense--;
+            }
         }
         else if(recordedDefense < defense)
         {
-            shieldAnimator.GetComponent<DefShieldBeat>().startBeat = true;
-            recordedDefense = defense;
+            if (!shieldAnimator.GetComponent<DefShieldBeat>().startBeat)
+            {
+                shieldAnimator.GetComponent<DefShieldBeat>().startBeat = true;
+                recordedDefense++;
+            }
         }
     }
 }

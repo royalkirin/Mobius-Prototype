@@ -1001,6 +1001,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5946475973266086824, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
+      propertyPath: characterCards
+      value: 
+      objectReference: {fileID: 11400000, guid: 669710d69b0dde245bc6b60446d3dbb7, type: 2}
     - target: {fileID: 7075814291398091243, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
       propertyPath: m_Name
       value: Friendly Char

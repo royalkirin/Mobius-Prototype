@@ -19,6 +19,10 @@ public class CharacterSelection : MonoBehaviour
         {
             Debug.LogError("Missing character cards in " + name);
         }
+        else
+        {
+            SetCharacter(characterCards);
+        }
     }
 
     public bool SetCharacter(CharacterCardCollection characterCards)
@@ -26,6 +30,7 @@ public class CharacterSelection : MonoBehaviour
         //add checking conditions here?
 
         this.characterCards = characterCards;
+        Debug.Log("CURRENT CARDS: " + this.characterCards);
         return true;
     }
 
