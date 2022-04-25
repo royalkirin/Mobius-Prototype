@@ -422,7 +422,7 @@ public class EnemyAI : MonoBehaviour
                     }
                 }
             }
-            if (indexToPlay == -1 || failProb > maxFailProb)//meaning we have 0 cards in hand, or cannot counter the last card or the risk is too high
+            if (indexToPlay == -1)//meaning we have 0 cards in hand, or cannot counter the last card or the risk is too high
             {
                 if (!cardChain.chainEnding) //give up the chain
                 {
