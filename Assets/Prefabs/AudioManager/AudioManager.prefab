@@ -46,7 +46,7 @@ MonoBehaviour:
   sounds:
   - name: MainMenuMusic
     clip: {fileID: 8300000, guid: dcfec9237422e444c8526e98410867f2, type: 3}
-    volume: 0.5
+    volume: 0.13
     pitch: 1
     loop: 1
     source: {fileID: 0}
@@ -76,7 +76,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: HealthHit
     clip: {fileID: 8300000, guid: 24275dc82a4a61a4ca4746746462481a, type: 3}
-    volume: 0.2
+    volume: 0.09
     pitch: 1
     loop: 0
     source: {fileID: 0}
