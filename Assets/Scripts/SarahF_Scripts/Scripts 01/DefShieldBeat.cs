@@ -52,7 +52,7 @@ public class DefShieldBeat : MonoBehaviour
             }
         }
 
-        if (startShake && timerBeat <= 0)
+        else if (startShake && timerBeat <= 0)
         {
             timer++;
             timerShake = timer;

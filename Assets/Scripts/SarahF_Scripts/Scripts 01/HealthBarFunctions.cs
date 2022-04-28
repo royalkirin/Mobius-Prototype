@@ -22,8 +22,21 @@ public class HealthBarFunctions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (healthCaller.health >= 0)
+        {
+            if (healthCaller.recordedHealth > healthCaller.health && healthCaller.recordedHealth <= 10)
+            {
+                healthSegements[healthCaller.recordedHealth - 1].GetComponent<HealthBarShaker>().startShake = true;
+            }
 
-        if (healthCaller.health <= 10)
+            else if (healthCaller.recordedHealth < healthCaller.health)
+            {
+                if (healthCaller.recordedHealth < 10)
+                    healthSegements[healthCaller.recordedHealth].GetComponent<HealthBarShaker>().startBeat = true;
+            }
+        }
+        
+        /*if (healthCaller.health <= 10)
         {
             if (healthCaller.recordedHealth > healthCaller.health)
             {
@@ -44,6 +57,6 @@ public class HealthBarFunctions : MonoBehaviour
             {
                 healthSegements[healthCaller.health - 1].GetComponent<HealthBarShaker>().startBeat = true;
             }
-        } 
+        } */
     }
 }

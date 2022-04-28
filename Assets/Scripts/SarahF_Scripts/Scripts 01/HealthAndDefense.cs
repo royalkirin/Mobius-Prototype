@@ -6,9 +6,6 @@ public class HealthAndDefense : MonoBehaviour
 {
     [SerializeField] Attackable attackable;
 
-    bool DEBUG;
-
-
     public int health; // chagnge it here
     public int recordedHealth;
     [SerializeField] Text healthText;
@@ -33,12 +30,6 @@ public class HealthAndDefense : MonoBehaviour
         healthText.text = "" + health;
         defenseText.text = "" + defense;
 
-        if (Input.GetKeyUp(KeyCode.O))
-        {
-            health = 5;
-            DEBUG = true;
-        }
-
         if (recordedHealth > health)
         {
             if (!heartAnimator.GetComponent<HealthHeartAnim>().startShake)
@@ -52,7 +43,7 @@ public class HealthAndDefense : MonoBehaviour
             if (!heartAnimator.GetComponent<HealthHeartAnim>().startBeat)
             {
                 heartAnimator.GetComponent<HealthHeartAnim>().startBeat = true;
-                recordedHealth = health;
+                recordedHealth++;
             }
         }
 
@@ -61,7 +52,7 @@ public class HealthAndDefense : MonoBehaviour
             if (!shieldAnimator.GetComponent<DefShieldBeat>().startShake)
             {
                 shieldAnimator.GetComponent<DefShieldBeat>().startShake = true;
-                recordedDefense--;
+                recordedDefense = defense;
             }
         }
         else if(recordedDefense < defense)

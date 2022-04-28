@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ShieldBarFunctions : MonoBehaviour
 {
-    [SerializeField] GameObject healthHolder;
-    [SerializeField] HealthAndDefense healthCaller;
+    [SerializeField] GameObject defenseHolder;
+    [SerializeField] HealthAndDefense defenseCaller;
     [SerializeField] GameObject[] defenseSegements = new GameObject[0];
 
     [SerializeField] bool startShaking;
@@ -13,8 +13,8 @@ public class ShieldBarFunctions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        healthCaller = healthHolder.GetComponent<HealthAndDefense>();
-        if (healthCaller is null)
+        defenseCaller = defenseHolder.GetComponent<HealthAndDefense>();
+        if (defenseCaller is null)
         {
             Debug.LogWarning("Defense caller is null");
         }
@@ -24,27 +24,17 @@ public class ShieldBarFunctions : MonoBehaviour
     void Update()
     {
 
-        if (healthCaller.defense >= 0)
+        if (defenseCaller.defense >= 0)
         {
-            if (healthCaller.recordedDefense > healthCaller.defense)
+            if (defenseCaller.recordedDefense > defenseCaller.defense && defenseCaller.recordedDefense <= 10)
             {
-                if (healthCaller.defense == 10)
-                {
-
-                }
-                else
-                {
-                    for (int i = healthCaller.defense; i < healthCaller.recordedDefense; i++)
-                    {
-                        defenseSegements[i].GetComponent<DefenseBarShaker>().startShake = true;
-                    }
-
-                    //healthSegements[healthCaller.health].GetComponent<HealthBarShaker>().startShake = true;
-                }
+                defenseSegements[defenseCaller.recordedDefense - 1].GetComponent<DefenseBarShaker>().startShake = true;
             }
-            else if (healthCaller.recordedDefense < healthCaller.defense)
+
+            else if (defenseCaller.recordedDefense < defenseCaller.defense)
             {
-                defenseSegements[healthCaller.defense - 1].GetComponent<DefenseBarShaker>().startBeat = true;
+                if (defenseCaller.recordedDefense < 10)
+                    defenseSegements[defenseCaller.recordedDefense].GetComponent<DefenseBarShaker>().startBeat = true;
             }
         }
     }
