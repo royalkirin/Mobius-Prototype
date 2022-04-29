@@ -189,9 +189,18 @@ public class Deck : MonoBehaviour
         if (belongToPlayer) {
             if (tutorial)
             {
-                howManyEach[0] = 2 - playerHand.GetAttackCount();
-                howManyEach[1] = 2 - playerHand.GetDefenseCount();
-                howManyEach[2] = 1 - playerHand.GetSupportCount();
+                /*
+                 * Current code causes Tutorial to lock up and increase CPU Usage constantly until it is forcibly exited.
+                 * Testing was done to attempt fixing it, but for now it is shut off until a new solution is found. - Jordan Douglas
+               howManyEach[0] = 2 - playerHand.GetAttackCount();
+               howManyEach[1] = 2 - playerHand.GetDefenseCount();
+               howManyEach[2] = 1 - playerHand.GetSupportCount();*/
+
+                //This code is in use until the above is fixed.
+                howManyEach[0] = eachCardAmount - playerHand.GetAttackCount();
+                howManyEach[1] = eachCardAmount - playerHand.GetDefenseCount();
+                howManyEach[2] = eachCardAmount - playerHand.GetSupportCount();
+                Debug.Log("Player: " + string.Join(", ", howManyEach));
             }
             else
             {

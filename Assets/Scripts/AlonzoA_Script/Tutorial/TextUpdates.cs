@@ -37,6 +37,9 @@ public class TextUpdates : MonoBehaviour
 
     // _checkClicks is the bool that should be called by other scripts. 
     [HideInInspector] public bool _checkClicks = false;
+
+    //_tempHideBattleText handles hiding the Battle Text Box only in tutorial.
+    BattleTextHandler _tempHideBattleText;
     #endregion
 
     /// <summary>
