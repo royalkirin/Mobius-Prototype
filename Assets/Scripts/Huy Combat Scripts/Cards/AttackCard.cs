@@ -22,6 +22,15 @@ public class AttackCard : Card
         {
             targetAttackable.TakeDamage(damage);
             Debug.Log(targetAttackable.gameObject.name + " take " + damage +  " DAMAGE");
+            if (targetAttackable.gameObject.name == "Friendly Char")
+            {
+                BattleTextHandler.Instance.UpdateBattleText("<color=blue>Player</color>: Takes 1 damage");
+            }
+            else
+            {
+                BattleTextHandler.Instance.UpdateBattleText("<color=red>Enemy</color>: Takes 1 damage");
+            }
+            
             return true;
         }
         else //if not, we cannot attack

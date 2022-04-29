@@ -142,11 +142,20 @@ public class Deck : MonoBehaviour
         GetFriendlyCardCount();
         UpdateFriendlyCards();
 
-
+//cards type each = 3
+//how many each = 10 
         // add cards to deck depends on HowManyEach
-        for(int i = 0; i < howManyEach.Count; i++) {
-            for(int j = 0; j < howManyEach[i]; j++) {
-                cardsInDeck.Add(cardGenerateList[i]);
+        int counter = 0;
+        for(int i = 0; i < howManyEach.Count * 2; i++)
+        {
+            for(int j = 0; j < Mathf.Ceil(howManyEach[counter] / 2); j++) {
+                cardsInDeck.Add(cardGenerateList[counter]);
+            }
+
+            counter++;
+            if (counter >= 3)
+            {
+                counter = 0;
             }
         }
 

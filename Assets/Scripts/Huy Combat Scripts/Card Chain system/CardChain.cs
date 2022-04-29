@@ -155,6 +155,7 @@ public class CardChain : MonoBehaviour
     {
         lastCardPlayed = null;
         totalCardInChain = 0;
+        BattleTextHandler.Instance.UpdateBattleText("----------New Card Chain Start----------");
         playerCards.Clear();
         enemyCards.Clear();
     }
@@ -577,8 +578,7 @@ public class CardChain : MonoBehaviour
         lastCardBelongToPlayer = false; //no cards played yet
         playerCards.Clear();
         enemyCards.Clear();
-        
-
+        BattleTextHandler.Instance.UpdateBattleText("----------New Card Chain Start----------");
     }
 
 

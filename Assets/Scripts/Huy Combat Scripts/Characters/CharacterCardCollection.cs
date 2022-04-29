@@ -11,6 +11,4 @@ public class CharacterCardCollection : ScriptableObject
 {
     public Character character;
     public List<GameObject> cardPrefabs;
-
-    
 }

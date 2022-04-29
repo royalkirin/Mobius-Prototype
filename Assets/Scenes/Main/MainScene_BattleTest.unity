@@ -25888,10 +25888,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2123070440514054351, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -135
-      objectReference: {fileID: 0}
     - target: {fileID: 2293459003756629395, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -25979,30 +25975,6 @@ PrefabInstance:
     - target: {fileID: 2293459003756629399, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
       propertyPath: m_Name
       value: 'Card Play Canvas '
-      objectReference: {fileID: 0}
-    - target: {fileID: 2293459003756629399, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2755046010357432618, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 135
-      objectReference: {fileID: 0}
-    - target: {fileID: 5822628570643980009, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6012103066745986290, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6012103066745986290, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.000061035156
-      objectReference: {fileID: 0}
-    - target: {fileID: 6154713609027432786, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -270
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0b1298d659c70c4ebf058213902a208, type: 3}

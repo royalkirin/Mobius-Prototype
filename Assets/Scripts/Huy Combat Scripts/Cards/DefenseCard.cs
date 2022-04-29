@@ -22,6 +22,14 @@ public class DefenseCard : Card
         if (target.TryGetComponent<Attackable>(out Attackable targetAttackable))
         {
             targetAttackable.AddDefense(defenseValue);
+            if (targetAttackable.gameObject.name == "Friendly Char")
+            {
+                BattleTextHandler.Instance.UpdateBattleText("<color=blue>Player</color>: Add " + defenseValue + " defense");
+            }
+            else
+            {
+                BattleTextHandler.Instance.UpdateBattleText("<color=red>Enemy</color>: Add " + defenseValue + " defense");
+            }
             return true;
         }
         else //if not, we cannot attack -> we cannot add defense
