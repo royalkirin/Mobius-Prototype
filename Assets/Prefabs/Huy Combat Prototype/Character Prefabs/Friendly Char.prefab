@@ -324,8 +324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d41d77fdd7fa30a458ad512c580d88de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthHolder: {fileID: 833996074044290223}
-  healthCaller: {fileID: 0}
+  defenseHolder: {fileID: 833996074044290223}
+  defenseCaller: {fileID: 4057654091771474808}
   defenseSegements:
   - {fileID: 503972694841606931}
   - {fileID: 503972693375095799}
