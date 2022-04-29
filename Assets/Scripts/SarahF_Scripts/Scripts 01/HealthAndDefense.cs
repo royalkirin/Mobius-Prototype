@@ -35,7 +35,7 @@ public class HealthAndDefense : MonoBehaviour
             if (!heartAnimator.GetComponent<HealthHeartAnim>().startShake)
             {
                 heartAnimator.GetComponent<HealthHeartAnim>().startShake = true;
-                recordedHealth = health;
+                recordedHealth--;
             }
         }
         else if (recordedHealth < health)
@@ -52,7 +52,7 @@ public class HealthAndDefense : MonoBehaviour
             if (!shieldAnimator.GetComponent<DefShieldBeat>().startShake)
             {
                 shieldAnimator.GetComponent<DefShieldBeat>().startShake = true;
-                recordedDefense = defense;
+                recordedDefense--;
             }
         }
         else if(recordedDefense < defense)
