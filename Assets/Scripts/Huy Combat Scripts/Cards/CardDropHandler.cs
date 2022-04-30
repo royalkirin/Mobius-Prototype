@@ -31,6 +31,7 @@ public class CardDropHandler : MonoBehaviour, IDropHandler
         if (draggedObject.TryGetComponent<DragableDropable>(out DragableDropable dragDrop))
         {
             dragDrop.isDropped = true;
+            AudioManager.instance.Play("CardPlayed");
             if(_TextUpdates != null) {
                 _TextUpdates.CardPlayed();
             }
