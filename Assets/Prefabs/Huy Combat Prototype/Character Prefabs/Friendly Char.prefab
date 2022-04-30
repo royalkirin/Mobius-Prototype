@@ -1994,6 +1994,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthRef: {fileID: 0}
   enableKill: 0
+  bools:
+  - boolName: Tutorial
+    isTrue: 0
+  - boolName: LevelOne
+    isTrue: 0
+  - boolName: LevelTwo
+    isTrue: 0
 --- !u!1 &7226989575838943247
 GameObject:
   m_ObjectHideFlags: 0

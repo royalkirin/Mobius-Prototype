@@ -80,3 +80,15 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: LevelOneMusic
+    clip: {fileID: 8300000, guid: 8dfc10c5e8195ff41a2aed119e240d69, type: 3}
+    volume: 0.02
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: LevelTwoMusic
+    clip: {fileID: 8300000, guid: d94e074ca28d14844a28a15e741c4b69, type: 3}
+    volume: 0.02
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
