@@ -70,7 +70,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: ShieldBreak
     clip: {fileID: 8300000, guid: 085257517b8247a40a9104143dbf57a6, type: 3}
-    volume: 0.5
+    volume: 0.07
     pitch: 1
     loop: 0
     source: {fileID: 0}

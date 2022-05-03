@@ -60,10 +60,16 @@ public class Attackable : MonoBehaviour
         if (!isShielded) 
         {
             damage = TakeDamageWithDefense(damage);
-
             health.TakeDamage(damage);
-            AudioManager.instance.Play("HealthHit");
 
+            if (DefenseValue <= 0)
+            {
+                AudioManager.instance.Play("HealthHit");
+            }
+            else if (DefenseValue > 0)
+            {
+                AudioManager.instance.Play("ShieldBreak");
+            }
         }
 
         ui.UpdateText(DefenseValue, health.GetCurrentHealth()) ;
