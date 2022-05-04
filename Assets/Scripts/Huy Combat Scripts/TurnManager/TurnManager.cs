@@ -195,13 +195,14 @@ public class TurnManager : MonoBehaviour
         if (!isPlayerTurn)
         {
             enemyDeck.FullDealToEnemy();
-            playerDeck.FullDealToPlayer();
+            //playerDeck.FullDealToPlayer();
         }
-        else
+
+        /* else
         {
             enemyDeck.FullDealToEnemy();
             playerDeck.FullDealToPlayer();
-        }
+        } */
 
         StartNewTurnStages();
     }
