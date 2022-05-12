@@ -167,8 +167,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 15.486511, y: 272.375}
-  m_SizeDelta: {x: -552.58514, y: -544.75}
+  m_AnchoredPosition: {x: -500.8537, y: -226.3125}
+  m_SizeDelta: {x: -998.2926, y: -447.375}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6111294244385177796
 CanvasRenderer:
@@ -661,7 +661,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.237854, y: 0}
+  m_AnchoredPosition: {x: -288, y: -535}
   m_SizeDelta: {x: -527.09, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &8720528031184363537
@@ -692,7 +692,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: This is Battle Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -719,8 +719,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -773,6 +773,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0cbdfbdfb93644883ad8f8796df99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cTextUpdates: []
+  nTextCount: 0
 --- !u!1 &7031755452182189049
 GameObject:
   m_ObjectHideFlags: 0
