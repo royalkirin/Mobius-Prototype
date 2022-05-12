@@ -9,10 +9,14 @@ public class BattleTextHandler : MonoBehaviour
 
     public static BattleTextHandler Instance;
 
+    public string[] cTextUpdates;
+    public int nTextCount;
+
     void Awake()
     {
         _tmpBattleText = GetComponent<TextMeshProUGUI>();
-        
+
+        cTextUpdates = new string[14];
         if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
@@ -25,6 +29,13 @@ public class BattleTextHandler : MonoBehaviour
 
     public void UpdateBattleText(string txtUpdate)
     {
+        if (nTextCount >= 14)
+        {
+            _tmpBattleText.text = string.Empty;
+            nTextCount = 0;
+        }
+
         _tmpBattleText.text += "\n" + txtUpdate;
+        nTextCount++;
     }
 }

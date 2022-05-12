@@ -33,7 +33,7 @@ public class ShieldBarFunctions : MonoBehaviour
 
             else if (defenseCaller.recordedDefense < defenseCaller.defense)
             {
-                if (defenseCaller.recordedDefense > 0)
+                if (defenseCaller.recordedDefense < 10)
                     defenseSegements[defenseCaller.recordedDefense].GetComponent<DefenseBarShaker>().startBeat = true;
             }
         }
