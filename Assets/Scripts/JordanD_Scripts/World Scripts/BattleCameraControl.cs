@@ -63,9 +63,9 @@ public class BattleCameraControl : MonoBehaviour
         //this.transform.LookAt(uEnemy.transform);
         //uTarget.Add(uEnemy.transform);
         //uTarget[test] = uPlayer.transform;
-        uTarget = uEnemy.transform;
+        /*uTarget = uEnemy.transform;
         test++;
-        bIsLerping = true;
+        bIsLerping = true;*/
     }
 
     //Use when moving the camera to look at the Player
@@ -73,9 +73,9 @@ public class BattleCameraControl : MonoBehaviour
     {
         //uTarget.Add(uPlayer.transform);
         //uTarget[test] = uPlayer.transform;
-        uTarget = uPlayer.transform;
+        /*uTarget = uPlayer.transform;
         test++;
-        bIsLerping = true;
+        bIsLerping = true;*/
     }
 
     //Reset the Camera's Position Back to the middle of the screen.
