@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class HealthBarShaker : MonoBehaviour
 {
-
     public bool startBeat;
     public bool startShake;
     [SerializeField] int timer;
@@ -23,9 +22,6 @@ public class HealthBarShaker : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        
-
         if (startBeat && timerShake <= 0)
         {
             timer++;

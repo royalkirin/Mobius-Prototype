@@ -60,11 +60,11 @@ public class Deck : MonoBehaviour
         if(friendlyTag == "PlayerCharacter")
         {
             FullDealToPlayer();
-           // Debug.Log("This deck belongs to player");
+           Debug.Log("This deck belongs to player");
         }else if (friendlyTag == "EnemyCharacter")
         {
             FullDealToEnemy();
-           // Debug.Log("This deck belongs to enemy");
+           Debug.Log("This deck belongs to enemy");
         }
     }
 

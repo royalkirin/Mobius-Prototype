@@ -55,7 +55,7 @@ public class HealthAndDefense : MonoBehaviour
                 recordedDefense--;
             }
         }
-        else if(recordedDefense < defense)
+        else if (recordedDefense < defense)
         {
             if (!shieldAnimator.GetComponent<DefShieldBeat>().startBeat)
             {

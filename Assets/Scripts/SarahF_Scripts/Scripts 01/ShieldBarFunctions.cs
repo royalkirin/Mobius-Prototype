@@ -24,7 +24,7 @@ public class ShieldBarFunctions : MonoBehaviour
     void Update()
     {
 
-        if (defenseCaller.defense >= 0)
+        if (defenseCaller.defense < 10)
         {
             if (defenseCaller.recordedDefense > defenseCaller.defense && defenseCaller.recordedDefense <= 10)
             {
@@ -33,7 +33,7 @@ public class ShieldBarFunctions : MonoBehaviour
 
             else if (defenseCaller.recordedDefense < defenseCaller.defense)
             {
-                if (defenseCaller.recordedDefense < 10)
+                if (defenseCaller.recordedDefense > 0)
                     defenseSegements[defenseCaller.recordedDefense].GetComponent<DefenseBarShaker>().startBeat = true;
             }
         }

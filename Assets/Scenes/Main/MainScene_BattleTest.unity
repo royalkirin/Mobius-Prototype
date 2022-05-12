@@ -3979,6 +3979,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1269134776}
   m_Mesh: {fileID: 4890176300591525589, guid: d818648c1b009ab48a03dbcc4ae09583, type: 3}
+--- !u!114 &1366953044 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4057654091771474808, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
+  m_PrefabInstance: {fileID: 7075814290364508754}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c4cf9386ad5ad4da14e8eba86302c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1369384242
 GameObject:
   m_ObjectHideFlags: 0
@@ -29539,6 +29550,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3124962983859189994, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
+      propertyPath: tutorial
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124962983859189994, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
+      propertyPath: enemyHand
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7203777289642188848, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
       propertyPath: text
       value: 
@@ -62219,6 +62238,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 253420372802114608, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
+      propertyPath: healthCaller
+      value: 
+      objectReference: {fileID: 1366953044}
     - target: {fileID: 7075814291398091243, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
       propertyPath: m_Name
       value: Friendly Char

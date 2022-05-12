@@ -13,13 +13,6 @@ public class DefShieldBeat : MonoBehaviour
     [SerializeField] int timerBeat;
     [SerializeField] int timerShake;
     
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -52,7 +45,7 @@ public class DefShieldBeat : MonoBehaviour
             }
         }
 
-        else if (startShake && timerBeat <= 0)
+        if (startShake && timerBeat <= 0)
         {
             timer++;
             timerShake = timer;

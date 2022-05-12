@@ -22,9 +22,6 @@ public class DefenseBarShaker : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-
-
         if (startBeat && timerShake <= 0)
         {
             timer++;
