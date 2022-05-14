@@ -640,43 +640,43 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6344814597472722384, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6344814597472722384, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6344814597661337041, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6344814597661337041, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6344814597661337041, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6344814598189894664, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6344814598189894664, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6344814598321114457, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6344814598321114457, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6344814598321114457, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6344814598474928795, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
       propertyPath: m_Pivot.x
@@ -766,25 +766,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pause Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 6344814598640455098, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
-      propertyPath: m_AnchorMax.x
+    - target: {fileID: 6344814598474928799, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6344814598640455098, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6344814598640455098, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6344814599029286133, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6344814599029286133, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6344814599029286133, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2b17df505a90714d9ea2103c0201b7d, type: 3}
@@ -5356,8 +5360,8 @@ PrefabInstance:
       value: AudioManager
       objectReference: {fileID: 0}
     - target: {fileID: 7654902885946044276, guid: 19cf2d90d80b2374da1aaab74af9b017, type: 3}
-      propertyPath: sounds.Array.data[8].volume
-      value: 0.14
+      propertyPath: sounds.Array.data[9].name
+      value: DrawCards
       objectReference: {fileID: 0}
     - target: {fileID: 7654902885946044277, guid: 19cf2d90d80b2374da1aaab74af9b017, type: 3}
       propertyPath: m_RootOrder

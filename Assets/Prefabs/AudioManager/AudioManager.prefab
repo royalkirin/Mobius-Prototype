@@ -94,7 +94,13 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: CardPlayed
     clip: {fileID: 8300000, guid: b3bd6e9649833e34aa8c19b0d554ef5d, type: 3}
-    volume: 0.02
+    volume: 0.14
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DrawCrads
+    clip: {fileID: 8300000, guid: 8a5e00884435088469be37ec29bbf712, type: 3}
+    volume: 0.14
     pitch: 1
     loop: 0
     source: {fileID: 0}
