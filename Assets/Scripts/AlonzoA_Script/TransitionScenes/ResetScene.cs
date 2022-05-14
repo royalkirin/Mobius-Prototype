@@ -49,6 +49,7 @@ public class ResetScene : MonoBehaviour
         {
             //Debug.Log("You Lose!");
             MusicStop();
+            AudioManager.instance.Play("CharacterDie");
             SceneManager.LoadScene(4);
         }
     }

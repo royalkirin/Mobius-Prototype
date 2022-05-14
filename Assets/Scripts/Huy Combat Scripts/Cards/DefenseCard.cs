@@ -22,6 +22,7 @@ public class DefenseCard : Card
         if (target.TryGetComponent<Attackable>(out Attackable targetAttackable))
         {
             targetAttackable.AddDefense(defenseValue);
+            AudioManager.instance.Play("DefenseCard");
             if (targetAttackable.gameObject.name == "Friendly Char")
             {
                 BattleTextHandler.Instance.UpdateBattleText("<color=blue>Player</color>: Add " + defenseValue + " defense");

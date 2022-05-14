@@ -50,10 +50,16 @@ public class NextScene : MonoBehaviour
         {
             Debug.Log("You Win!");
             MusicStop();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            AudioManager.instance.Play("PlayerWinState");
+            StartCoroutine(NextSceneLoad());
         }
     }
 
+    IEnumerator NextSceneLoad()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
     //Testing purposes only
     void KillEnemy()
     { 

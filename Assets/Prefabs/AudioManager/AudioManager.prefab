@@ -98,8 +98,38 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: DrawCrads
+  - name: DrawCards
     clip: {fileID: 8300000, guid: 8a5e00884435088469be37ec29bbf712, type: 3}
+    volume: 0.14
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: AttackCard
+    clip: {fileID: 8300000, guid: 69dc2ed0ea78984488d426fe7b76a282, type: 3}
+    volume: 0.14
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DefenseCard
+    clip: {fileID: 8300000, guid: e30d9f2b223bd1c46af235fb68524f3f, type: 3}
+    volume: 0.14
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: SupportCard
+    clip: {fileID: 8300000, guid: 59008b60a2484bf4b91ad4c6473328a9, type: 3}
+    volume: 0.14
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: CharacterDie
+    clip: {fileID: 8300000, guid: 50416d744c5c97c47a0ea34c95d3dc67, type: 3}
+    volume: 0.14
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PlayerWinState
+    clip: {fileID: 8300000, guid: 88eb91b93d5377b45852397b8748a6d0, type: 3}
     volume: 0.14
     pitch: 1
     loop: 0
