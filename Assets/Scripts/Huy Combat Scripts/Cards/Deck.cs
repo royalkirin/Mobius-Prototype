@@ -240,6 +240,7 @@ public class Deck : MonoBehaviour
         }
 
         playerHand.AddCard(cardsInDeck[0], cardLimited);
+        AudioManager.instance.Play("DrawCards");
         cardsInDeck.RemoveAt(0);
     }
 
