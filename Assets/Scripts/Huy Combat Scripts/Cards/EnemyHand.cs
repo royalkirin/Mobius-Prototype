@@ -24,7 +24,7 @@ public class EnemyHand : MonoBehaviour
     public void AddCard (Card card, bool cardLimited = true)
     {
         Debug.Log("Enemy Hand get 1 card");
-        BattleTextHandler.Instance.UpdateBattleText("<color=red>Enemy</color>: draw 1 card");
+        BattleTextHandler.Instance.IncrementSUPPORTValue(1, false);
         if (cardsInHand.Count >= MAX_CARD_COUNT && cardLimited)
         {
             Debug.Log("Currently have " + cardsInHand.Count + " cards in hand, card limit is reached.");

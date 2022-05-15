@@ -155,7 +155,7 @@ public class CardChain : MonoBehaviour
     {
         lastCardPlayed = null;
         totalCardInChain = 0;
-        BattleTextHandler.Instance.UpdateBattleText("----------New Card Chain Start----------");
+        BattleTextHandler.Instance.UpdateBattleText(playerGoesFirst);
         playerCards.Clear();
         enemyCards.Clear();
     }
@@ -500,7 +500,7 @@ public class CardChain : MonoBehaviour
 
         RemoveBuffInvincibleCard(isPlayer);
 
-        StartCoroutine(ChainEndDelay(5f));
+        StartCoroutine(ChainEndDelay(3f));
     }
 
     //invincible card is successfully activated, we remove the buff from the character.
@@ -545,11 +545,11 @@ public class CardChain : MonoBehaviour
             //turnManager.DefaultChangeTurn();
             if(enemyAI != null)
             {
-              StartCoroutine(enemyAI.OnEnemyTurn(4f));
+              StartCoroutine(enemyAI.OnEnemyTurn(2f));
             }
             else
             {
-                StartCoroutine(tenemyAI.OnEnemyTurn(4f));
+                StartCoroutine(tenemyAI.OnEnemyTurn(2f));
             }
             
         }
@@ -578,7 +578,7 @@ public class CardChain : MonoBehaviour
         lastCardBelongToPlayer = false; //no cards played yet
         playerCards.Clear();
         enemyCards.Clear();
-        BattleTextHandler.Instance.UpdateBattleText("----------New Card Chain Start----------");
+        BattleTextHandler.Instance.UpdateBattleText(playerGoesFirst);
     }
 
 

@@ -86,7 +86,7 @@ public class PlayerHand : MonoBehaviour
         newCardInHand.positionInHand = cardsInHand.Count - 1;//position = last position;
         //update card UI positions here
         UpdateCardPosition();
-        BattleTextHandler.Instance.UpdateBattleText("<color=blue>Player</color>: draw 1 card");
+        BattleTextHandler.Instance.IncrementSUPPORTValue(1, true);
     }
 
     //when the player plays a card, remove it from the cardsInHand

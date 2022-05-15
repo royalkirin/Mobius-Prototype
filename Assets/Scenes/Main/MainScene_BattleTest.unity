@@ -25987,6 +25987,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Card Play Canvas '
       objectReference: {fileID: 0}
+    - target: {fileID: 5256854979675235492, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256854979675235492, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260664947511902249, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -973.2926
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260664947511902249, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -547.375
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260664947511902249, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -488.3537
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260664947511902249, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -276.3125
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
 --- !u!33 &2344022900775971581

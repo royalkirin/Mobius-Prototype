@@ -24,11 +24,11 @@ public class DefenseCard : Card
             targetAttackable.AddDefense(defenseValue);
             if (targetAttackable.gameObject.name == "Friendly Char")
             {
-                BattleTextHandler.Instance.UpdateBattleText("<color=blue>Player</color>: Add " + defenseValue + " defense");
+                BattleTextHandler.Instance.IncrementDEFENSEValue(1, true);
             }
             else
             {
-                BattleTextHandler.Instance.UpdateBattleText("<color=red>Enemy</color>: Add " + defenseValue + " defense");
+                BattleTextHandler.Instance.IncrementDEFENSEValue(1, false);
             }
             return true;
         }

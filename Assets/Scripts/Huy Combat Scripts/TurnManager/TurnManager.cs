@@ -317,12 +317,12 @@ public class TurnManager : MonoBehaviour
         if (isPlayerTurn)
         {
             Debug.Log("Player Turn");
-            BattleTextHandler.Instance.UpdateBattleText("----------<color=blue>Player</color> Turn Start----------");
+            BattleTextHandler.Instance.UpdateBattleText(isPlayerTurn);
         }
         else
         {
             Debug.Log("Enemy Turn");
-            BattleTextHandler.Instance.UpdateBattleText("----------<color=red>Enemy</color> Turn Start----------");
+            BattleTextHandler.Instance.UpdateBattleText(isPlayerTurn);
         }
     }
 

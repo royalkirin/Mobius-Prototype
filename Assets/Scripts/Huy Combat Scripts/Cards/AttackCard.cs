@@ -24,11 +24,11 @@ public class AttackCard : Card
             Debug.Log(targetAttackable.gameObject.name + " take " + damage +  " DAMAGE");
             if (targetAttackable.gameObject.name == "Friendly Char")
             {
-                BattleTextHandler.Instance.UpdateBattleText("<color=blue>Player</color>: Takes 1 damage");
+                BattleTextHandler.Instance.IncrementDAMAGEValue(1, false);
             }
             else
             {
-                BattleTextHandler.Instance.UpdateBattleText("<color=red>Enemy</color>: Takes 1 damage");
+                BattleTextHandler.Instance.IncrementDAMAGEValue(1, true);
             }
             
             return true;
