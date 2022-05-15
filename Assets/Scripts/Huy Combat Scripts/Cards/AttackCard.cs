@@ -22,6 +22,7 @@ public class AttackCard : Card
         {
             targetAttackable.TakeDamage(damage);
             Debug.Log(targetAttackable.gameObject.name + " take " + damage +  " DAMAGE");
+            AudioManager.instance.Play("AttackCard");
             if (targetAttackable.gameObject.name == "Friendly Char")
             {
                 BattleTextHandler.Instance.IncrementDAMAGEValue(1, false);

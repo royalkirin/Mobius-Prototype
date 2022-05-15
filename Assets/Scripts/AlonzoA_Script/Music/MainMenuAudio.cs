@@ -8,4 +8,9 @@ public class MainMenuAudio : MonoBehaviour
     {
         AudioManager.instance.Play("MainMenuMusic");
     }
+
+    public void StopMusic()
+    {
+        AudioManager.instance.Stop("MainMenuMusic");
+    }
 }

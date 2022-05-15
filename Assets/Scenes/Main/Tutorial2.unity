@@ -876,11 +876,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 212576471}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 34.27, y: -9999, z: 3.2395172}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 223749434}
+  m_Father: {fileID: 1221388106}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &212576473
@@ -895,11 +895,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b556bb8bfae7de4c9d4938fba2d35b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &223749434 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7654902885946044277, guid: 19cf2d90d80b2374da1aaab74af9b017, type: 3}
-  m_PrefabInstance: {fileID: 589386365}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &239527383
 GameObject:
   m_ObjectHideFlags: 0
@@ -4923,7 +4918,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -34.27, y: 9999, z: -3.2395172}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 212576472}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31701,7 +31697,11 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1071180956939117708, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
-      propertyPath: enableKill
+      propertyPath: bools.Array.data[0].isTrue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071180956939117708, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
+      propertyPath: bools.Array.data[2].isTrue
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3124962983859189994, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
@@ -64394,6 +64394,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 253420372802114620, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3037359004416533596, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
+      propertyPath: bools.Array.data[0].isTrue
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5946475973266086824, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}

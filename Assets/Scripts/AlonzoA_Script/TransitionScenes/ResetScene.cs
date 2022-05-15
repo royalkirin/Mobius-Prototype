@@ -6,12 +6,30 @@ using UnityEngine.SceneManagement;
 public class ResetScene : MonoBehaviour
 {
     [SerializeField] Health healthRef;
+    TutorialMusic tutMusic = null;
+    LevelOneMusic loMusic = null;
+    LevelTwoMusic ltMusic = null;
+
     [SerializeField] bool enableKill = false;
+    [SerializeField] MusicBools[] bools;
 
     // Start is called before the first frame update
     void Start()
     {
         healthRef = this.GetComponent<Health>();
+
+        if (bools[0].isTrue == true)
+        {
+            tutMusic = FindObjectOfType<TutorialMusic>();
+        }
+        else if (bools[1].isTrue == true)
+        {
+            loMusic = FindObjectOfType<LevelOneMusic>();
+        }
+        else if (bools[2].isTrue == true)
+        {
+            ltMusic = FindObjectOfType<LevelTwoMusic>();
+        }
     }
 
     // Update is called once per frame
@@ -30,6 +48,8 @@ public class ResetScene : MonoBehaviour
         if (healthRef.health <= 0)
         {
             //Debug.Log("You Lose!");
+            MusicStop();
+            AudioManager.instance.Play("CharacterDie");
             SceneManager.LoadScene(4);
         }
     }
@@ -52,6 +72,26 @@ public class ResetScene : MonoBehaviour
         {
             Debug.LogWarning("Press 'p' to kill player.");
             i = true;
+        }
+    }
+
+    //--------------------------------------
+    /// This portion controls audio.
+    /// 
+
+    private void MusicStop()
+    {
+        if (bools[0].isTrue == true)
+        {
+            tutMusic.Stop();
+        }
+        else if (bools[1].isTrue == true)
+        {
+            loMusic.Stop();
+        }
+        else if (bools[2].isTrue == true)
+        {
+            ltMusic.Stop();
         }
     }
 }

@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialMusic : MonoBehaviour
+public class LevelOneMusic : MonoBehaviour
 {
     private void Start()
     {
-        AudioManager.instance.Play("TutorialMusic");
+        AudioManager.instance.Play("LevelOneMusic");
     }
 
     public void Stop()
     {
-        AudioManager.instance.Stop("TutorialMusic");
+        AudioManager.instance.Stop("LevelOneMusic");
     }
 }

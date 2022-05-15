@@ -45,6 +45,11 @@ public class AudioManager : MonoBehaviour
         s.source.Play(); */
     }
 
+    public void Stop(string name)
+    {
+        soundDictionary[name].source.Stop();
+    }
+
     private void CreateInstance()
     {
         if (instance == null)

@@ -8,6 +8,7 @@ public class SupportCard : Card
     // Update is called once per frame
     public override void Play(GameObject playerDeckGameObject)
     {
+        AudioManager.instance.Play("SupportCard");
         base.Play(playerDeckGameObject);
         //TODO: Add code to remove debuffs once debuffs are implemented
         //Also add juicy stuff like animations and whatnot
