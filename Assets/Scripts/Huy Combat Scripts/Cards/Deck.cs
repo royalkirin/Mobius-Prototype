@@ -42,8 +42,8 @@ public class Deck : MonoBehaviour
     [SerializeField] EnemyHand enemyHand;
 
     //Deck Animations
-    CardAnimControllerScript deckAnim;
-    bool animOnStart = false, isEndTurnCalled = false;
+    CardAnimControllerScript enemyDeckAnim, playerDeckAnim;
+    bool enemyAnimOnStart = false, isEndTurnCalled = false, playerAnimOnStart = false;
 
 
     private void Start()
@@ -94,9 +94,15 @@ public class Deck : MonoBehaviour
             Debug.LogError(name + "cannot find friendly character with tag " + friendlyTag);
         }
 
-        //Deck Search
-        deckAnim = GameObject.Find("Card Pile").GetComponent<CardAnimControllerScript>();
-        if (deckAnim is null)
+        //Deck Animations Search
+        enemyDeckAnim = GameObject.Find("Enemy Card Pile").GetComponent<CardAnimControllerScript>();
+        if (enemyDeckAnim is null)
+        {
+            Debug.LogError(name + "cannot find card pile");
+        }
+
+        playerDeckAnim = GameObject.Find("Player Card Pile").GetComponent<CardAnimControllerScript>();
+        if (playerDeckAnim is null)
         {
             Debug.LogError(name + "cannot find card pile");
         }
@@ -236,6 +242,17 @@ public class Deck : MonoBehaviour
     //deal the first card on the list (top card on the deck) to the player
     public void DealToPlayer(bool cardLimited = true)
     {
+        if (!playerAnimOnStart)
+        {
+            playerDeckAnim.DrawCards("Transition");
+            playerAnimOnStart = !playerAnimOnStart;
+        }
+        else if(playerAnimOnStart && playerHand.cardsInHand.Count == 0)
+        {
+            playerDeckAnim.CardsOff();
+            StartCoroutine(PlayerDeckAnimations());
+        }
+
         if (cardsInDeck.Count == 0)
         {
             Debug.Log("There is no card left in the deck. Initialize a new deck for PLAYER");
@@ -272,16 +289,16 @@ public class Deck : MonoBehaviour
     public void DealToEnemy(bool cardLimited = true)
     {
         //Used to call deck animations. (check CardAnimControllerScript for more info.)
-        if (!animOnStart)
+        if (!enemyAnimOnStart)
         {
-            deckAnim.DrawCards();
-            animOnStart = !animOnStart;
+            enemyDeckAnim.DrawCards("ToggleCardDraw");
+            enemyAnimOnStart = !enemyAnimOnStart;
         }
-        else if (animOnStart && cardsInDeck.Count == 0 || isEndTurnCalled)
+        else if (enemyAnimOnStart && cardsInDeck.Count == 0 || isEndTurnCalled)
         {
             isEndTurnCalled = !isEndTurnCalled;
-            deckAnim.CardsOff();
-            StartCoroutine(DeckAnimations());
+            enemyDeckAnim.CardsOff();
+            StartCoroutine(EnemyDeckAnimations());
 
         }
 
@@ -323,13 +340,22 @@ public class Deck : MonoBehaviour
 
     #region Animations
     // Times the functions, so the process feels smoother. 
-    IEnumerator DeckAnimations()
+    IEnumerator EnemyDeckAnimations()
     {
         yield return new WaitForSeconds(1f);
-        deckAnim.ResetCards();
+        enemyDeckAnim.ResetCards("ToggleCardDraw");
         yield return new WaitForSeconds(1f);
-        deckAnim.DrawCards();
-        StopCoroutine(DeckAnimations());
+        enemyDeckAnim.DrawCards("ToggleCardDraw");
+        StopCoroutine(EnemyDeckAnimations());
+    }
+
+    IEnumerator PlayerDeckAnimations()
+    {
+        yield return new WaitForSeconds(1f);
+        playerDeckAnim.ResetCards("Transition");
+        yield return new WaitForSeconds(1f);
+        enemyDeckAnim.DrawCards("Transition");
+        StopCoroutine(PlayerDeckAnimations());
     }
 
     #endregion

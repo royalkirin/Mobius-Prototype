@@ -75,7 +75,7 @@ public class EnemyAI : MonoBehaviour
             Debug.LogWarning("Cannot find Enemy Hand in " + name);
         }
 
-        cardAnim = GameObject.Find("Card Pile").GetComponent<CardAnimControllerScript>();
+        cardAnim = GameObject.Find("Enemy Card Pile").GetComponent<CardAnimControllerScript>();
         if (cardAnim is null)
         {
             Debug.LogWarning("Cannot find CardAnimControllerScript in Enemy Ai.");

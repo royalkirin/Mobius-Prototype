@@ -24,39 +24,19 @@ public class CardAnimControllerScript : MonoBehaviour
     }
 
     // This is used to draw all the cards when the hand is ready to reset. 
-    public void DrawCards()
+    public void DrawCards(string boolName)
     {
-        cardController.SetBool("ToggleCardDraw", true);
+        cardController.SetBool(boolName, true);
     }
 
-    public void ResetCards()
+    public void ResetCards(string boolName)
     {
-        cardController.SetBool("ToggleCardDraw", false);
+        cardController.SetBool(boolName, false);
     }
 
     // This is used for turning off individual cards.
     public void HideCard(int i)
     {
         cards[i].SetActive(false);
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            HideCard(2);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            CardsOff();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            DrawCards();
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            ResetCards();
-        }
     }
 }
