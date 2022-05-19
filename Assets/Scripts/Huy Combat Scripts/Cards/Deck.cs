@@ -11,7 +11,7 @@ public class Deck : MonoBehaviour
     public int eachCardAmount = -1;
     public bool tutorial;
 
-    
+
     public List<Card> cardsInDeck;//the actual deck in the game -> no order
     public List<int> howManyEach;
     public bool belongToPlayer = false;
@@ -41,6 +41,10 @@ public class Deck : MonoBehaviour
     //Enemy Hand
     [SerializeField] EnemyHand enemyHand;
 
+    //Deck Animations
+    CardAnimControllerScript deckAnim;
+    bool animOnStart = false, isEndTurnCalled = false;
+
 
     private void Start()
     {
@@ -57,14 +61,14 @@ public class Deck : MonoBehaviour
         LoadCardListBasedOnCharacter();
         InitiateVariables();
         InitiateRandomDeck();
-        if(friendlyTag == "PlayerCharacter")
+        if (friendlyTag == "PlayerCharacter")
         {
             FullDealToPlayer();
-           Debug.Log("This deck belongs to player");
-        }else if (friendlyTag == "EnemyCharacter")
+            Debug.Log("This deck belongs to player");
+        } else if (friendlyTag == "EnemyCharacter")
         {
             FullDealToEnemy();
-           Debug.Log("This deck belongs to enemy");
+            Debug.Log("This deck belongs to enemy");
         }
     }
 
@@ -90,7 +94,12 @@ public class Deck : MonoBehaviour
             Debug.LogError(name + "cannot find friendly character with tag " + friendlyTag);
         }
 
-
+        //Deck Search
+        deckAnim = GameObject.Find("Card Pile").GetComponent<CardAnimControllerScript>();
+        if (deckAnim is null)
+        {
+            Debug.LogError(name + "cannot find card pile");
+        }
     }
     private void InitiateVariables() {
         eachCardAmount = CARD_COUNT / 3;
@@ -105,13 +114,13 @@ public class Deck : MonoBehaviour
     //return true if sucessfully load, false otherwise
     private bool LoadCardListBasedOnCharacter()
     {
-        if(friendlyCharacter is null)
+        if (friendlyCharacter is null)
         {
             return false;
         }
         characterSelection = friendlyCharacter.GetComponent<CharacterSelection>();
         cardCollection = characterSelection.characterCards;
-        if(cardCollection is null)
+        if (cardCollection is null)
         {
             Debug.Log("uh oh");
             return false;
@@ -123,7 +132,7 @@ public class Deck : MonoBehaviour
         foreach (GameObject cardPrefab in cardCollection.cardPrefabs)
         {
             Card currentCard = cardPrefab.GetComponent<Card>();
-            if(currentCard is null)
+            if (currentCard is null)
             {
                 Debug.LogWarning(cardPrefab.name + " prefab doesn't have a card component.");
                 return false;
@@ -142,13 +151,13 @@ public class Deck : MonoBehaviour
         GetFriendlyCardCount();
         UpdateFriendlyCards();
 
-//cards type each = 3
-//how many each = 10 
+        //cards type each = 3
+        //how many each = 10 
         // add cards to deck depends on HowManyEach
         int counter = 0;
-        for(int i = 0; i < howManyEach.Count * 2; i++)
+        for (int i = 0; i < howManyEach.Count * 2; i++)
         {
-            for(int j = 0; j < Mathf.Ceil(howManyEach[counter] / 2); j++) {
+            for (int j = 0; j < Mathf.Ceil(howManyEach[counter] / 2); j++) {
                 cardsInDeck.Add(cardGenerateList[counter]);
             }
 
@@ -204,12 +213,12 @@ public class Deck : MonoBehaviour
             }
             else
             {
-            howManyEach[0] = eachCardAmount - playerHand.GetAttackCount();
-            howManyEach[1] = eachCardAmount - playerHand.GetDefenseCount();
-            howManyEach[2] = eachCardAmount - playerHand.GetSupportCount();
-            Debug.Log( "Player: " + string.Join(", ", howManyEach));
+                howManyEach[0] = eachCardAmount - playerHand.GetAttackCount();
+                howManyEach[1] = eachCardAmount - playerHand.GetDefenseCount();
+                howManyEach[2] = eachCardAmount - playerHand.GetSupportCount();
+                Debug.Log("Player: " + string.Join(", ", howManyEach));
             }
-           
+
         } else {
             howManyEach[0] = eachCardAmount - enemyHand.GetAttackCount();
             howManyEach[1] = eachCardAmount - enemyHand.GetDefenseCount();
@@ -227,16 +236,16 @@ public class Deck : MonoBehaviour
     //deal the first card on the list (top card on the deck) to the player
     public void DealToPlayer(bool cardLimited = true)
     {
-        if(cardsInDeck.Count == 0)
+        if (cardsInDeck.Count == 0)
         {
             Debug.Log("There is no card left in the deck. Initialize a new deck for PLAYER");
             InitiateRandomDeck();
             return;
         }
 
-        if(cardLimited == false)
+        if (cardLimited == false)
         {
-           // Debug.Log("Dealing unlimited card");
+            // Debug.Log("Dealing unlimited card");
         }
 
         playerHand.AddCard(cardsInDeck[0], cardLimited);
@@ -247,7 +256,7 @@ public class Deck : MonoBehaviour
     //fill the player hand until he has 5 cards or the deck is out of card.
     public void FullDealToPlayer()
     {
-        while(playerHand.cardsInHand.Count < 5)
+        while (playerHand.cardsInHand.Count < 5)
         {
             DealToPlayer();
         }
@@ -262,7 +271,21 @@ public class Deck : MonoBehaviour
     #region DEALING_TO_ENEMY
     public void DealToEnemy(bool cardLimited = true)
     {
-        if(friendlyTag != "EnemyCharacter")
+        //Used to call deck animations. (check CardAnimControllerScript for more info.)
+        if (!animOnStart)
+        {
+            deckAnim.DrawCards();
+            animOnStart = !animOnStart;
+        }
+        else if (animOnStart && cardsInDeck.Count == 0 || isEndTurnCalled)
+        {
+            isEndTurnCalled = !isEndTurnCalled;
+            deckAnim.CardsOff();
+            StartCoroutine(DeckAnimations());
+
+        }
+
+        if (friendlyTag != "EnemyCharacter")
         {
             Debug.LogError("Cannot deal to Enemy when this deck doesn't belong to Enemy.");
             return;
@@ -290,10 +313,24 @@ public class Deck : MonoBehaviour
     {
         while (enemyHand.cardsInHand.Count < 5)
         {
+            isEndTurnCalled = true;
             DealToEnemy();
         }
     }
 
+
+    #endregion
+
+    #region Animations
+    // Times the functions, so the process feels smoother. 
+    IEnumerator DeckAnimations()
+    {
+        yield return new WaitForSeconds(1f);
+        deckAnim.ResetCards();
+        yield return new WaitForSeconds(1f);
+        deckAnim.DrawCards();
+        StopCoroutine(DeckAnimations());
+    }
 
     #endregion
 }

@@ -30,6 +30,7 @@ public class CardDropHandler : MonoBehaviour, IDropHandler
         //if we are dragging smt DragableDropable (in this case, only a Card has this component)
         if (draggedObject.TryGetComponent<DragableDropable>(out DragableDropable dragDrop))
         {
+            //might use this section for animations to hide cards that the player has used.
             dragDrop.isDropped = true;
             AudioManager.instance.Play("CardPlayed");
             if(_TextUpdates != null) {

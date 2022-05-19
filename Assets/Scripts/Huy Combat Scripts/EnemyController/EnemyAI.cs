@@ -44,6 +44,10 @@ public class EnemyAI : MonoBehaviour
     /// </summary>
     public float Aggression;
 
+    //Enemy deck animations
+    CardAnimControllerScript cardAnim;
+    int cardsUsed = 0;
+
     
 
     private void Start()
@@ -71,7 +75,11 @@ public class EnemyAI : MonoBehaviour
             Debug.LogWarning("Cannot find Enemy Hand in " + name);
         }
 
-
+        cardAnim = GameObject.Find("Card Pile").GetComponent<CardAnimControllerScript>();
+        if (cardAnim is null)
+        {
+            Debug.LogWarning("Cannot find CardAnimControllerScript in Enemy Ai.");
+        }
 
     }
 
@@ -103,6 +111,11 @@ public class EnemyAI : MonoBehaviour
         {
             testing = !testing;
             Debug.Log("Testing = " + testing);
+        }
+
+        if(cardsUsed >= 5)
+        {
+            cardsUsed = 0;
         }
     }
 
@@ -275,6 +288,8 @@ public class EnemyAI : MonoBehaviour
                 {
                     Debug.Log("playing support");
                     cardPlayer.PlayCard(enemyHand.cardsInHand[firstSup]);
+                    cardAnim.HideCard(cardsUsed);
+                    cardsUsed++;
                 }
             }
             else if ( pD < pA)
@@ -284,6 +299,8 @@ public class EnemyAI : MonoBehaviour
                 {
                     Debug.Log("playing defense");
                     cardPlayer.PlayCard(enemyHand.cardsInHand[firstDef]);
+                    cardAnim.HideCard(cardsUsed);
+                    cardsUsed++;
                 }
             }
             else
@@ -293,6 +310,8 @@ public class EnemyAI : MonoBehaviour
                 {
                     Debug.Log("playing attack");
                     cardPlayer.PlayCard(enemyHand.cardsInHand[firstAtt]);
+                    cardAnim.HideCard(cardsUsed);
+                    cardsUsed++;
                 }
             }
             
@@ -329,6 +348,8 @@ public class EnemyAI : MonoBehaviour
     IEnumerator EnemyPlayReactionCard(float sec)
     {
         yield return new WaitForSeconds(sec);
+        cardAnim.HideCard(cardsUsed);
+        cardsUsed++;
 
         if (testing)
         {
