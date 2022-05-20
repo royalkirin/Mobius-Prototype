@@ -42,7 +42,7 @@ public class Deck : MonoBehaviour
     [SerializeField] EnemyHand enemyHand;
 
     //Deck Animations
-    CardAnimControllerScript enemyDeckAnim, playerDeckAnim;
+    [SerializeField] CardAnimControllerScript enemyDeckAnim, playerDeckAnim;
     bool enemyAnimOnStart = false, isEndTurnCalled = false, playerAnimOnStart = false;
 
 
@@ -94,7 +94,7 @@ public class Deck : MonoBehaviour
             Debug.LogError(name + "cannot find friendly character with tag " + friendlyTag);
         }
 
-        //Deck Animations Search
+       //Deck Animations Search
         enemyDeckAnim = GameObject.Find("Enemy Card Pile").GetComponent<CardAnimControllerScript>();
         if (enemyDeckAnim is null)
         {
@@ -247,7 +247,7 @@ public class Deck : MonoBehaviour
             playerDeckAnim.DrawCards("Transition");
             playerAnimOnStart = !playerAnimOnStart;
         }
-        else if(playerAnimOnStart && playerHand.cardsInHand.Count == 0)
+        else if(playerAnimOnStart && playerHand.cardsInHand.Count == 0 )
         {
             playerDeckAnim.CardsOff();
             StartCoroutine(PlayerDeckAnimations());

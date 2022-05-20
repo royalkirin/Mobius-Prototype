@@ -9,7 +9,7 @@ public class CardAnimControllerScript : MonoBehaviour
     [SerializeField]
     GameObject[] cards;
 
-    private void Start()
+    private void Awake()
     {
         cardController = this.GetComponent<Animator>();
     }

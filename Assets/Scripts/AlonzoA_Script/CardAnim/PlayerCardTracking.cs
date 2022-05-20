@@ -8,7 +8,7 @@ public class PlayerCardTracking : MonoBehaviour
     int cardsPlayed = 0;
     private void Start()
     {
-        playerDeckAnim = GameObject.Find("Player Deck Pile").GetComponent<CardAnimControllerScript>();
+        playerDeckAnim = GameObject.Find("Player Card Pile").GetComponent<CardAnimControllerScript>();
         if (playerDeckAnim is null)
         {
             Debug.Log(name + "is null in script Ronin_Slash");
@@ -28,4 +28,11 @@ public class PlayerCardTracking : MonoBehaviour
         playerDeckAnim.HideCard(cardsPlayed);
         cardsPlayed++;
     }
+
+    public void DecreaseCardPlayCount()
+    {
+        cardsPlayed--;
+        playerDeckAnim.HideCard(cardsPlayed);
+    }
+
 }

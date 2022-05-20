@@ -9,11 +9,13 @@ using UnityEngine.EventSystems;
 public class CardDropHandler : MonoBehaviour, IDropHandler
 {
     [SerializeField] TextUpdates _TextUpdates;
+    PlayerCardTracking playerCardTracking;
     bool _ddOff = false;
 
     private void Start()
     {
         _TextUpdates = FindObjectOfType<TextUpdates>();
+        playerCardTracking = GameObject.Find("Player Card Pile").GetComponent<PlayerCardTracking>();
     }
     //this gets called whenever player drop smt to the area (releases mouse button)
     public void OnDrop(PointerEventData eventData)
@@ -31,6 +33,7 @@ public class CardDropHandler : MonoBehaviour, IDropHandler
         if (draggedObject.TryGetComponent<DragableDropable>(out DragableDropable dragDrop))
         {
             //might use this section for animations to hide cards that the player has used.
+            playerCardTracking.IncreaseCardPlayCount();
             dragDrop.isDropped = true;
             AudioManager.instance.Play("CardPlayed");
             if(_TextUpdates != null) {

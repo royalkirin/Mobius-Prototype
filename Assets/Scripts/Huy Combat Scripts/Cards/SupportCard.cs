@@ -43,6 +43,7 @@ public class SupportCard : Card
             if (belongToPlayer)
             {
                 playerDeck.DealToPlayer(cardLimited: false);//this is special: deal unlimited cards.
+                CardPileDecrease();
             }
             else
             {
@@ -58,6 +59,4 @@ public class SupportCard : Card
         numbCardsToAdd = drawThisMuch;
         Debug.Log(numbCardsToAdd);
     }
-
-
 }
