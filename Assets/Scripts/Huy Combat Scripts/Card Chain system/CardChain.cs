@@ -497,7 +497,6 @@ public class CardChain : MonoBehaviour
         }
 
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<BattleCameraControl>().MoveCameraBacktoNeutral();
-
         RemoveBuffInvincibleCard(isPlayer);
 
         StartCoroutine(ChainEndDelay(3f));

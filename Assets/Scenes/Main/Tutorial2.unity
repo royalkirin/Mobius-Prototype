@@ -31697,6 +31697,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1071180956939117708, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
+      propertyPath: enableKill
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1071180956939117708, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
       propertyPath: bools.Array.data[0].isTrue
       value: 1
       objectReference: {fileID: 0}

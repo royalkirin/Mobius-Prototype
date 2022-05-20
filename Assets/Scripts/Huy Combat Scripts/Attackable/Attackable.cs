@@ -80,7 +80,10 @@ public class Attackable : MonoBehaviour
             healthAndDefenseUI.defense = (int)DefenseValue;
         }
 
-
+        if (health.GetCurrentHealth() <= 0)
+        {
+            GameObject.FindGameObjectWithTag("PlayerCharacter").GetComponent<LossCondition>().DetermineLoss(0);
+        }
     }
 
 

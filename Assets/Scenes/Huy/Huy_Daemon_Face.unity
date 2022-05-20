@@ -1921,6 +1921,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 503471670}
   m_Mesh: {fileID: -6859858418456897516, guid: ac41480a091ee2446a41d386b366ae44, type: 3}
+--- !u!114 &505652900 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4057654091771474808, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
+  m_PrefabInstance: {fileID: 7075814290364508754}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c4cf9386ad5ad4da14e8eba86302c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &537005975
 GameObject:
   m_ObjectHideFlags: 0
@@ -62433,6 +62444,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1765725202993490078, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3037359004416533596, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
       propertyPath: bools.Array.data[2].isTrue
       value: 1
@@ -62495,6 +62510,24 @@ PrefabInstance:
       objectReference: {fileID: 1225717331}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
+--- !u!1 &7075814290364508755 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7075814291398091243, guid: 6d2b5f7373b9ec5479ffa760e5cd080e, type: 3}
+  m_PrefabInstance: {fileID: 7075814290364508754}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7075814290364508756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7075814290364508755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb119c700975f654ab66039128e52de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uPlayerHealth: {fileID: 505652900}
 --- !u!1 &7136347112350463347
 GameObject:
   m_ObjectHideFlags: 0
