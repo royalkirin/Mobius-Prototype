@@ -113,7 +113,7 @@ public class EnemyAI : MonoBehaviour
             Debug.Log("Testing = " + testing);
         }
 
-        if(cardsUsed >= 5)
+        if(cardsUsed >= 4)
         {
             cardsUsed = 0;
         }

@@ -44,6 +44,7 @@ public class Deck : MonoBehaviour
     //Deck Animations
     [SerializeField] CardAnimControllerScript enemyDeckAnim, playerDeckAnim;
     bool enemyAnimOnStart = false, isEndTurnCalled = false, playerAnimOnStart = false;
+    [HideInInspector] public bool doesPlayerGetCards = false;
 
 
     private void Start()
@@ -247,8 +248,9 @@ public class Deck : MonoBehaviour
             playerDeckAnim.DrawCards("Transition");
             playerAnimOnStart = !playerAnimOnStart;
         }
-        else if(playerAnimOnStart && playerHand.cardsInHand.Count == 0 )
+        else if(playerAnimOnStart && playerHand.cardsInHand.Count == 0 && doesPlayerGetCards)
         {
+            doesPlayerGetCards = !doesPlayerGetCards;
             playerDeckAnim.CardsOff();
             StartCoroutine(PlayerDeckAnimations());
         }
@@ -354,7 +356,7 @@ public class Deck : MonoBehaviour
         yield return new WaitForSeconds(1f);
         playerDeckAnim.ResetCards("Transition");
         yield return new WaitForSeconds(1f);
-        enemyDeckAnim.DrawCards("Transition");
+        playerDeckAnim.DrawCards("Transition");
         StopCoroutine(PlayerDeckAnimations());
     }
 

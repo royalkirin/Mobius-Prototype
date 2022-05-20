@@ -238,6 +238,7 @@ public class TurnManager : MonoBehaviour
         ManageFeaturesChangingTurn();
         if (isPlayerTurn)
         {
+            playerDeck.doesPlayerGetCards = true;
             playerDeck.FullDealToPlayer();
         }
         
@@ -582,6 +583,7 @@ public class TurnManager : MonoBehaviour
         ManageFeaturesChangingTurn();
         if (isPlayerTurn)
         {
+            playerDeck.doesPlayerGetCards = true;
             playerDeck.FullDealToPlayer();
         }
 

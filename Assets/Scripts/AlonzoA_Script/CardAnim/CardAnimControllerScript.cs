@@ -39,4 +39,9 @@ public class CardAnimControllerScript : MonoBehaviour
     {
         cards[i].SetActive(false);
     }
+
+    public void ShowCard(int i)
+    {
+        cards[i].SetActive(true);
+    }
 }

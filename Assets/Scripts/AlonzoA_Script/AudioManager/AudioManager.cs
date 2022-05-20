@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
     public Sounds[] sounds;
     private Dictionary<string, Sounds> soundDictionary = new Dictionary<string, Sounds>();
+    [SerializeField] bool enableMusic = true;
 
     void Awake()
     {
@@ -35,14 +36,8 @@ public class AudioManager : MonoBehaviour
 
     public void Play(string name)
     {
+        if(enableMusic)
         soundDictionary[name].source.Play();
-        /* Sounds s = Array.Find(sounds, Sounds => Sounds.name == name);
-        if(s == null)
-        {
-            Debug.LogWarning("Sounds: " + name + " not found!");
-            return;
-        }
-        s.source.Play(); */
     }
 
     public void Stop(string name)
