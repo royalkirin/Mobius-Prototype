@@ -45,6 +45,7 @@ public class Deck : MonoBehaviour
     [SerializeField] CardAnimControllerScript enemyDeckAnim, playerDeckAnim;
     bool enemyAnimOnStart = false, isEndTurnCalled = false, playerAnimOnStart = false;
     [HideInInspector] public bool doesPlayerGetCards = false;
+    TurnManager turnManager;
 
 
     private void Start()
@@ -107,7 +108,10 @@ public class Deck : MonoBehaviour
         {
             Debug.LogError(name + "cannot find card pile");
         }
+
+        turnManager = GameObject.Find("Turn Manager").GetComponent<TurnManager>();
     }
+
     private void InitiateVariables() {
         eachCardAmount = CARD_COUNT / 3;
         for (int i = 0; i < cardGenerateList.Count; i++) {
@@ -248,7 +252,7 @@ public class Deck : MonoBehaviour
             playerDeckAnim.DrawCards("Transition");
             playerAnimOnStart = !playerAnimOnStart;
         }
-        else if(playerAnimOnStart && playerHand.cardsInHand.Count == 0 && doesPlayerGetCards)
+        else if(playerAnimOnStart && doesPlayerGetCards)
         {
             doesPlayerGetCards = !doesPlayerGetCards;
             StartCoroutine(PlayerDeckAnimations());
@@ -295,7 +299,7 @@ public class Deck : MonoBehaviour
             enemyDeckAnim.DrawCards("ToggleCardDraw");
             enemyAnimOnStart = !enemyAnimOnStart;
         }
-        else if (enemyAnimOnStart && cardsInDeck.Count == 0 || isEndTurnCalled)
+        else if (enemyAnimOnStart && cardsInDeck.Count == 0 || turnManager.isPlayerTurn == false)
         {
             isEndTurnCalled = !isEndTurnCalled;
             StartCoroutine(EnemyDeckAnimations());
@@ -330,7 +334,7 @@ public class Deck : MonoBehaviour
     {
         while (enemyHand.cardsInHand.Count < 5)
         {
-            isEndTurnCalled = true;
+            //isEndTurnCalled = true;
             DealToEnemy();
         }
     }

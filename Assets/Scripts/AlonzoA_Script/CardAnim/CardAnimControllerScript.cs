@@ -17,6 +17,11 @@ public class CardAnimControllerScript : MonoBehaviour
     // This is used to reshuffle the entire hand
     public void CardsOn()
     {
+        for(int d = 0; d < cards.Length; d++)
+        {
+            cards[d].SetActive(false);
+        }
+
         for(int i = 0; i < cards.Length;  i++)
         {
             cards[i].SetActive(true);

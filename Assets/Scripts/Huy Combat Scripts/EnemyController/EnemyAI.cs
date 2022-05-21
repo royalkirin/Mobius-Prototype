@@ -128,8 +128,6 @@ public class EnemyAI : MonoBehaviour
             Debug.Log("Enemy hand has <= 3 cards. Give up the turn.");
             turnManager.DefaultChangeTurn();
             return;
-
-            
         }
 
         
@@ -339,7 +337,6 @@ public class EnemyAI : MonoBehaviour
     IEnumerator EnemyPlayReactionCard(float sec)
     {
         yield return new WaitForSeconds(sec);
-        eCT.IncreaseCardPlayCount();
 
         if (testing)
         {
@@ -442,6 +439,7 @@ public class EnemyAI : MonoBehaviour
             }
             else //counter the last card in the chain
             {
+                eCT.IncreaseCardPlayCount();
                 bool isPlayed = cardPlayer.PlayCard(enemyHand.cardsInHand[indexToPlay]);
                 if (!isPlayed)
                 {

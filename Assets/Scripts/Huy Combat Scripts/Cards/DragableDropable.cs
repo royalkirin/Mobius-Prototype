@@ -33,6 +33,9 @@ public class DragableDropable : MonoBehaviour, IDragHandler, IEndDragHandler, IB
     bool isFaceUp = true;
     bool tutorial;
 
+    //Player Deck Animations
+    PlayerCardTracking playerCardTracking;
+
     private void Start()
     {
         Scene currscene = SceneManager.GetActiveScene();
@@ -59,6 +62,8 @@ public class DragableDropable : MonoBehaviour, IDragHandler, IEndDragHandler, IB
             playerCardPlayer1 = GameObject.FindWithTag("Player").GetComponent<TutorialCardPlayer>();
             Debug.Log("in Tutorial");
         }
+
+        playerCardTracking = GameObject.Find("Player Card Pile").GetComponent<PlayerCardTracking>();
     }
 
     //while dragging, update position based on mouse position
@@ -82,7 +87,8 @@ public class DragableDropable : MonoBehaviour, IDragHandler, IEndDragHandler, IB
                 bool isPlayedSucessfully = playerCardPlayer.PlayCard(GetComponent<Card>(), isFaceUp);
             if (isPlayedSucessfully)
             {
-                return;
+                    playerCardTracking.IncreaseCardPlayCount();
+                    return;
             }
             else //if not, we move it back
             {

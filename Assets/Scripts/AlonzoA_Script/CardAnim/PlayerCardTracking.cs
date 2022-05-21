@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerCardTracking : MonoBehaviour
 {
     CardAnimControllerScript playerDeckAnim;
-    int cardsPlayed = 0;
+    int curCardsPlayed = 0;
+
     private void Start()
     {
         playerDeckAnim = GameObject.Find("Player Card Pile").GetComponent<CardAnimControllerScript>();
@@ -15,24 +16,26 @@ public class PlayerCardTracking : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if(cardsPlayed > 4)
-        {
-            cardsPlayed = 0;
-        }
-    }
-
     public void IncreaseCardPlayCount()
     {
-        playerDeckAnim.HideCard(cardsPlayed);
-        cardsPlayed++;
+        if(curCardsPlayed > 4)
+        {
+            curCardsPlayed = 0;
+        }
+
+        playerDeckAnim.HideCard(curCardsPlayed);
+        curCardsPlayed++;
     }
 
     public void DecreaseCardPlayCount()
     {
-        cardsPlayed--;
-        playerDeckAnim.ShowCard(cardsPlayed);
+        if (curCardsPlayed > 4 || curCardsPlayed < 0)
+        {
+            curCardsPlayed = 0;
+        }
+
+        curCardsPlayed--;
+        playerDeckAnim.ShowCard(curCardsPlayed);
     }
 
 }

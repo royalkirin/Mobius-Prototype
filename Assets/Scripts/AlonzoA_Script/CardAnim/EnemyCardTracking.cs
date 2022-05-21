@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyCardTracking : MonoBehaviour
 {
     CardAnimControllerScript enemyDeckAnim;
-    int cardsPlayed = 0;
+    int curCardsPlayed = 0;
     private void Start()
     {
         enemyDeckAnim = GameObject.Find("Enemy Card Pile").GetComponent<CardAnimControllerScript>();
@@ -15,23 +15,25 @@ public class EnemyCardTracking : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (cardsPlayed > 4)
-        {
-            cardsPlayed = 0;
-        }
-    }
-
     public void IncreaseCardPlayCount()
     {
-        enemyDeckAnim.HideCard(cardsPlayed);
-        cardsPlayed++;
+        if (curCardsPlayed > 4)
+        {
+            curCardsPlayed = 0;
+        }
+
+        enemyDeckAnim.HideCard(curCardsPlayed);
+        curCardsPlayed++;
     }
 
     public void DecreaseCardPlayCount()
     {
-        cardsPlayed--;
-        enemyDeckAnim.ShowCard(cardsPlayed);
+        if (curCardsPlayed > 4 || curCardsPlayed < 0)
+        {
+            curCardsPlayed = 1;
+        }
+
+        curCardsPlayed--;
+        enemyDeckAnim.ShowCard(curCardsPlayed);
     }
 }
