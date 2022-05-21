@@ -251,7 +251,6 @@ public class Deck : MonoBehaviour
         else if(playerAnimOnStart && playerHand.cardsInHand.Count == 0 && doesPlayerGetCards)
         {
             doesPlayerGetCards = !doesPlayerGetCards;
-            playerDeckAnim.CardsOff();
             StartCoroutine(PlayerDeckAnimations());
         }
 
@@ -299,7 +298,6 @@ public class Deck : MonoBehaviour
         else if (enemyAnimOnStart && cardsInDeck.Count == 0 || isEndTurnCalled)
         {
             isEndTurnCalled = !isEndTurnCalled;
-            enemyDeckAnim.CardsOff();
             StartCoroutine(EnemyDeckAnimations());
 
         }
@@ -347,6 +345,8 @@ public class Deck : MonoBehaviour
         yield return new WaitForSeconds(1f);
         enemyDeckAnim.ResetCards("ToggleCardDraw");
         yield return new WaitForSeconds(1f);
+        enemyDeckAnim.CardsOn();
+        yield return new WaitForSeconds(1f);
         enemyDeckAnim.DrawCards("ToggleCardDraw");
         StopCoroutine(EnemyDeckAnimations());
     }
@@ -355,6 +355,8 @@ public class Deck : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         playerDeckAnim.ResetCards("Transition");
+        yield return new WaitForSeconds(1f);
+        playerDeckAnim.CardsOn();
         yield return new WaitForSeconds(1f);
         playerDeckAnim.DrawCards("Transition");
         StopCoroutine(PlayerDeckAnimations());

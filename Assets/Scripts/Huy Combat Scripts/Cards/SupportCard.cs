@@ -47,6 +47,7 @@ public class SupportCard : Card
             }
             else
             {
+                EnemyCPD();
                 playerDeck.DealToEnemy(cardLimited: false);
             }
             

@@ -45,8 +45,7 @@ public class EnemyAI : MonoBehaviour
     public float Aggression;
 
     //Enemy deck animations
-    CardAnimControllerScript cardAnim;
-    int cardsUsed = 0;
+    EnemyCardTracking eCT;
 
     
 
@@ -75,8 +74,8 @@ public class EnemyAI : MonoBehaviour
             Debug.LogWarning("Cannot find Enemy Hand in " + name);
         }
 
-        cardAnim = GameObject.Find("Enemy Card Pile").GetComponent<CardAnimControllerScript>();
-        if (cardAnim is null)
+        eCT = GameObject.Find("Enemy Card Pile").GetComponent<EnemyCardTracking>();
+        if (eCT is null)
         {
             Debug.LogWarning("Cannot find CardAnimControllerScript in Enemy Ai.");
         }
@@ -111,11 +110,6 @@ public class EnemyAI : MonoBehaviour
         {
             testing = !testing;
             Debug.Log("Testing = " + testing);
-        }
-
-        if(cardsUsed >= 4)
-        {
-            cardsUsed = 0;
         }
     }
 
@@ -288,8 +282,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     Debug.Log("playing support");
                     cardPlayer.PlayCard(enemyHand.cardsInHand[firstSup]);
-                    cardAnim.HideCard(cardsUsed);
-                    cardsUsed++;
+                    eCT.IncreaseCardPlayCount();
                 }
             }
             else if ( pD < pA)
@@ -299,8 +292,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     Debug.Log("playing defense");
                     cardPlayer.PlayCard(enemyHand.cardsInHand[firstDef]);
-                    cardAnim.HideCard(cardsUsed);
-                    cardsUsed++;
+                    eCT.IncreaseCardPlayCount();
                 }
             }
             else
@@ -310,8 +302,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     Debug.Log("playing attack");
                     cardPlayer.PlayCard(enemyHand.cardsInHand[firstAtt]);
-                    cardAnim.HideCard(cardsUsed);
-                    cardsUsed++;
+                    eCT.IncreaseCardPlayCount();
                 }
             }
             
@@ -348,8 +339,7 @@ public class EnemyAI : MonoBehaviour
     IEnumerator EnemyPlayReactionCard(float sec)
     {
         yield return new WaitForSeconds(sec);
-        cardAnim.HideCard(cardsUsed);
-        cardsUsed++;
+        eCT.IncreaseCardPlayCount();
 
         if (testing)
         {

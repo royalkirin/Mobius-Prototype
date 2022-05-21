@@ -23,6 +23,7 @@ public class Card : MonoBehaviour {
     //[SerializeField] GameObject trapcardplace;
 
     PlayerCardTracking pCT;
+    EnemyCardTracking eCT;
 
     private void Start() {
         FindVariables();
@@ -55,6 +56,8 @@ public class Card : MonoBehaviour {
         }
 
         pCT = GameObject.Find("Player Card Pile").GetComponent<PlayerCardTracking>();
+
+        eCT = GameObject.Find("Enemy Card Pile").GetComponent<EnemyCardTracking>();
     }
 
 
@@ -134,6 +137,11 @@ public class Card : MonoBehaviour {
     public virtual void CardPileDecrease()
     {
         pCT.DecreaseCardPlayCount();
+    }
+
+    public virtual void EnemyCPD()
+    {
+        eCT.DecreaseCardPlayCount();
     }
 
 
