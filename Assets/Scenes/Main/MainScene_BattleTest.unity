@@ -3901,6 +3901,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1253624261 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8197257831188266823, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
+  m_PrefabInstance: {fileID: 8197257832173352578}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9699652fec2b7b44ebb7952377a89749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1269134776
 GameObject:
   m_ObjectHideFlags: 0
@@ -5358,10 +5369,6 @@ PrefabInstance:
     - target: {fileID: 7654902885946044274, guid: 19cf2d90d80b2374da1aaab74af9b017, type: 3}
       propertyPath: m_Name
       value: AudioManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 7654902885946044276, guid: 19cf2d90d80b2374da1aaab74af9b017, type: 3}
-      propertyPath: sounds.Array.data[9].name
-      value: DrawCards
       objectReference: {fileID: 0}
     - target: {fileID: 7654902885946044277, guid: 19cf2d90d80b2374da1aaab74af9b017, type: 3}
       propertyPath: m_RootOrder
@@ -26027,6 +26034,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Card Play Canvas '
       objectReference: {fileID: 0}
+    - target: {fileID: 5128115102128434308, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
+      propertyPath: enemyDeckAnim
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128115102128434308, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
+      propertyPath: playerDeckAnim
+      value: 
+      objectReference: {fileID: 1253624261}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
 --- !u!33 &2344022900775971581
@@ -29594,6 +29609,14 @@ PrefabInstance:
       propertyPath: bools.Array.data[1].isTrue
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3124962983859189994, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
+      propertyPath: enemyDeckAnim
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124962983859189994, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
+      propertyPath: playerDeckAnim
+      value: 
+      objectReference: {fileID: 1253624261}
     - target: {fileID: 7203777289642188848, guid: 840e109bb1803e54dba8be3c6654b1e1, type: 3}
       propertyPath: text
       value: 
@@ -86148,6 +86171,63 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5577632480399901690}
   m_Mesh: {fileID: -808811649734903215, guid: d721af70c8ba1ab4daa81f30de0dbb54, type: 3}
+--- !u!1001 &8197257832173352578
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8197257831199502646, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
+      propertyPath: m_Name
+      value: CardPiles
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197257831199502647, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
+      propertyPath: m_RootOrder
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197257831199502647, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -37.95862
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197257831199502647, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197257831199502647, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -18.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197257831199502647, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197257831199502647, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197257831199502647, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197257831199502647, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197257831199502647, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197257831199502647, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197257831199502647, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
 --- !u!1 &8231288817745433561
 GameObject:
   m_ObjectHideFlags: 0

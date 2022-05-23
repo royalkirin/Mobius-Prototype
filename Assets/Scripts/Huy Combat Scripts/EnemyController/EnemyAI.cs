@@ -44,6 +44,9 @@ public class EnemyAI : MonoBehaviour
     /// </summary>
     public float Aggression;
 
+    //Enemy deck animations
+    EnemyCardTracking eCT;
+
     
 
     private void Start()
@@ -71,7 +74,11 @@ public class EnemyAI : MonoBehaviour
             Debug.LogWarning("Cannot find Enemy Hand in " + name);
         }
 
-
+        eCT = GameObject.Find("Enemy Card Pile").GetComponent<EnemyCardTracking>();
+        if (eCT is null)
+        {
+            Debug.LogWarning("Cannot find CardAnimControllerScript in Enemy Ai.");
+        }
 
     }
 
@@ -121,8 +128,6 @@ public class EnemyAI : MonoBehaviour
             Debug.Log("Enemy hand has <= 3 cards. Give up the turn.");
             turnManager.DefaultChangeTurn();
             return;
-
-            
         }
 
         
@@ -275,6 +280,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     Debug.Log("playing support");
                     cardPlayer.PlayCard(enemyHand.cardsInHand[firstSup]);
+                    eCT.IncreaseCardPlayCount();
                 }
             }
             else if ( pD < pA)
@@ -284,6 +290,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     Debug.Log("playing defense");
                     cardPlayer.PlayCard(enemyHand.cardsInHand[firstDef]);
+                    eCT.IncreaseCardPlayCount();
                 }
             }
             else
@@ -293,6 +300,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     Debug.Log("playing attack");
                     cardPlayer.PlayCard(enemyHand.cardsInHand[firstAtt]);
+                    eCT.IncreaseCardPlayCount();
                 }
             }
             
@@ -431,6 +439,7 @@ public class EnemyAI : MonoBehaviour
             }
             else //counter the last card in the chain
             {
+                eCT.IncreaseCardPlayCount();
                 bool isPlayed = cardPlayer.PlayCard(enemyHand.cardsInHand[indexToPlay]);
                 if (!isPlayed)
                 {
