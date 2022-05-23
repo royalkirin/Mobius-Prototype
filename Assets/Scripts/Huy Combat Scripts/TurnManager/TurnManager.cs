@@ -295,6 +295,7 @@ public class TurnManager : MonoBehaviour
         isPlayerReactTurn = isPlayerTurn;
 
         playerHand.TurnOnOffAnimationCardThatCanBePlayed(false);
+        passBtn.SetActive(false);
     }
 
 
@@ -601,6 +602,7 @@ public class TurnManager : MonoBehaviour
         }
         CancelInvoke(nameof(PrintWaitingMessage));
         SetDiscardMode(false);
+        BattleTextHandler.Instance.UpdateBattleText(isPlayerTurn);
     }
 
 
