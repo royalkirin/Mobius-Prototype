@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerCardTracking : MonoBehaviour
 {
     CardAnimControllerScript playerDeckAnim;
-    int curCardsPlayed = 0;
+    [SerializeField] int curCardsPlayed = 0;
 
     private void Start()
     {

@@ -57,7 +57,7 @@ public class Deck : MonoBehaviour
         }
         if (tutorial)
         {
-            CARD_COUNT = 6;
+            CARD_COUNT = 30;
         }
         FindVariables();
         LoadCardListBasedOnCharacter();

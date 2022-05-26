@@ -13,6 +13,9 @@ public class TutorialBackgroundManager : MonoBehaviour
     [SerializeField] GameObject _EnemyHealthHighlight = null;
     [SerializeField] GameObject _TutorialTextBackground = null;
 
+    [SerializeField] GameObject _BattleText = null;
+    [SerializeField] GameObject _BattleTextBackground = null;
+
     private void Start()
     {
         //Tests if the references are set, if not returns a warning. 
@@ -103,6 +106,21 @@ public class TutorialBackgroundManager : MonoBehaviour
     public void HideEnemyHealthBar()
     {
         _EnemyHealthHighlight.SetActive(false);
+    }
+    #endregion
+
+    //Hid & Show the Battle Text + Battle Text Panel
+    #region BattleText
+    public void ShowBattleText()
+    {
+        _BattleText.SetActive(true);
+        _BattleTextBackground.SetActive(true);
+    }
+
+    public void HideBattleText()
+    {
+        _BattleText.SetActive(false);
+        _BattleTextBackground.SetActive(false);
     }
     #endregion
 }

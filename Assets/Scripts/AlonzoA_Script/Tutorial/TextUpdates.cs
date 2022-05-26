@@ -87,6 +87,7 @@ public class TextUpdates : MonoBehaviour
         //Sets the first text that appears in the text boxes.
         Text("Welcome to the World of Mobius! You will be run through a quick tutorial to explain the main mehanics of the game! ", "Left click to continue!");
         UpdateText();
+        //_TBM.HideBattleText();
     }
 
     //This is a simple call, so clicks is detected with almost no delay.
@@ -227,6 +228,7 @@ public class TextUpdates : MonoBehaviour
             //Enable Pausing - Jordan Douglas
             GameObject.FindObjectOfType<PauseMenu>().PauseMenuDisable(false);
             _PauseDisabled = false;
+            //_TBM.ShowBattleText();
         }
     }
 

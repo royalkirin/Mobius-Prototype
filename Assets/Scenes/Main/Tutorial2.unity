@@ -398,6 +398,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 101831163}
   m_CullTransparentMesh: 1
+--- !u!1 &143142775 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4952088926875020774, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
+  m_PrefabInstance: {fileID: 2293459003714170756}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &167814643
 GameObject:
   m_ObjectHideFlags: 0
@@ -4325,6 +4330,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1155087056}
   m_Mesh: {fileID: -6859858418456897516, guid: ac41480a091ee2446a41d386b366ae44, type: 3}
+--- !u!1 &1186071475 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1966765535250768256, guid: c0b1298d659c70c4ebf058213902a208, type: 3}
+  m_PrefabInstance: {fileID: 2293459003714170756}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1189848651
 GameObject:
   m_ObjectHideFlags: 0
@@ -6135,6 +6145,8 @@ MonoBehaviour:
   _CardHighlight: {fileID: 1142169115}
   _EnemyHealthHighlight: {fileID: 949534189}
   _TutorialTextBackground: {fileID: 1274346454}
+  _BattleText: {fileID: 143142775}
+  _BattleTextBackground: {fileID: 1186071475}
 --- !u!114 &1601987891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7943,6 +7955,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8197257831188266822, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8197257831199502646, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
       propertyPath: m_Name
       value: CardPiles

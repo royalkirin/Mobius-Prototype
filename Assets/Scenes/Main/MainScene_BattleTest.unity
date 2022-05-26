@@ -86178,6 +86178,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8197257831188266822, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8197257831199502646, guid: dac12b13cdf92c543aaf583f45b4d693, type: 3}
       propertyPath: m_Name
       value: CardPiles
