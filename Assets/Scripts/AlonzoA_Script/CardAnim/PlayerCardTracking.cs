@@ -29,12 +29,12 @@ public class PlayerCardTracking : MonoBehaviour
 
     public void DecreaseCardPlayCount()
     {
+        curCardsPlayed--;
+
         if (curCardsPlayed > 4 || curCardsPlayed < 0)
         {
             curCardsPlayed = 0;
-        }
-
-        curCardsPlayed--;
+        } 
         playerDeckAnim.ShowCard(curCardsPlayed);
     }
 
