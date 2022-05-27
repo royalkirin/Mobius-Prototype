@@ -20,7 +20,7 @@ public class AudioManager : MonoBehaviour
     void Awake()
     {
         CreateInstance();
-        foreach( Sounds s in sounds)
+        foreach (Sounds s in sounds)
         {
             AudioSource source = gameObject.AddComponent<AudioSource>();
             s.source = source;
@@ -36,8 +36,10 @@ public class AudioManager : MonoBehaviour
 
     public void Play(string name)
     {
-        if(enableMusic)
-        soundDictionary[name].source.Play();
+        if (enableMusic)
+        {
+            soundDictionary[name].source.Play();
+        }
     }
 
     public void Stop(string name)
